@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, UTC
 from typing import Any
 
 import jwt
@@ -23,7 +23,7 @@ def create_access_token(subject: str | Any, expires_delta: timedelta) -> str:
     Returns:
         str: The generated access token.
     """
-    expire = datetime.utcnow()+ expires_delta
+    expire = datetime.now(UTC)+ expires_delta
     to_encode = {"exp": expire, "sub": str(subject)}
     encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
