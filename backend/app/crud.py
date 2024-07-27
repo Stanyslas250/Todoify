@@ -2,8 +2,8 @@ from typing import Any, Sequence
 
 from sqlmodel import Session, select, delete
 
-from core.security import get_password_hash, verify_password
-from models import Task, TaskCreate, User, UserCreate, UserUpdate
+from app.core.security import get_password_hash, verify_password
+from app.models import Task, TaskCreate, User, UserCreate, UserUpdate
 
 
 def create_user(*, session: Session, user_create: UserCreate) -> User:
