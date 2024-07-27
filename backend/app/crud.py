@@ -2,8 +2,8 @@ from typing import Any, Sequence
 
 from sqlmodel import Session, select, delete
 
-from app.core.security import get_password_hash, verify_password
-from app.models import Task, TaskCreate, User, UserCreate, UserUpdate
+from core.security import get_password_hash, verify_password
+from models import Task, TaskCreate, User, UserCreate, UserUpdate
 
 
 def create_user(*, session: Session, user_create: UserCreate) -> User:
@@ -66,21 +66,7 @@ def get_user_by_email(*, session: Session, email: str) -> User | None:
     session_user = session.exec(statement).first()
     return session_user
 
-def get_user_by_username(*, session: Session, username: str) -> User | None:
-    """
-    Retrieve a user from the database based on the provided username.
-    Args:
-    session: The database session to execute the query.
-    username: The username of the user to retrieve.
-    Returns:
-    The user object if found, otherwise None.
-    """
-    statement = select(User).where(User.username == username)
-    session_user = session.exec(statement).first()
-    return session_user
-
-
-def authenticate(*, session: Session, email_or_username: str, password: str) -> User | None:
+def authenticate(*, session: Session, email: str, password: str) -> User | None:
     '''
 Authenticate a user based on the provided email and password.
 
@@ -92,11 +78,9 @@ Args:
 Returns:
     The user object if authentication is successful, otherwise None.
 '''
-    db_user = get_user_by_email(session=session, email=email_or_username)
+    db_user = get_user_by_email(session=session, email=email)
     if not db_user:
-        db_user = get_user_by_username(session=session, username=email_or_username)
-        if not db_user:
-            return None
+       return None
     if not verify_password(password, db_user.hashed_password):
         return None
     return db_user

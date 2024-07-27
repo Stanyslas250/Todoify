@@ -7,8 +7,6 @@ class UserBase(SQLModel):
     email: EmailStr = Field(unique=True, index=True, max_length=255)
     is_active: bool = True
     is_superuser: bool = False
-    username: str = Field(min_length=3, max_length=255)
-
 
 # Properties to receive via API on creation
 class UserCreate(UserBase):
@@ -74,7 +72,7 @@ class TaskUpdate(TaskBase):
 class Task(TaskBase, table=True):
     id: int | None = Field(default=None, primary_key=True)
     owner_id: int | None = Field(default=None, foreign_key="user.id", nullable=False)
-    owner: User | None = Relationship(back_populates="Tasks")
+    owner: User | None = Relationship(back_populates="tasks")
 
 
 # Properties to return via API, id is always required
