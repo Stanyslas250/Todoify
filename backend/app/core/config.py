@@ -14,6 +14,8 @@ from pydantic_core import MultiHostUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing_extensions import Self
 
+from dotenv import load_dotenv
+import os
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -27,6 +29,12 @@ class Settings(BaseSettings):
     ENVIRONMENT: Literal["local", "staging", "production"] = "local"
     FIRST_SUPERUSER: str
     FIRST_SUPERUSER_PASSWORD: str
+    USERS_OPEN_REGISTRATION: bool 
+    
+    if os.getenv("USERS_OPEN_REGISTRATION") == "True":
+        USERS_OPEN_REGISTRATION = True
+    elif os.getenv("USERS_OPEN_REGISTRATION") == "False":
+        USERS_OPEN_REGISTRATION = False
 
     @computed_field  # type: ignore[misc]
     @property
