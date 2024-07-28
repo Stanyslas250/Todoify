@@ -1,6 +1,6 @@
 from sqlmodel import Session, create_engine, select
 
-import app.crud
+from app.core.security import get_password_hash
 from app.core.config import settings
 from app.models import User, UserCreate
 
@@ -31,4 +31,10 @@ def init_db(session: Session) -> None:
             password=settings.FIRST_SUPERUSER_PASSWORD,
             is_superuser=True,
         )
-        user = crud.create_user(session=session, user_create=user_in)
+        db_obj = User.model_validate(
+        user_in, update={"hashed_password": get_password_hash(user_in.password)}
+        )
+        session.add(db_obj)
+        session.commit()
+        session.refresh(db_obj)
+        user = db_obj
