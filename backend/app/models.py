@@ -2,88 +2,90 @@ from pydantic import EmailStr
 from sqlmodel import Field, Relationship, SQLModel
 
 
-# Shared properties
+from typing import Optional
+from datetime import datetime, UTC
+
 class UserBase(SQLModel):
-    email: EmailStr = Field(unique=True, index=True, max_length=255)
-    is_active: bool = True
-    is_superuser: bool = False
+    username: str
+    email: EmailStr
 
-# Properties to receive via API on creation
 class UserCreate(UserBase):
-    password: str = Field(min_length=8, max_length=40)
+    password: str
 
-
-class UserRegister(SQLModel):
-    email: EmailStr = Field(max_length=255)
-    password: str = Field(min_length=8, max_length=40)
-    username: str = Field(min_length=3, max_length=255)
-
-
-# Properties to receive via API on update, all are optional
 class UserUpdate(UserBase):
-    email: EmailStr | None = Field(default=None, max_length=255)  # type: ignore
-    password: str | None = Field(default=None, min_length=8, max_length=40)
+    password: Optional[str] = None
 
-
-class UserUpdateMe(SQLModel):
-    username: str | None = Field(default=None, max_length=255)
-    email: EmailStr | None = Field(default=None, max_length=255)
-
-
-class UpdatePassword(SQLModel):
-    current_password: str = Field(min_length=8, max_length=40)
-    new_password: str = Field(min_length=8, max_length=40)
-
-
-# Database model, database table inferred from class name
 class User(UserBase, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    hashed_password: str
-    tasks: list["Task"] = Relationship(back_populates="owner")
+    id: Optional[int] = Field(default=None, primary_key=True)
+    password_hash: str
+    created_at: datetime = Field(default_factory=datetime.now(UTC))
+    updated_at: datetime = Field(default_factory=datetime.now(UTC), nullable=True)
 
-
-# Properties to return via API, id is always required
-class UserPublic(UserBase):
-    id: int
-
-
-class UsersPublic(SQLModel):
-    data: list[UserPublic]
-    count: int
-
-
-# Shared properties
 class TaskBase(SQLModel):
-    title: str = Field(min_length=1, max_length=255)
-    description: str | None = Field(default=None, max_length=255)
+    title: str
+    description: Optional[str] = None
+    due_date: Optional[datetime] = None
+    completed: bool = False
+    priority: Optional[str] = None
 
-
-# Properties to receive on Task creation
 class TaskCreate(TaskBase):
-    title: str = Field(min_length=1, max_length=255)
+    pass
 
-
-# Properties to receive on Task update
 class TaskUpdate(TaskBase):
-    title: str | None = Field(default=None, min_length=1, max_length=255)  # type: ignore
+    pass
 
-
-# Database model, database table inferred from class name
 class Task(TaskBase, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    owner_id: int | None = Field(default=None, foreign_key="user.id", nullable=False)
-    owner: User | None = Relationship(back_populates="tasks")
+    id: Optional[int] = Field(default=None, primary_key=True)
+    created_at: datetime = Field(default_factory=datetime.now(UTC))
+    updated_at: datetime = Field(default_factory=datetime.now(UTC))
+    user_id: int = Field(foreign_key="user.id")
+    category_id: Optional[int] = Field(foreign_key="category.id")
 
+class CategoryBase(SQLModel):
+    name: str
 
-# Properties to return via API, id is always required
-class TaskPublic(TaskBase):
-    id: int
-    owner_id: int
+class CategoryCreate(CategoryBase):
+    pass
 
+class CategoryUpdate(CategoryBase):
+    pass
 
-class TasksPublic(SQLModel):
-    data: list[TaskPublic]
-    count: int
+class Category(CategoryBase, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="user.id")
+
+class SubtaskBase(SQLModel):
+    title: str
+    completed: bool = False
+
+class SubtaskCreate(SubtaskBase):
+    pass
+
+class SubtaskUpdate(SubtaskBase):
+    pass
+
+class Subtask(SubtaskBase, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    task_id: int = Field(foreign_key="task.id")
+    created_at: datetime = Field(default_factory=datetime.now(UTC))
+    updated_at: datetime = Field(default_factory=datetime.now(UTC))
+
+class TagBase(SQLModel):
+    name: str
+
+class TagCreate(TagBase):
+    pass
+
+class TagUpdate(TagBase):
+    pass
+
+class Tag(TagBase, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key="user.id")
+
+class TaskTag(SQLModel, table=True):
+    task_id: int = Field(foreign_key="task.id", primary_key=True)
+    tag_id: int = Field(foreign_key="tag.id", primary_key=True)
 
 
 # Generic message
