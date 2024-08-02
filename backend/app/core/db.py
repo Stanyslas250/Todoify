@@ -1,5 +1,6 @@
 from sqlmodel import Session, create_engine, select
 
+from app import crud
 from app.core.security import get_password_hash
 from app.core.config import settings
 from app.models import User, UserCreate
