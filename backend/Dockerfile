@@ -20,8 +20,12 @@ COPY ./alembic.ini /app/
 
 COPY ./prestart.sh /app/
 
+COPY ./backend_pre_start.py /app/
+
+COPY ./initiat_data.py /app/
+
 COPY ./app /app/app
 
-CMD ["fastapi", "run", "app/main.py", "--proxy-headers", "--port", "80"]
+CMD ["fastapi", "run", "app/main.py", "--port", "80"]
 
-EXPOSE 80
+EXPOSE 8000
