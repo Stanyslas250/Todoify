@@ -1,4 +1,4 @@
-from models import Subtask, SubtaskCreate, SubtaskUpdate
+from app.models import Subtask, SubtaskCreate, SubtaskUpdate
 from typing import List, Optional
 from sqlmodel import Session, select
 from datetime import datetime, UTC

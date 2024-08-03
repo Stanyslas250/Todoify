@@ -1,4 +1,4 @@
-from models import Category, CategoryCreate, CategoryUpdate
+from app.models import Category, CategoryCreate, CategoryUpdate
 from typing import List, Optional
 from sqlmodel import Session, select
 

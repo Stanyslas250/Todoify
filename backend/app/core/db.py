@@ -1,6 +1,6 @@
+from datetime import UTC, datetime
 from sqlmodel import Session, create_engine, select
 
-from app import crud
 from app.core.security import get_password_hash
 from app.core.config import settings
 from app.models import User, UserCreate
@@ -28,12 +28,12 @@ def init_db(session: Session) -> None:
     ).first()
     if not user:
         user_in = UserCreate(
+            username='admin',
             email=settings.FIRST_SUPERUSER,
             password=settings.FIRST_SUPERUSER_PASSWORD,
-            is_superuser=True,
         )
         db_obj = User.model_validate(
-        user_in, update={"hashed_password": get_password_hash(user_in.password)}
+        user_in, update={"password_hash": get_password_hash(user_in.password), "created_at": datetime.now(UTC)}
         )
         session.add(db_obj)
         session.commit()

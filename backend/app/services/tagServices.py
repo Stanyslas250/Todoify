@@ -1,7 +1,7 @@
 from typing import List, Optional
 from sqlmodel import Session, select
 
-from models import Tag, TagCreate, TagUpdate
+from app.models import Tag, TagCreate, TagUpdate
 
 def create_tag(db: Session, tag: TagCreate, user_id: int) -> Tag:
     db_tag = Tag(**tag.model_dump(), user_id=user_id)

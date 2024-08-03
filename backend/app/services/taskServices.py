@@ -1,7 +1,7 @@
 from typing import List, Optional
 from sqlmodel import Session, select
 from datetime import datetime, UTC
-from models import Task, TaskCreate, TaskUpdate  # Assurez-vous d'importer les modèles appropriés
+from app.models import Task, TaskCreate, TaskUpdate  # Assurez-vous d'importer les modèles appropriés
 
 def create_task(db: Session, task: TaskCreate, user_id: int) -> Task:
     db_task = Task(**task.model_dump(), user_id=user_id)
@@ -23,7 +23,6 @@ def update_task(db: Session, task_id: int, task_update: TaskUpdate) -> Optional[
         task_data = task_update.model_dump(exclude_unset=True)
         for key, value in task_data.items():
             setattr(db_task, key, value)
-        db_task.updated_at = datetime.now(UTC)
         db.commit()
         db.refresh(db_task)
     return db_task

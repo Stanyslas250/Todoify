@@ -1,9 +1,10 @@
-from typing import Any, Sequence
+from datetime import UTC, datetime
+from typing import Any
 
-from sqlmodel import Session, select, delete
+from sqlmodel import Session, select
 
 from app.core.security import get_password_hash, verify_password
-from app.models import Task, TaskCreate, User, UserCreate, UserUpdate
+from app.models import User, UserCreate, UserUpdate
 
 
 def create_user(*, session: Session, user_create: UserCreate) -> User:
@@ -18,7 +19,7 @@ Returns:
     User: The created user object.
 '''
     db_obj = User.model_validate(
-        user_create, update={"hashed_password": get_password_hash(user_create.password)}
+        user_create, update={"password_hash": get_password_hash(user_create.password)}
     )
     session.add(db_obj)
     session.commit()
@@ -42,8 +43,9 @@ Returns:
     extra_data = {}
     if "password" in user_data:
         password = user_data["password"]
-        hashed_password = get_password_hash(password)
-        extra_data["hashed_password"] = hashed_password
+        password_hash = get_password_hash(password)
+        extra_data["password_hash"] = password_hash
+    extra_data["updated_at"] = datetime.now(UTC)
     db_user.sqlmodel_update(user_data, update=extra_data)
     session.add(db_user)
     session.commit()
@@ -80,56 +82,7 @@ Returns:
 '''
     db_user = get_user_by_email(session=session, email=email)
     if not db_user:
-       return None
-    if not verify_password(password, db_user.hashed_password):
+        return None
+    if not verify_password(password, db_user.password_hash):
         return None
     return db_user
-
-
-def create_task(*, session: Session, task_in: TaskCreate, owner_id: int) -> Task:
-    '''
-Create an task in the database.
-
-Args:
-    session (Session): The database session.
-    task_in (TaskCreate): The task data to create.
-    owner_id (int): The ID of the task owner.
-
-Returns:
-    task: The created task.
-'''
-    db_task = Task.model_validate(task_in, update={"owner_id": owner_id})
-    session.add(db_task)
-    session.commit()
-    session.refresh(db_task)
-    return db_task
-
-def get_tasks_by_owner(*, session: Session, owner_id: int) -> Sequence[Task]:
-    statement = select(Task).where(Task.owner_id == owner_id)
-    tasks = session.exec(statement).fetchall()
-    return tasks
-
-def get_task_by_id(*, session: Session, task_id: int) -> Task | None:
-    statement = select(Task).where(Task.id == task_id)
-    task = session.exec(statement).first()
-    return task
-
-def update_task(*, session: Session, db_task: Task, task_in: TaskCreate) -> Task:
-    task_data = task_in.model_dump(exclude_unset=True)
-    db_task.sqlmodel_update(task_data)
-    session.add(db_task)
-    session.commit()
-    session.refresh(db_task)
-    return db_task
-
-def delete_task(*, session: Session, task_id: int) -> bool | None:
-    try:
-        task_in_db = get_task_by_id(session=session, task_id=task_id)
-        if task_in_db:
-            session.delete(task_in_db)
-            session.commit()
-            return True
-        else:
-            return False
-    except Exception:
-        return None
