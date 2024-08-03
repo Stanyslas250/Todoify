@@ -15,11 +15,43 @@ class UserCreate(UserBase):
 class UserUpdate(UserBase):
     password: Optional[str] = None
 
+
+class UserRegister(SQLModel):
+    email: EmailStr = Field(max_length=255)
+    password: str = Field(min_length=8, max_length=40)
+    username: str | None = Field(default=None, max_length=255)
+
+
+# Properties to receive via API on update, all are optional
+class UserUpdate(UserBase):
+    email: EmailStr | None = Field(default=None, max_length=255)  # type: ignore
+    password: str | None = Field(default=None, min_length=8, max_length=40)
+    username: str | None = Field(default=None, max_length=255)
+
+class UserUpdateMe(SQLModel):
+    full_name: str | None = Field(default=None, max_length=255)
+    email: EmailStr | None = Field(default=None, max_length=255)
+    update_at: datetime
+
+
+class UpdatePassword(SQLModel):
+    current_password: str = Field(min_length=8, max_length=40)
+    new_password: str = Field(min_length=8, max_length=40)
+
+class UserPublic(UserBase):
+    id: int
+
+
+class UsersPublic(SQLModel):
+    data: list[UserPublic]
+    count: int
+
+
 class User(UserBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     password_hash: str
-    created_at: datetime = Field(default_factory=datetime.now(UTC))
-    updated_at: datetime = Field(default_factory=datetime.now(UTC), nullable=True)
+    created_at: datetime
+    update_at: datetime = Field(default=None, nullable=True)
 
 class TaskBase(SQLModel):
     title: str
@@ -36,8 +68,6 @@ class TaskUpdate(TaskBase):
 
 class Task(TaskBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    created_at: datetime = Field(default_factory=datetime.now(UTC))
-    updated_at: datetime = Field(default_factory=datetime.now(UTC))
     user_id: int = Field(foreign_key="user.id")
     category_id: Optional[int] = Field(foreign_key="category.id")
 
@@ -67,8 +97,6 @@ class SubtaskUpdate(SubtaskBase):
 class Subtask(SubtaskBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     task_id: int = Field(foreign_key="task.id")
-    created_at: datetime = Field(default_factory=datetime.now(UTC))
-    updated_at: datetime = Field(default_factory=datetime.now(UTC))
 
 class TagBase(SQLModel):
     name: str

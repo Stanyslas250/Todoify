@@ -17,12 +17,13 @@ fileConfig(config.config_file_name)
 # from app import models
 # target_metadata = models.Base.metadata
 
-from app.models import SQLModel  # noqa
-from app.models import User, Task  # noqa
+from app.models import SQLModel
+from app.core.db import engine# noqa
+from app.models import User, Task, Tag, TaskTag, Category, Subtask # noqa
 
 target_metadata = None
 
-target_metadata = SQLModel.metadata
+target_metadata = SQLModel.metadata.create_all(engine)
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
