@@ -12,7 +12,7 @@ function Login() {
     e.preventDefault();
     try {
       await login(email, password);
-      navigate("/"); // Rediriger vers la page d'accueil après la connexion réussie
+      navigate("/home"); // Rediriger vers la page d'accueil après la connexion réussie
     } catch (err) {
       setError(err.message);
     }
