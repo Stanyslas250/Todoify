@@ -1,7 +1,7 @@
 from typing import List, Optional
 from sqlmodel import Session, select
 
-from app.models import Tag, TagCreate, TagUpdate
+from app.models import Tag, TagCreate, TagUpdate, TaskTag
 
 def create_tag(db: Session, tag: TagCreate, user_id: int) -> Tag:
     db_tag = Tag(**tag.model_dump(), user_id=user_id)
@@ -9,6 +9,12 @@ def create_tag(db: Session, tag: TagCreate, user_id: int) -> Tag:
     db.commit()
     db.refresh(db_tag)
     return db_tag
+
+def create_task_tag(db: Session, task_id: int, tag_id:int):
+    db_task_tag = TaskTag(task_id=task_id, tag_id=tag_id)
+    db.add(db_task_tag)
+    db.commit()
+    db.refresh(db_task_tag)
 
 def get_tag(db: Session, tag_id: int) -> Optional[Tag]:
     return db.get(Tag, tag_id)

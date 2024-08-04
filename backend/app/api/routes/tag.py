@@ -3,19 +3,23 @@ from typing import Any, List
 from fastapi import APIRouter, HTTPException
 
 from app.api.deps import CurrentUser, SessionDep
-from app.models import Tag, TagCreate, TagUpdate, Message
-from app.services import tagServices
+from app.models import Tag, TagCreate, TagUpdate, Message, TaskTag
+from app.services import tagServices, taskServices
 
 router = APIRouter()
 
 @router.post("/", response_model=Tag)
 def create_tag(session: SessionDep, current_user: CurrentUser,
-                tag_in: TagCreate) -> Tag:
+                tag_in: TagCreate, task_id: int) -> Tag:
     """
     Create new tag.
     """
     try:
         tag = tagServices.create_tag(db=session, tag=tag_in, user_id=current_user.id)
+        task = taskServices.get_task(db=session, task_id=task_id)
+        if not task:
+            raise HTTPException(status_code=404, detail="Task not found.")
+        tagServices.create_task_tag(db=session, task_id=task_id, tag_id=tag.id)
         return tag
     except Exception as e:
         raise HTTPException(status_code=500, detail="An error occurred while creating the tag.")
