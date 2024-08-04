@@ -19,7 +19,7 @@ Returns:
     User: The created user object.
 '''
     db_obj = User.model_validate(
-        user_create, update={"password_hash": get_password_hash(user_create.password)}
+        user_create, update={"password_hash": get_password_hash(user_create.password), "created_at": datetime.now(UTC)}
     )
     session.add(db_obj)
     session.commit()

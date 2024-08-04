@@ -1,3 +1,4 @@
+from datetime import timedelta
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -9,17 +10,15 @@ from app.api.deps import (
     SessionDep
 )
 from app.core.config import settings
-from app.core.security import get_password_hash, verify_password
+from app.core.security import get_password_hash, verify_password, create_access_token
 from app.models import (
     Message,
     Task,
+    Token,
     UpdatePassword,
-    User,
     UserCreate,
     UserPublic,
     UserRegister,
-    UsersPublic,
-    UserUpdate,
     UserUpdateMe,
 )
 
@@ -92,8 +91,8 @@ def delete_user_me(session: SessionDep, current_user: CurrentUser) -> Any:
     return Message(message="User deleted successfully")
 
 
-@router.post("/signup", response_model=UserPublic)
-def register_user(session: SessionDep, user_in: UserRegister) -> Any:
+@router.post("/signup", response_model=Token)
+def register_user(session: SessionDep, user_in: UserRegister) -> Token:
     """
     Create new user without the need to be logged in.
     """ 
@@ -110,4 +109,6 @@ def register_user(session: SessionDep, user_in: UserRegister) -> Any:
         )
     user_create = UserCreate.model_validate(user_in)
     user = crud.create_user(session=session, user_create=user_create)
-    return user
+    access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    token = Token(access_token=create_access_token(subject=user.id, expires_delta=access_token_expires))
+    return token
