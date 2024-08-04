@@ -1,6 +1,5 @@
 from typing import List, Optional
 from sqlmodel import Session, select
-from datetime import datetime, UTC
 from app.models import Task, TaskCreate, TaskUpdate  # Assurez-vous d'importer les modèles appropriés
 
 def create_task(db: Session, task: TaskCreate, user_id: int) -> Task:
@@ -10,8 +9,9 @@ def create_task(db: Session, task: TaskCreate, user_id: int) -> Task:
     db.refresh(db_task)
     return db_task
 
-def get_task(db: Session, task_id: int) -> Optional[Task]:
-    return db.get(Task, task_id)
+def get_task(db: Session, task_id: int, user_id: int) -> Optional[Task]:
+    task = db.exec(select(Task).where(Task.user_id == user_id, Task.id == task_id)).first()
+    return task
 
 def get_tasks(db: Session, user_id: int, skip: int = 0, limit: int = 10) -> List[Task]:
     tasks = db.exec(select(Task).where(Task.user_id == user_id).offset(skip).limit(limit)).all()

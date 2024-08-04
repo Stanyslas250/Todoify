@@ -1,6 +1,6 @@
 from typing import Any, List
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter,  HTTPException
 
 from app.api.deps import CurrentUser, SessionDep
 from app.models import Subtask, SubtaskCreate, SubtaskUpdate, Message
@@ -9,7 +9,7 @@ from app.services import subtaskServices
 router = APIRouter()
 
 @router.post("/", response_model=Subtask)
-def create_subtask(session: SessionDep,
+def create_subtask(session: SessionDep, current_user: CurrentUser, 
                     subtask_in: SubtaskCreate, task_id: int) -> Subtask:
     """
     Create new subtask.
@@ -21,7 +21,7 @@ def create_subtask(session: SessionDep,
         raise HTTPException(status_code=400, detail=str(e))
 
 @router.put("/{id}", response_model=Subtask)
-def update_subtask(session: SessionDep,
+def update_subtask(session: SessionDep, current_user: CurrentUser,
                     id: int, subtask_in: SubtaskUpdate) -> Subtask:
     """
     Update existing subtask.
@@ -47,7 +47,7 @@ def delete_subtask(session: SessionDep, id: int) -> Message:
         raise HTTPException(status_code=400, detail=str(e))
 
 @router.get("/{id}", response_model=Subtask)
-def get_subtask(session: SessionDep, id: int) -> Subtask:
+def get_subtask(session: SessionDep, current_user: CurrentUser, id: int) -> Subtask:
     """
     Get subtask by ID.
     """
@@ -60,7 +60,7 @@ def get_subtask(session: SessionDep, id: int) -> Subtask:
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/", response_model=List[Subtask])
-def get_subtasks(session: SessionDep, task_id: int) -> List[Subtask]:
+def get_subtasks(session: SessionDep, current_user: CurrentUser, task_id: int) -> List[Subtask]:
     """
     Get all subtasks for a specific task.
     """

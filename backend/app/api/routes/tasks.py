@@ -23,12 +23,12 @@ def get_tasks(session: SessionDep, current_user: CurrentUser,
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/{id}", response_model=Task)
-def get_task(session: SessionDep, id: int) -> Task:
+def get_task(session: SessionDep, id: int, current_user: CurrentUser) -> Task:
     """
     Get task by ID.
     """
     try:
-        task = taskServices.get_task(db=session, task_id=id)
+        task = taskServices.get_task(db=session, task_id=id, user_id=current_user.id)
         if not task:
             raise HTTPException(status_code=404, detail="Task not found")
         return task
