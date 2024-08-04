@@ -36,7 +36,7 @@ def update_tag(session: SessionDep, current_user: CurrentUser,
             raise HTTPException(status_code=404, detail="Tag not found.")
         if tag.user_id != current_user.id:
             raise HTTPException(status_code=403, detail="You are not authorized to update this tag.")
-        tag = tagServices.update_tag(db=session, tag_id=id, tag=tag_in)
+        tag = tagServices.update_tag(db=session, tag_id=id, tag_update=tag_in)
         return tag
     except Exception as e:
         raise HTTPException(status_code=500, detail="An error occurred while updating the tag.")
