@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8000"; // Remplacez par l'URL de votre API
+const API_URL = "http://localhost:8000/api/v1"; // Remplacez par l'URL de votre API
 
 const toUrlEncoded = (obj) => {
   return Object.keys(obj)
@@ -7,7 +7,7 @@ const toUrlEncoded = (obj) => {
 };
 
 export const login = async (username, password) => {
-  const response = await fetch(`${API_URL}/api/v1/login/access-token`, {
+  const response = await fetch(`${API_URL}/login/access-token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -24,7 +24,7 @@ export const login = async (username, password) => {
 };
 
 export const signup = async (username, email, password) => {
-  const response = await fetch(`${API_URL}/api/v1/users/signup`, {
+  const response = await fetch(`${API_URL}/users/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

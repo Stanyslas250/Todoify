@@ -9,6 +9,7 @@ export default {
   // daisyUI config (optional - here are the default values)
   daisyui: {
     themes: [
+      "corporate",
       {
         light: {
           primary: "#2f27ce",
@@ -26,7 +27,7 @@ export default {
         },
       },
     ], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
-    darkTheme: "light", // name of one of the included themes for dark mode
+    darkTheme: "corporate", // name of one of the included themes for dark mode
     base: true, // applies background color and foreground color for root element by default
     styled: true, // include daisyUI colors and design decisions for all components
     utils: true, // adds responsive and modifier utility classes
