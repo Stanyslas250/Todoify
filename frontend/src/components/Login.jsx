@@ -41,7 +41,10 @@ function Login() {
         </div>
 
         <div className="flex flex-col items-center">
+<<<<<<< HEAD
           {error && <p className="text-red-500 text-sm">{error}</p>}
+=======
+>>>>>>> 43dc611fd2020b1fa21709244fcad8b87ce71598
           <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
             <label className="input input-bordered flex items-center gap-2">
               <svg
