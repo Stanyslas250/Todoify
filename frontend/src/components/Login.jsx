@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
+import { login, getID, getToken } from "../api/auth";
 import { login, getID } from "../api/auth";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import BG2 from "../assets/images/bg.jpg";
@@ -21,6 +22,8 @@ function Login() {
   const onSubmit = async (data) => {
     try {
       await login(data.email, data.password);
+      await getID();
+      navigate("/home");
       await getID();
       navigate("/home");
     } catch (err) {
