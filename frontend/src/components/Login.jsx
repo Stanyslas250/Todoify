@@ -23,8 +23,6 @@ function Login() {
       await login(data.email, data.password);
       await getID();
       navigate("/home");
-      await getID();
-      navigate("/home");
     } catch (err) {
       setError(err.message);
     }
