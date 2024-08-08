@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
-import { login } from "../api/auth";
+import { login, getID } from "../api/auth";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import BG2 from "../assets/images/bg.jpg";
+
 function Login() {
   const {
     register,
@@ -20,7 +21,8 @@ function Login() {
   const onSubmit = async (data) => {
     try {
       await login(data.email, data.password);
-      navigate("/home"); // Rediriger vers la page d'accueil après la connexion réussie
+      await getID();
+      navigate("/home");
     } catch (err) {
       setError(err.message);
     }
