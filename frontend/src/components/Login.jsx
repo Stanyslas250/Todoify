@@ -18,11 +18,11 @@ function Login() {
   // Toggle password visibility
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+
+  //Login form submission handler
   const onSubmit = async (data) => {
     try {
       await login(data.email, data.password);
-      await getID();
-      navigate("/home");
       await getID();
       navigate("/home");
     } catch (err) {

@@ -1,23 +1,28 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
-import { signup } from "../api/auth";
-import BG2 from "../assets/images/bg.jpg";
+import { getID, signup } from "../api/auth";
 
 function Signup() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+
+  // Toggle password visibility
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  //Login form submission handler
+  const onSubmit = async (data) => {
     try {
-      await signup(username, email, password);
-      navigate("/"); // Rediriger vers la page d'accueil après l'inscription réussie
+      await signup(data.username, data.email, data.password);
+      await getID();
+      navigate("/home");
     } catch (err) {
       setError(err.message);
     }
@@ -28,16 +33,14 @@ function Signup() {
       <div className="flex flex-col w-full max-w-md p-8 bg-base-300/25 shadow-2xl shadow-base-100/20 rounded-xl gap-4 backdrop-blur-2xl">
         <h1 className="text-2xl font-bold text-center">Register Now !</h1>
         {error && <p className="text-red-500 text-sm">{error}</p>}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
           <label className="input input-primary flex items-center justify-center p-0 rounded-lg">
             <i className="bi-person-fill w-1/10 px-3 text-primary"></i>
             <input
               type="text"
               className="input w-full rounded-r-lg"
               placeholder="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
+              {...register("username", { required: true })}
             />
           </label>
           <label className="input input-primary flex items-center justify-center p-0 rounded-lg">
@@ -46,9 +49,7 @@ function Signup() {
               type="email"
               className="input w-full rounded-r-lg"
               placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+              {...register("email", { required: true })}
             />
           </label>
           <label className="input input-primary flex items-center justify-center p-0 rounded-lg">
@@ -56,18 +57,15 @@ function Signup() {
             <input
               type={show ? "text" : "password"}
               className="input w-full"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoComplete="new-password"
-              required
+              {...register("password", { required: true })}
             />
             <label className="swap w-1/10 p-3 text-primary">
               <input type="checkbox" onClick={handleClick} />
               <div className="swap-on">
-                <i class="bi-eye-slash-fill "></i>
+                <i className="bi-eye-slash-fill "></i>
               </div>
               <div className="swap-off">
-                <i class="bi-eye-fill"></i>
+                <i className="bi-eye-fill"></i>
               </div>
             </label>
           </label>
