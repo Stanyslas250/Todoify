@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Home() {
+function WelcomePage() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-base-100">
       <div className="text-center">
@@ -11,8 +11,8 @@ function Home() {
             Login
           </Link>
           <span className="mx-2">or</span>
-          <Link to="/signin" className="btn btn-outline">
-            Signin
+          <Link to="/signup" className="btn btn-outline">
+            Signup
           </Link>
         </div>
       </div>
@@ -20,4 +20,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default WelcomePage;

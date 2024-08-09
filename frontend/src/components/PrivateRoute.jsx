@@ -4,7 +4,7 @@ import { getToken } from "../api/auth";
 
 const PrivateRoute = ({ children }) => {
   const token = getToken();
-  return token ? children : <Navigate to="/login" />;
+  return token ? children : <Navigate to="/" />;
 };
 
 export default PrivateRoute;

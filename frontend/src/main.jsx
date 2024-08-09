@@ -5,24 +5,24 @@ import App from "./App";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import "./index.css";
-import Home from "./components/Home";
 import PrivateRoute from "./components/PrivateRoute";
+import WelcomePage from "./components/WelcomePage";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Router>
       <Routes>
         <Route
-          path="/"
+          path="/home"
           element={
             <PrivateRoute>
-              <Home />
+              <App />
             </PrivateRoute>
           }
         />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/home" element={<App />} />
+        <Route path="/" element={<WelcomePage />} />
       </Routes>
     </Router>
   </React.StrictMode>,

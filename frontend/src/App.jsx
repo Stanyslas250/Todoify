@@ -1,24 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { logout } from "./api/auth";
-import { useNavigate } from "react-router-dom";
+import Category from "./components/pages/Category";
+import Navbar from "./components/Navbar";
 
-function App() {
-  const navigate = useNavigate();
+const categories = ["Books", "Music", "Movies", "Games", "Technology"];
 
-  const onLogout = () => {
-    logout();
-    navigate("/"); // Rediriger vers la page de connexion après la déconnexion;
-  };
-
+const App = () => {
   return (
-    <div className="flex items-center justify-center w-full h-screen">
-      <button className="btn btn-primary" onClick={onLogout}>
-        <i className="bi-box-arrow-right"></i>
-        Logout
-      </button>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <Navbar />
+      <h1 className="text-3xl font-bold text-center mb-6">Categories</h1>
+
+      <Category categories={categories} />
     </div>
   );
-}
+};
 
 export default App;

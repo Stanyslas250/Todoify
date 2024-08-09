@@ -50,8 +50,8 @@ export const getToken = () => {
 
 export const getID = async () => {
   const token = getToken();
-  const response = await fetch(`${API_URL}/login/test-token`, {
-    method: "POST",
+  const response = await fetch(`${API_URL}/users/me`, {
+    method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
