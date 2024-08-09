@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CategoryItems from "./../CategoryItems";
 import AddCategoryModal from "./../AddCategoryModal";
 
 const Category = () => {
-  const [categories, setCategories] = useState([
-    "Books",
-    "Music",
-    "Movies",
-    "Games",
-    "Technology",
-  ]);
+  const [categories, setCategories] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    fetch("http://localhost:8000/api/v1/categories?skip=0&limit=100", {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setCategories(data));
+  }, []);
 
   const handleAddCategoryClick = () => {
     setIsModalOpen(true);
@@ -20,14 +28,26 @@ const Category = () => {
     setIsModalOpen(false);
   };
 
-  const handleAddCategory = (newCategory) => {
-    setCategories([...categories, newCategory]);
+  const handleAddCategory = async (newCategory) => {
+    await fetch("http://localhost:8000/api/v1/categories", {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name: newCategory }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCategories([...categories, data]);
+      });
   };
 
   return (
     <div className="flex flex-wrap justify-center">
-      {categories.map((category, index) => (
-        <CategoryItems key={index} name={category} />
+      {categories.map((categories, index) => (
+        <CategoryItems key={index} name={categories.name} />
       ))}
       <CategoryItems name="" onAddCategoryClick={handleAddCategoryClick} />
       <AddCategoryModal

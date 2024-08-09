@@ -2,7 +2,8 @@ import React from "react";
 import Category from "./components/pages/Category";
 import Navbar from "./components/Navbar";
 
-const categories = ["Books", "Music", "Movies", "Games", "Technology"];
+
+const categories = [];
 
 const App = () => {
   return (
