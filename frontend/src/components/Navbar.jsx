@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { logout } from "../api/auth";
 import { useNavigate } from "react-router-dom";
+import { LuLogOut, LuMoonStar, LuSun } from "react-icons/lu";
 function Navbar() {
   const navigate = useNavigate();
 
@@ -23,7 +24,7 @@ function Navbar() {
   };
 
   return (
-    <div className="w-full shadow-sm shadow-current px-8 bg-base-100">
+    <div className="w-full shadow-sm shadow-current px-8 bg-primary">
       <div className="navbar">
         <div className="navbar-start">
           <a className="no-animation text-xl font-bold">Todoify</a>
@@ -31,22 +32,23 @@ function Navbar() {
         <div className="navbar-center gap-2">
           Welcome Back, <span className="font-bold italic">{name}</span>
         </div>
-        <div className="navbar-end gap-2">
+        <div className="navbar-end gap-1">
           <div className="divider divider-horizontal"></div>
-          <label className="swap swap-rotate btn btn-square border-2 border-primary-content rounded-lg">
+
+          <label className="swap swap-rotate btn btn-square btn-primary rounded-lg">
             <input
               type="checkbox"
               className="theme-controller"
               onClick={toggleTheme}
             />
-            <i className="bi bi-moon swap-off text-sm"></i>
-            <i className="bi bi-sun swap-on text-sm"></i>
+            <LuMoonStar className="swap-on text-xl" />
+            <LuSun className="swap-off text-xl" />
           </label>
           <button
-            className="btn btn-square border-2 border-primary-content rounded-lg"
+            className="btn btn-square btn-primary rounded-lg text-xl"
             onClick={onLogout}
           >
-            <i className="bi bi-box-arrow-right text-xs"></i>
+            <LuLogOut />
           </button>
         </div>
       </div>

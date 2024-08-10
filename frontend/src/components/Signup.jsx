@@ -2,6 +2,14 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
 import { getID, signup } from "../api/auth";
+import {
+  LuEyeOff,
+  LuUser2,
+  LuEye,
+  LuMail,
+  LuKey,
+  LuKeyRound,
+} from "react-icons/lu";
 
 function Signup() {
   const {
@@ -35,7 +43,9 @@ function Signup() {
         {error && <p className="text-red-500 text-sm">{error}</p>}
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
           <label className="input input-primary flex items-center justify-center p-0 rounded-lg">
-            <i className="bi-person-fill w-1/10 px-3 text-primary"></i>
+            <div className="flex w-1/10 px-3 text-primary text-lg h-full items-center">
+              <LuUser2 />
+            </div>
             <input
               type="text"
               className="input w-full rounded-r-lg"
@@ -44,7 +54,9 @@ function Signup() {
             />
           </label>
           <label className="input input-primary flex items-center justify-center p-0 rounded-lg">
-            <i className="bi-envelope-fill w-1/10 px-3 text-primary"></i>
+            <div className="flex w-1/10 px-3 text-primary text-lg h-full items-center">
+              <LuMail />
+            </div>
             <input
               type="email"
               className="input w-full rounded-r-lg"
@@ -53,7 +65,9 @@ function Signup() {
             />
           </label>
           <label className="input input-primary flex items-center justify-center p-0 rounded-lg">
-            <i className="bi-envelope-fill w-1/10 px-3 text-primary"></i>
+            <div className="flex w-1/10 px-3 text-primary text-lg h-full items-center">
+              <LuKeyRound />
+            </div>
             <input
               type={show ? "text" : "password"}
               className="input w-full"
@@ -62,10 +76,10 @@ function Signup() {
             <label className="swap w-1/10 p-3 text-primary">
               <input type="checkbox" onClick={handleClick} />
               <div className="swap-on">
-                <i className="bi-eye-slash-fill "></i>
+                <LuEye />
               </div>
               <div className="swap-off">
-                <i className="bi-eye-fill"></i>
+                <LuEyeOff />
               </div>
             </label>
           </label>

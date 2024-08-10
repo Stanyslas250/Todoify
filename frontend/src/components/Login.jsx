@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
 import { login, getID } from "../api/auth";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import BG2 from "../assets/images/bg.jpg";
+import { LuKey, LuKeyRound, LuMail } from "react-icons/lu";
 
 function Login() {
   const {
@@ -54,8 +54,8 @@ function Login() {
             className="flex flex-col gap-2"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <label className="input input-bordered flex items-center gap-2">
-              <i className="bi-envelope-fill text-current"></i>
+            <label className="input input-bordered flex flex-row items-center justify-around gap-2">
+              <LuMail />
               <input
                 type="text"
                 className="grow"
@@ -67,7 +67,7 @@ function Login() {
               />
             </label>
             <label className="input input-bordered flex items-center gap-2">
-              <i className="bi-key-fill text-current rotate-45"></i>
+              <LuKeyRound />
               <input
                 type={show ? "text" : "password"}
                 placeholder="Password"

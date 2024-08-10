@@ -3,7 +3,6 @@ import Category from "./components/pages/Category";
 import Navbar from "./components/Navbar";
 
 
-const categories = [];
 
 const App = () => {
   return (
@@ -11,7 +10,7 @@ const App = () => {
       <Navbar />
       <h1 className="text-3xl font-bold text-center mb-6">Categories</h1>
 
-      <Category categories={categories} />
+      <Category />
     </div>
   );
 };
