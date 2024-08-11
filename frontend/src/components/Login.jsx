@@ -24,7 +24,7 @@ function Login() {
     try {
       await login(data.email, data.password);
       await getID();
-      navigate("/home");
+      navigate((to = "/home"));
     } catch (err) {
       setError(err.message);
     }

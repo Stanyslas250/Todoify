@@ -1,3 +1,4 @@
+import API from "./api"; // Importez votre API dans app.js
 const API_URL = "http://localhost:8000/api/v1"; // Remplacez par l'URL de votre API
 
 const toUrlEncoded = (obj) => {
@@ -17,10 +18,10 @@ export const login = async (username, password) => {
   const data = await response.json();
   if (response.ok) {
     localStorage.setItem("token", data.access_token);
+    return data;
   } else {
     throw new Error(data.detail || "Login failed");
   }
-  return data;
 };
 
 export const signup = async (username, email, password) => {
@@ -63,4 +64,13 @@ export const getID = async () => {
   const data = await response.json();
   localStorage.setItem("UUID", data.id);
   return data.id;
+};
+
+export const getUserName = async () => {
+  const response = await API.get(`/users/me`);
+  if (response.status === 200) {
+    return response.data.username;
+  } else {
+    throw new Error("Failed to get user name");
+  }
 };

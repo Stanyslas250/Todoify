@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { logout } from "../api/auth";
+import { logout, getUserName } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 import { LuLogOut, LuMoonStar, LuSun } from "react-icons/lu";
-function Navbar() {
+import { useQuery } from "@tanstack/react-query";
+
+function Navbar({ username }) {
   const navigate = useNavigate();
 
   // Toogle theme
@@ -11,8 +13,6 @@ function Navbar() {
   const toggleTheme = () => {
     setTheme(theme === "nord" ? "business" : "nord");
   };
-
-  const name = "Stanyslas Moubiligui"; // Remplacer par le nom de l'utilisateur
 
   useEffect(() => {
     document.querySelector("html").setAttribute("data-theme", theme);
@@ -30,7 +30,7 @@ function Navbar() {
           <a className="no-animation text-xl font-bold">Todoify</a>
         </div>
         <div className="navbar-center gap-2">
-          Welcome Back, <span className="font-bold italic">{name}</span>
+          Welcome Back, <span className="font-bold italic">{username}</span>
         </div>
         <div className="navbar-end gap-1">
           <div className="divider divider-horizontal"></div>

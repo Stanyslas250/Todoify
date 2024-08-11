@@ -1,24 +1,21 @@
 import React, { useEffect, useState } from "react";
 import CategoryItems from "../components/CategoryItems";
 import AddCategoryModal from "../components/AddCategoryModal";
+import { createCategory, loadCategories } from "../api/categorie";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
-const Category = ({ className }) => {
-  const [categories, setCategories] = useState([]);
+const Category = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const token = localStorage.getItem("token");
-  useEffect(() => {
-    fetch("http://localhost:8000/api/v1/categories?skip=0&limit=100", {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => setCategories(data));
-  }, []);
+  // Fetch categories with useQuery
+  const {
+    data: fetchedCategories,
+    isSuccess,
+    isLoading,
+  } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => await loadCategories(),
+  });
 
   const handleAddCategoryClick = () => {
     setIsModalOpen(true);
@@ -28,28 +25,26 @@ const Category = ({ className }) => {
     setIsModalOpen(false);
   };
 
+  const queryClient = useQueryClient();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: createCategory,
+    onSuccess: () => queryClient.invalidateQueries(["categories"]),
+  });
+
   const handleAddCategory = async (newCategory) => {
-    await fetch("http://localhost:8000/api/v1/categories", {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name: newCategory }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setCategories([...categories, data]);
-      });
+    await mutateAsync(newCategory);
   };
 
+  if (isLoading)
+    return <span className="loading loading-ring loading-lg"></span>;
   return (
-    <div className={className}>
-      <div className="flex flex-wrap justify-start bg-base-100 ">
-        {categories.map((categories, index) => (
-          <CategoryItems key={index} name={categories.name} />
-        ))}
+    <div>
+      <div className="flex flex-wrap justify-center bg-base-100">
+        {isSuccess &&
+          fetchedCategories.map((categorie) => (
+            <CategoryItems key={categorie.id} name={categorie.name} />
+          ))}
         <CategoryItems name="" onAddCategoryClick={handleAddCategoryClick} />
         <AddCategoryModal
           isOpen={isModalOpen}
