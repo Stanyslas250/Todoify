@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import CategoryItems from "./../CategoryItems";
-import AddCategoryModal from "./../AddCategoryModal";
+import CategoryItems from "../components/CategoryItems";
+import AddCategoryModal from "../components/AddCategoryModal";
 
-const Category = () => {
+const Category = ({ className }) => {
   const [categories, setCategories] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -45,16 +45,18 @@ const Category = () => {
   };
 
   return (
-    <div className="flex flex-wrap justify-center">
-      {categories.map((categories, index) => (
-        <CategoryItems key={index} name={categories.name} />
-      ))}
-      <CategoryItems name="" onAddCategoryClick={handleAddCategoryClick} />
-      <AddCategoryModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onAddCategory={handleAddCategory}
-      />
+    <div className={className}>
+      <div className="flex flex-wrap justify-start bg-base-100 ">
+        {categories.map((categories, index) => (
+          <CategoryItems key={index} name={categories.name} />
+        ))}
+        <CategoryItems name="" onAddCategoryClick={handleAddCategoryClick} />
+        <AddCategoryModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          onAddCategory={handleAddCategory}
+        />
+      </div>
     </div>
   );
 };

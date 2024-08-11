@@ -24,7 +24,7 @@ function Navbar() {
   };
 
   return (
-    <div className="w-full shadow-sm shadow-current px-8 bg-primary">
+    <div className="w-full shadow-sm shadow-current bg-primary">
       <div className="navbar">
         <div className="navbar-start">
           <a className="no-animation text-xl font-bold">Todoify</a>
