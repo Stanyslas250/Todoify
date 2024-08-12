@@ -3,9 +3,12 @@ import CategoryItems from "../components/CategoryItems";
 import AddCategoryModal from "../components/AddCategoryModal";
 import { createCategory, loadCategories } from "../api/categorie";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 const Category = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   // Fetch categories with useQuery
   const {
@@ -25,6 +28,9 @@ const Category = () => {
     setIsModalOpen(false);
   };
 
+  const handleCategoryclick = (id) => {
+    navigate(`./subcategory/${id}`);
+  };
   const queryClient = useQueryClient();
 
   const { mutateAsync } = useMutation({
@@ -43,7 +49,11 @@ const Category = () => {
       <div className="flex flex-wrap justify-center bg-base-100">
         {isSuccess &&
           fetchedCategories.map((categorie) => (
-            <CategoryItems key={categorie.id} name={categorie.name} />
+            <CategoryItems
+              key={categorie.id}
+              name={categorie.name}
+              onCategoryClick={() => handleCategoryclick(categorie.id)}
+            />
           ))}
         <CategoryItems name="" onAddCategoryClick={handleAddCategoryClick} />
         <AddCategoryModal
