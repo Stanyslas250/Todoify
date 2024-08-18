@@ -5,28 +5,29 @@ import { LuEye, LuEyeOff, LuKeyRound, LuMail } from "react-icons/lu";
 import toast from "react-hot-toast";
 import { usePasswordToggler } from "../hooks/usePasswordToggler";
 import { useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 function Login() {
   const { register, handleSubmit } = useForm();
   const { type, handlePasswordVisibility } = usePasswordToggler();
-  const [error, setError] = useState();
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   //Login form submission handler
   const onSubmit = async (data) => {
     try {
       await login(data.email, data.password);
-
-      toast.success("Logged in successfully!");
+      const toastId = toast.loading("Loading...");
+      setTimeout(() => {
+        toast.dismiss(toastId);
+        toast.success("Logged in successfully!");
+        navigate("/app");
+      }, 1000);
     } catch (err) {
       setError(err.message);
+      toast.error("Invalid credentials");
     }
   };
-
-  if (error == "Request failed with status code 400") {
-    toast.error("Invalid credentials");
-  } else {
-    toast.error(error);
-  }
 
   return (
     <div className="flex items-center w-full h-screen">
@@ -88,12 +89,15 @@ function Login() {
             </button>
           </form>
         </div>
-        <p className="text-center flex flex-row gap-2">
-          Don't you have a account?
-          <a href="#" className="text-accent hover:underline hover:font-bold">
-            Sign Up
-          </a>
-        </p>
+        <div className="flex flex-row gap-2 items-center">
+          <p>Don't you have a account?</p>
+          <Link
+            to={"/signup"}
+            className="btn btn-link text-secondary p-0 hover:text-primary"
+          >
+            SignUp
+          </Link>
+        </div>
       </div>
     </div>
   );
