@@ -37,7 +37,7 @@ export default function Navbar({ className }) {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow "
           >
             <li>
               <a>Item 1</a>
@@ -47,6 +47,15 @@ export default function Navbar({ className }) {
             </li>
             <li>
               <a>Item 3</a>
+            </li>
+            <li className="gap-3 mt-3">
+              <Link className="btn btn-outline btn-primary" to={"/signup"}>
+                Open your account
+              </Link>
+              <Link className="btn btn-primary flex items-center" to={"/login"}>
+                Signin
+                <LuArrowRightToLine />
+              </Link>
             </li>
           </ul>
         </div>
@@ -67,15 +76,15 @@ export default function Navbar({ className }) {
             <a>Item 2</a>
           </li>
           <li>
-            <a>Item 3</a>
+            <a>Item 4</a>
           </li>
         </ul>
       </div>
       <div className="navbar-end">
-        <div className="flex gap-1">
+        <div className="flex gap-1 invisible lg:visible">
           <a
             href="http://github.com/stanyslas250"
-            className="btn btn-square text-xl text-primary"
+            className="btn btn-square text-xl text-primary "
           >
             <LuGithub />
           </a>
