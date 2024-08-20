@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from "react";
 import {
-  LuArrowBigRight,
   LuArrowRightToLine,
   LuGithub,
-  LuLogIn,
   LuMoonStar,
-  LuRegex,
   LuSun,
 } from "react-icons/lu";
 import { useThemeToggler } from "../hooks/useThemeToggler";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Navbar({ className }) {
   // Toogle theme
@@ -22,7 +18,7 @@ export default function Navbar({ className }) {
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="w-5 h-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -52,23 +48,23 @@ export default function Navbar({ className }) {
               <Link className="btn btn-outline btn-primary" to={"/signup"}>
                 Open your account
               </Link>
-              <Link className="btn btn-primary flex items-center" to={"/login"}>
+              <Link className="flex items-center btn btn-primary" to={"/login"}>
                 Signin
                 <LuArrowRightToLine />
               </Link>
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">
+        <a className="text-xl btn btn-ghost">
           <img
             src="../../public/Todoify.svg"
-            className="h-1/2 hidden lg:block"
+            className="hidden h-1/2 lg:block"
           />
           Todoify
         </a>
       </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+      <div className="hidden navbar-center lg:flex">
+        <ul className="px-1 menu menu-horizontal">
           <li>
             <a>Item 1</a>
           </li>
@@ -81,28 +77,28 @@ export default function Navbar({ className }) {
         </ul>
       </div>
       <div className="navbar-end">
-        <div className="flex gap-1 invisible lg:visible">
+        <div className="flex invisible gap-1 lg:visible">
           <a
             href="http://github.com/stanyslas250"
-            className="btn btn-square text-xl text-primary "
+            className="text-xl btn btn-square text-primary "
           >
             <LuGithub />
           </a>
-          <label className="swap swap-rotate btn btn-square btn-primary rounded-lg">
+          <label className="rounded-lg swap swap-rotate btn btn-square btn-primary">
             <input
               type="checkbox"
               className="theme-controller"
               onClick={toggle}
             />
-            <LuMoonStar className="swap-on text-xl" />
-            <LuSun className="swap-off text-xl" />
+            <LuMoonStar className="text-xl swap-on" />
+            <LuSun className="text-xl swap-off" />
           </label>
 
           <div className="divider divider-horizontal divider-primary"></div>
           <Link className="btn btn-outline btn-primary" to={"/signup"}>
             Open your account
           </Link>
-          <Link className="btn btn-primary flex items-center" to={"/login"}>
+          <Link className="flex items-center btn btn-primary" to={"/login"}>
             Signin
             <LuArrowRightToLine />
           </Link>

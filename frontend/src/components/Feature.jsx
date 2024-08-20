@@ -1,12 +1,14 @@
-import React from "react";
-
+/* eslint-disable react/prop-types */
 function Feature(props) {
   return (
-    <div className="card bg-primary/10 w-96 h-56 shadow-xl" key={props.key}>
-      <div className="card-body">
-        <h2 className="card-title">{props.title}</h2>
-        <p>{props.description}</p>
-      </div>
+    <div
+      className="w-full p-6 border rounded-lg shadow border-secondary hover:border-primary bg-secondary/20 hover:bg-neutral/90 hover:text-neutral-content text-secondary-content"
+      key={props.key}
+    >
+      <h2 className="mb-2 text-lg font-bold tracking-tight lg:text-2xl ">
+        {props.title}
+      </h2>
+      <p className="font-normal ">{props.description}</p>
     </div>
   );
 }
