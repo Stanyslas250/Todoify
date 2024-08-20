@@ -48,3 +48,41 @@ export const faqData = [
       "Upgrading to Todoify Premium is easy! Simply go to your account settings and select the 'Upgrade' option. Choose the plan that best suits your needs, and you'll gain access to all the premium features.",
   },
 ];
+
+export const reviewsData = [
+  {
+    name: "Jane Doe",
+    rating: 5,
+    comment:
+      "Todoify has transformed the way I organize my day. The seamless integration with Google Calendar is a game-changer!",
+    date: "August 15, 2024",
+  },
+  {
+    name: "John Smith",
+    rating: 4,
+    comment:
+      "I love how easy it is to collaborate with my team using Todoify. It’s made project management so much smoother.",
+    date: "July 22, 2024",
+  },
+  {
+    name: "Emily Johnson",
+    rating: 5,
+    comment:
+      "The best to-do list app I've used! The interface is so intuitive, and the customization options are endless.",
+    date: "August 5, 2024",
+  },
+  {
+    name: "Michael Brown",
+    rating: 4,
+    comment:
+      "Todoify keeps me on track with all my tasks. The reminders are super helpful, especially on busy days.",
+    date: "June 30, 2024",
+  },
+  {
+    name: "Sarah Williams",
+    rating: 5,
+    comment:
+      "Security is my top concern, and Todoify gives me peace of mind knowing my data is safe and secure.",
+    date: "August 10, 2024",
+  },
+];

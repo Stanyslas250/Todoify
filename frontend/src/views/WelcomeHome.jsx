@@ -5,14 +5,16 @@ import { faqData, whyChooseUsData } from "../utils/welcomePageData";
 import AccordionItems from "../components/AccordionItems";
 import Feature from "../components/Feature";
 
+import TestimonialSection from "../components/testimonialSection";
+import { FaFacebookF, FaGithub } from "react-icons/fa6";
+import { RiTwitterXLine } from "react-icons/ri";
 function WelcomeHome() {
   return (
     <div className="min-h-screen bg-base-100 ">
       {/* Navbar */}
-      <Navbar className="sticky top-0 px-5 navbar backdrop-blur-md bg-base-200/30" />
+      <Navbar className="relative px-5 navbar bg-base-200/30" />
       {/* Hero */}
       <HeroSection className="flex flex-col items-center h-screen justify-evenly bg-base-200" />
-
       {/* section 1*/}
       <section
         id="more_about_us"
@@ -33,12 +35,10 @@ function WelcomeHome() {
           <button className="btn btn-primary">How It Works?</button>
         </div>
       </section>
-
       {/* section 2 */}
-
       <section
         id="features"
-        className="flex flex-col items-center w-full h-screen gap-10 px-5 py-10 sm:px-20 lg:flex-row"
+        className="flex flex-col items-center w-full h-full gap-10 px-5 py-10 sm:px-20 lg:flex-row"
       >
         <div className="relative flex flex-col justify-center mx-auto lg:w-1/3 text-start">
           <h2 className="block w-full text-3xl font-bold text-transparent bg-gradient-to-b from-primary to-base-300 bg-clip-text sm:text-4xl">
@@ -63,11 +63,11 @@ function WelcomeHome() {
           ))}
         </div>
       </section>
-
       {/* section 3 */}
-
+      <section id="testimonial" className="bg-neutral">
+        <TestimonialSection />
+      </section>
       {/* section 4 */}
-
       <section
         id="faq"
         className="flex flex-col items-center w-full h-screen gap-10 px-5 py-10 sm:px-20 lg:flex-row lg:justify-around"
@@ -91,6 +91,31 @@ function WelcomeHome() {
       </section>
 
       {/* Footer */}
+      <footer className="p-10 footer bg-neutral text-neutral-content">
+        <aside>
+          <a className="text-xl btn btn-ghost">
+            <img
+              src="../../public/Todoify.svg"
+              className="hidden h-1/2 lg:block"
+            />
+            Todoify
+          </a>
+        </aside>
+        <nav>
+          <h6 className="footer-title">Social</h6>
+          <div className="grid grid-flow-col gap-4">
+            <a>
+              <RiTwitterXLine size={24} />
+            </a>
+            <a>
+              <FaGithub size={24} />
+            </a>
+            <a>
+              <FaFacebookF size={24} />
+            </a>
+          </div>
+        </nav>
+      </footer>
       <footer className="p-4 footer footer-center bg-base-300 text-base-content">
         <aside>
           <p>
