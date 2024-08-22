@@ -9,8 +9,8 @@ import PropTypes from "prop-types";
 
 function Testimonal(props) {
   return (
-    <div key={props.Key} id={`slide${props.Key}`}>
-      <div className="flex flex-col gap-6 p-6 border rounded-lg shadow border-secondary hover:border-primary bg-secondary/20 hover:bg-neutral/90 hover:text-neutral-content text-secondary-content">
+    <div key={props.Key} id={`slide${props.Key}`} className="h-full ">
+      <div className="flex flex-col h-full gap-6 p-6 border rounded-lg shadow border-secondary hover:border-primary bg-secondary/20 hover:bg-neutral/90 hover:text-neutral-content text-secondary-content">
         <div className="flex flex-col items-center gap-3 mb-2 text-lg font-bold tracking-tight lg:text-2xl ">
           <h3>{props.Name}</h3>
           <div className="flex items-center ml-3">{props.children}</div>
@@ -25,7 +25,7 @@ function Testimonal(props) {
 }
 
 Testimonal.propTypes = {
-  Key: PropTypes.string.isRequired,
+  Key: PropTypes.number.isRequired,
   Name: PropTypes.string.isRequired,
   Comment: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,

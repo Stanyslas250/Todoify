@@ -8,9 +8,10 @@ import Feature from "../components/Feature";
 import TestimonialSection from "../components/testimonialSection";
 import { FaFacebookF, FaGithub } from "react-icons/fa6";
 import { RiTwitterXLine } from "react-icons/ri";
+import BentoElement from "../components/BentoElement";
 function WelcomeHome() {
   return (
-    <div className="min-h-screen bg-base-100 ">
+    <div className="min-h-screen">
       {/* Navbar */}
       <Navbar className="relative px-5 navbar bg-base-200/30" />
       {/* Hero */}
@@ -55,11 +56,12 @@ function WelcomeHome() {
         </div>
         <div className="grid gap-4 md:grid-cols-4 lg:grid-cols-2 lg:w-1/2">
           {whyChooseUsData.map((feature, index) => (
-            <Feature
-              title={feature.title}
-              description={feature.description}
-              key={index}
-            />
+            <div key={index}>
+              <Feature
+                title={feature.title}
+                description={feature.description}
+              />
+            </div>
           ))}
         </div>
       </section>
@@ -67,10 +69,38 @@ function WelcomeHome() {
       <section id="testimonial" className="bg-neutral">
         <TestimonialSection />
       </section>
+
+      {/* Some data section */}
+
+      <section className="h-full px-5 py-10 bg-base-200 sm:px-20">
+        <div className="flex flex-col justify-center h-full gap-2 lg:content-center lg:gap-4 lg:grid lg:grid-cols-5">
+          <BentoElement
+            className="lg:col-span-4 bg-primary"
+            title="300K+ Users"
+            description="Users actively managing their tasks on a daily basis."
+          />
+          <BentoElement
+            className="lg:col-span-1 bg-secondary"
+            title="100% Free!"
+            description="Forever"
+          />
+          <BentoElement
+            className="lg:col-span-2 bg-neutral-content"
+            title="1.2M"
+            description="Total tasks completed by our users across the platform."
+          />
+          <BentoElement
+            className="lg:col-span-3 bg-accent"
+            title="10+"
+            description="Our users are spread across more than 50 countries.s"
+          />
+        </div>
+      </section>
+
       {/* section 4 */}
       <section
         id="faq"
-        className="flex flex-col items-center w-full h-screen gap-10 px-5 py-10 sm:px-20 lg:flex-row lg:justify-around"
+        className="flex flex-col items-center w-full h-screen gap-10 px-5 py-10 sm:px-20 lg:flex-row bg-base-100 lg:justify-around"
       >
         <div className="flex flex-col items-start gap-2">
           <h2 className="text-6xl font-bold">FAQ</h2>
@@ -81,11 +111,11 @@ function WelcomeHome() {
 
         <div className="flex flex-col gap-5 lg:flex-col lg:w-1/2">
           {faqData.map((item, index) => (
-            <AccordionItems
+           <div key={index}> 
+           <AccordionItems
               question={item.question}
               answer={item.answer}
-              key={index}
-            />
+            /></div>
           ))}
         </div>
       </section>
@@ -116,7 +146,7 @@ function WelcomeHome() {
           </div>
         </nav>
       </footer>
-      <footer className="p-4 footer footer-center bg-base-300 text-base-content">
+      <footer className="p-4 footer footer-center bg-base-200 text-base-content">
         <aside>
           <p>
             Copyright © {new Date().getFullYear()} - All right reserved by

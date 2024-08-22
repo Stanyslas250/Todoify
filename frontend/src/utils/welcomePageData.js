@@ -51,6 +51,7 @@ export const faqData = [
 
 export const reviewsData = [
   {
+    id: 1,
     name: "Jane Doe",
     rating: 5,
     comment:
@@ -58,6 +59,7 @@ export const reviewsData = [
     date: "August 15, 2024",
   },
   {
+    id: 2,
     name: "John Smith",
     rating: 4,
     comment:
@@ -65,6 +67,7 @@ export const reviewsData = [
     date: "July 22, 2024",
   },
   {
+    id: 3,
     name: "Emily Johnson",
     rating: 5,
     comment:
@@ -72,6 +75,7 @@ export const reviewsData = [
     date: "August 5, 2024",
   },
   {
+    id: 4,
     name: "Michael Brown",
     rating: 4,
     comment:
@@ -79,6 +83,7 @@ export const reviewsData = [
     date: "June 30, 2024",
   },
   {
+    id: 5,
     name: "Sarah Williams",
     rating: 5,
     comment:
@@ -86,3 +91,32 @@ export const reviewsData = [
     date: "August 10, 2024",
   },
 ];
+
+export const dataSection = [
+  {
+    title: "Tasks Completed",
+    value: "1.2M",
+    description: "Total tasks completed by our users across the platform.",
+  },
+  {
+    title: "Active Users",
+    value: "150K",
+    description: "Users actively managing their tasks on a daily basis.",
+  },
+  {
+    title: "Integrations",
+    value: "25+",
+    description: "Seamless integrations with popular tools and services.",
+  },
+  {
+    title: "Projects Managed",
+    value: "500K+",
+    description: "Projects successfully managed through Todoify.",
+  },
+  {
+    title: "Countries Served",
+    value: "50+",
+    description: "Our users are spread across more than 50 countries.",
+  },
+];
+

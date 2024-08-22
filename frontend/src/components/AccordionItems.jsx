@@ -9,17 +9,23 @@
  *
  * @returns {JSX.Element} - A JSX element representing the accordion item.
  */
-export default function AccordionItems({ key, question, answer }) {
+
+import PropTypes from "prop-types";
+function AccordionItems(props) {
   return (
-    <div
-      className="collapse collapse-arrow join-item border-base-300 border text-start bg-secondary/20"
-      key={key}
-    >
+    <div className="border collapse collapse-arrow join-item border-base-300 text-start bg-secondary/20">
       <input type="checkbox" name="my-accordion-4" />
-      <div className="collapse-title text-xl font-medium">{question}</div>
+      <div className="text-xl font-medium collapse-title">{props.question}</div>
       <div className="collapse-content">
-        <p>{answer}</p>
+        <p>{props.answer}</p>
       </div>
     </div>
   );
 }
+
+AccordionItems.propTypes = {
+  question: PropTypes.string,
+  answer: PropTypes.string,
+};
+
+export default AccordionItems;
