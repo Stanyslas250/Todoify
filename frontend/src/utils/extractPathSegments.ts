@@ -1,13 +1,22 @@
+/**
+ * Extracts and capitalizes the segments of a given path.
+ *
+ * @param path - The path to extract segments from.
+ * @returns An array of capitalized segments from the input path.
+ *
+ * @example
+ */
+
 function extractPathSegments(path: string) {
-  // Fonction pour mettre la première lettre en majuscule
+  // Function to capitalise the first letter
   const capitalizeFirstLetter = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
-  // Diviser le chemin en segments en utilisant "/" comme séparateur
+  // Divide the path into segments using ‘/’ as a separator
   const segments = path.split("/");
 
-  // Filtrer les segments vides et mettre la première lettre en majuscule
+  // Filter out empty segments and capitalise the first letter
   return segments
     .filter((segment) => segment.length > 0)
     .map((segment) => capitalizeFirstLetter(segment));
