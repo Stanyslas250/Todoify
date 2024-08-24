@@ -1,7 +1,13 @@
-import React from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import Drawer from "../components/App/Drawer";
 
 function Home() {
-  return <div>Home</div>;
+  const location = useLocation();
+  return (
+    <Drawer pageName={location.pathname}>
+      <Outlet />
+    </Drawer>
+  );
 }
 
 export default Home;
