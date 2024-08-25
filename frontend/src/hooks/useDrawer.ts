@@ -6,17 +6,24 @@
  */
 
 import { useState } from "react";
+import { Section } from "../utils/menuItems";
 
 function useDrawer() {
   const [isOpen, setIsOpen] = useState(true);
+  const [activeSection, setActiveSection] = useState<Section>("dashboard");
 
   const toggleDrawer = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
+  };
+
+  const changeSection = (section: Section) => {
+    setActiveSection(section);
   };
 
   return {
     isOpen,
     toggleDrawer,
+    changeSection,
   };
 }
 

@@ -10,6 +10,8 @@ import { Toaster } from "react-hot-toast";
 import ErrorPage from "./views/ErrorPage.jsx";
 import Dashboard from "./views/App/Dashboard.jsx";
 import Task from "./views/App/Task.jsx";
+import Schedule from "./views/App/Schedule.jsx";
+import Project from "./views/App/Project.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <WelcomeHome /> },
@@ -21,6 +23,8 @@ const router = createBrowserRouter([
     children: [
       { path: "dashboard", element: <Dashboard /> },
       { path: "tasks", element: <Task /> },
+      { path: "schedule", element: <Schedule /> },
+      { path: "projects", element: <Project /> },
     ],
   },
   { path: "*", element: <ErrorPage /> },
