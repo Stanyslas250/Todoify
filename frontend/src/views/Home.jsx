@@ -8,12 +8,20 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Drawer from "../components/App/Drawer";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
+
 function Home() {
   const location = useLocation();
   return (
-    <Drawer pageName={location.pathname}>
-      <Outlet />
-    </Drawer>
+    <QueryClientProvider client={queryClient}>
+      <Drawer pageName={location.pathname}>
+        <Outlet />
+      </Drawer>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 

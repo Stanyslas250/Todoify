@@ -24,7 +24,7 @@ const router = createBrowserRouter([
       { path: "dashboard", element: <Dashboard /> },
       { path: "tasks", element: <Task /> },
       { path: "schedule", element: <Schedule /> },
-      { path: "projects", element: <Project /> },
+      { path: "project", element: <Project /> },
     ],
   },
   { path: "*", element: <ErrorPage /> },

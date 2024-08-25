@@ -1,4 +1,4 @@
-import { API, URL } from "./api";
+import { API_URL } from "./api";
 import axios from "axios";
 import { toUrlEncoded } from "../utils/UrlEncoded";
 
@@ -6,7 +6,7 @@ export const login = async (username, password) => {
   const params = toUrlEncoded({ username, password });
   const options = {
     method: "POST",
-    url: `${URL}/login/access-token`,
+    url: `${API_URL}/login/access-token`,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
@@ -25,7 +25,7 @@ export const signup = async (username, email, password) => {
   const params = { username, password, email };
   const options = {
     method: "POST",
-    url: `${URL}/users/signup`,
+    url: `${API_URL}/users/signup`,
     headers: {
       "Content-Type": "application/json",
     },
