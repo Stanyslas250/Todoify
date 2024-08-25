@@ -4,9 +4,10 @@ export default {
 
   theme: {
     fontFamily: {
-      poppins: ["Poppins", "sans-serif"],
+      sans: ["Poppins"],
     },
   },
+  // eslint-disable-next-line no-undef
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
   // daisyUI config (optional - here are the default values)
   daisyui: {
