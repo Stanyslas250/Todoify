@@ -1,17 +1,9 @@
 /* eslint-disable react/prop-types */
-import {
-  LuArrowRightToLine,
-  LuGithub,
-  LuMoonStar,
-  LuSun,
-} from "react-icons/lu";
-import { useThemeToggler } from "../hooks/useThemeToggler";
+import { LuArrowRightToLine, LuGithub } from "react-icons/lu";
 import { Link } from "react-router-dom";
+import ThemSwapper from "./App/UI/ThemSwapper";
 
 export default function Navbar({ className }) {
-  // Toogle theme
-  const { toggle } = useThemeToggler(true);
-
   return (
     <div className={className}>
       <div className="navbar-start">
@@ -85,15 +77,7 @@ export default function Navbar({ className }) {
           >
             <LuGithub />
           </a>
-          <label className="rounded-lg swap swap-rotate btn btn-square btn-primary">
-            <input
-              type="checkbox"
-              className="theme-controller"
-              onClick={toggle}
-            />
-            <LuMoonStar className="text-xl swap-on" />
-            <LuSun className="text-xl swap-off" />
-          </label>
+          <ThemSwapper />
 
           <div className="divider divider-horizontal divider-primary"></div>
           <Link className="btn btn-outline btn-primary" to={"/signup"}>

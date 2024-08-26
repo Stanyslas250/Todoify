@@ -1,11 +1,14 @@
 import PropTypes from "prop-types";
 import useDrawer from "../../hooks/useDrawer";
-import { LuLogOut, LuPanelRight } from "react-icons/lu";
+import { LuLogOut, LuPanelRight, LuPlus } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import extractPathSegments from "../../utils/extractPathSegments";
 import { menuItems } from "../../utils/menuItems";
+import UserProfiles from "./UserProfiles";
+import ThemSwapper from "./UI/ThemSwapper";
 function Drawer(props) {
   const { isOpen, toggleDrawer, changeSection } = useDrawer();
+
   const path = extractPathSegments(props.pageName);
   return (
     <div className={`drawer ${isOpen ? "lg:drawer-open" : ""}`}>
@@ -17,13 +20,13 @@ function Drawer(props) {
         readOnly
       />
       <div className="flex flex-col gap-2 p-4 drawer-content">
-        {/* Page content here */}
+        {/* TopNav */}
         <div className="flex items-center h-12 gap-4">
           <LuPanelRight
             onClick={toggleDrawer}
             className={`${isOpen ? "hidden" : "block"}`}
           />
-          <div className="text-sm breadcrumbs">
+          <div className="flex flex-row justify-between w-full pr-5 text-sm breadcrumbs">
             <ul>
               {path.map((segment, index) => (
                 <li key={index}>
@@ -37,6 +40,9 @@ function Drawer(props) {
                 </li>
               ))}
             </ul>
+            <div>
+              <ThemSwapper />
+            </div>
           </div>
         </div>
         <div>{props.children}</div>
@@ -60,6 +66,10 @@ function Drawer(props) {
               className={`size-4 ${isOpen ? "block" : "hidden"}`}
             />
           </div>
+          <div className="w-full">
+            <UserProfiles />
+          </div>
+
           <div className="flex flex-col justify-between grow">
             <div>
               {/* Sidebar content here */}
@@ -80,7 +90,11 @@ function Drawer(props) {
                 </li>
               ))}
             </div>
-            <div className="self-center">
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center justify-center h-full gap-5 py-8 prose border-2 border-dashed cursor-pointer hover:bg-secondary/10 border-primary card">
+                <LuPlus size={24} />
+                <h6 className="font-semibold"> Add New Project </h6>
+              </div>
               <li>
                 <button className="rounded-sm btn btn-neutral btn-outline text-accent">
                   <LuLogOut className="size-4" />
