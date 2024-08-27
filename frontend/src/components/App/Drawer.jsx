@@ -1,15 +1,22 @@
 import PropTypes from "prop-types";
 import useDrawer from "../../hooks/useDrawer";
 import { LuLogOut, LuPanelRight, LuPlus } from "react-icons/lu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import extractPathSegments from "../../utils/extractPathSegments";
 import { menuItems } from "../../utils/menuItems";
 import UserProfiles from "./UserProfiles";
 import ThemSwapper from "./UI/ThemSwapper";
+import { lougout } from "../../services/userAPI";
 function Drawer(props) {
   const { isOpen, toggleDrawer, changeSection } = useDrawer();
 
   const path = extractPathSegments(props.pageName);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await lougout();
+    navigate("/");
+  };
   return (
     <div className={`drawer ${isOpen ? "lg:drawer-open" : ""}`}>
       <input
@@ -96,7 +103,10 @@ function Drawer(props) {
                 <h6 className="font-semibold"> Add New Project </h6>
               </div>
               <li>
-                <button className="rounded-sm btn btn-neutral btn-outline text-accent">
+                <button
+                  className="rounded-sm btn btn-neutral btn-outline text-accent"
+                  onClick={handleLogout}
+                >
                   <LuLogOut className="size-4" />
                   Logout
                 </button>
