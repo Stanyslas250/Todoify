@@ -1,3 +1,4 @@
+import TopbarSearch from "../../components/App/TopbarSearch";
 import { useCategories } from "../../hooks/useCategory";
 function Dashboard() {
   const { data: categories, isLoading, isError, error } = useCategories();
@@ -10,6 +11,7 @@ function Dashboard() {
   if (isError) return <div>{error.message}</div>;
   return (
     <div>
+      <TopbarSearch />
       <div className="card bg-secondary">
         <div className="card-body">
           {categories.length} Project{categories.length > 1 ? "s" : ""}
