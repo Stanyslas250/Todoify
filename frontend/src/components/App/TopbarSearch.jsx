@@ -2,9 +2,9 @@ import { LuPlus, LuSearch } from "react-icons/lu";
 
 function TopbarSearch() {
   return (
-    <div className="flex flex-row justify-between gap-5 py-5">
+    <div className="flex flex-col justify-between gap-5 md:flex-row">
       <div className=" grow">
-        <label className="flex items-center h-full gap-2 input input-bordered">
+        <label className="flex items-center gap-2 md:h-full input input-bordered">
           <input type="text" className="grow" placeholder="Search" />
           <LuSearch size={16} />
         </label>
