@@ -1,7 +1,7 @@
 // src/services/api.ts
 
 import axios from "axios";
-import { Category } from "../utils/types/todoify";
+import { Category, Task } from "../utils/types/todoify";
 
 export const API_URL = "http://localhost:8000/api/v1";
 
@@ -18,6 +18,13 @@ export const categoryService = {
     const response = await api.get<Category[]>(
       "/categories/?skip=0&limit=1000"
     );
+    return response.data;
+  },
+};
+
+export const taskService = {
+  getTasks: async (): Promise<Task[]> => {
+    const response = await api.get<Task[]>(`/tasks/?skip=0&limit=100`);
     return response.data;
   },
 };

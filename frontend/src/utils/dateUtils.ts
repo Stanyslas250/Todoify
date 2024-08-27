@@ -1,0 +1,38 @@
+// src/utils/dateUtils.ts
+
+import { parseISO, format, isValid, differenceInDays } from "date-fns";
+import { enUS } from "date-fns/locale";
+
+export const dateUtils = {
+  parse(dateString: string): Date | null {
+    const parsedDate = parseISO(dateString);
+    return isValid(parsedDate) ? parsedDate : null;
+  },
+
+  format(date: Date | string, formatString: string = "dd/MM/yyyy"): string {
+    const parsedDate = typeof date === "string" ? this.parse(date) : date;
+    if (!parsedDate) return "Date invalide";
+    return format(parsedDate, formatString, { locale: enUS });
+  },
+
+  formatWithTime(
+    date: Date | string,
+    formatString: string = "dd/MM/yyyy HH:mm"
+  ): string {
+    return this.format(date, formatString);
+  },
+
+  getDaysDifference(dateString: string): number {
+    const parsedDate = this.parse(dateString);
+    if (!parsedDate) return 0;
+    return differenceInDays(parsedDate, new Date());
+  },
+
+  isOverdue(dateString: string): boolean {
+    const parsedDate = this.parse(dateString);
+    if (!parsedDate) return false;
+    return parsedDate < new Date();
+  },
+
+  // Vous pouvez ajouter d'autres méthodes utiles ici
+};

@@ -39,3 +39,8 @@ export const signup = async (username, email, password) => {
     throw new Error("Registration failed");
   }
 };
+
+
+export const lougout = async () => {
+  localStorage.removeItem("token");
+};

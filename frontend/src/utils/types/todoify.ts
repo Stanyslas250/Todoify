@@ -1,16 +1,16 @@
 export interface Category {
   id: number;
   name: string;
-  user_id: number;
 }
 
 export interface Task {
   id: number;
   title: string;
   description: string;
-  dueDate: Date;
+  due_date: Date;
   category: Category;
   completed: boolean;
+  priority: string;
 }
 
 export interface Subtask {

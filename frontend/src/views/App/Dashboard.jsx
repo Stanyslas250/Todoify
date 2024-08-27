@@ -1,7 +1,15 @@
+import { LuClipboardCheck, LuFolders, LuListTodo } from "react-icons/lu";
 import TopbarSearch from "../../components/App/TopbarSearch";
+import Card from "../../components/App/UI/Card";
 import { useCategories } from "../../hooks/useCategory";
+import { useTaskStats } from "../../hooks/useTaskStats";
+import BentoElement from "../../components/App/UI/BentoElement";
+import Task from "../../components/App/UI/Task";
+import Project from "../../components/App/UI/Project";
 function Dashboard() {
   const { data: categories, isLoading, isError, error } = useCategories();
+  const { completedTasks, incompleteTasks } = useTaskStats();
+
   if (isLoading)
     return (
       <div className="flex items-center justify-center h-full">
@@ -10,12 +18,47 @@ function Dashboard() {
     );
   if (isError) return <div>{error.message}</div>;
   return (
-    <div>
+    <div className="flex flex-col gap-10">
       <TopbarSearch />
-      <div className="card bg-secondary">
-        <div className="card-body">
-          {categories.length} Project{categories.length > 1 ? "s" : ""}
-        </div>
+      <div className="grid gap-3 md:grid-flow-col justify-stretch">
+        <Card
+          data={categories.length}
+          title={`Project${categories.length > 1 ? "s" : ""}`}
+          subtitle={"Total Projects"}
+          className="rounded-md"
+        >
+          <LuFolders size={32} />
+        </Card>
+        <Card
+          data={incompleteTasks}
+          title={`Task${incompleteTasks > 1 ? "s" : ""}`}
+          subtitle={"On Progress"}
+          className="rounded-md"
+        >
+          <LuListTodo size={32} />
+        </Card>
+        <Card
+          data={completedTasks}
+          title={`Task${incompleteTasks > 1 ? "s" : ""}`}
+          subtitle={"Completed Tasks"}
+          className="rounded-md"
+        >
+          <LuClipboardCheck size={32} />
+        </Card>
+      </div>
+      <div className="flex flex-col gap-3 md:flex-row">
+        <BentoElement
+          className="border-2 md:w-3/5 border-primary"
+          title={"My Tasks"}
+        >
+          <Task />
+        </BentoElement>
+        <BentoElement
+          className="border-2 md:w-2/5 border-primary"
+          title={"My Projects"}
+        >
+          <Project />
+        </BentoElement>
       </div>
     </div>
   );
