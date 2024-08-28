@@ -19,7 +19,7 @@ function Home() {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   useEffect(() => {
-    token ? navigate("/app/dashboard") : navigate("/login");
+    token ? navigate("/app/dashboard") : navigate("/login", { replace: true });
     console.log("Home useEffect");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
