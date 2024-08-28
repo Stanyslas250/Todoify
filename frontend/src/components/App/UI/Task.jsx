@@ -23,7 +23,7 @@ function Task() {
                   ? "badge-info"
                   : "badge-warning"
               }
-               `}
+              `}
             >
               {task.due_date
                 ? dateUtils.format(task.due_date, "EEEE d MMMM yyyy")

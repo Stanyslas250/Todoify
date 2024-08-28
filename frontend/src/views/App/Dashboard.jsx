@@ -16,7 +16,12 @@ function Dashboard() {
         <span className="loading loading-ring loading-lg"></span>
       </div>
     );
-  if (isError) return <div>{error.message}</div>;
+  if (isError)
+    return (
+      <div className="flex items-center justify-center h-full text-center">
+        {error.message}
+      </div>
+    );
   return (
     <div className="flex flex-col gap-10">
       <TopbarSearch />
@@ -50,6 +55,7 @@ function Dashboard() {
         <BentoElement
           className="border-2 md:w-3/5 border-primary"
           title={"My Tasks"}
+          filter
         >
           <Task />
         </BentoElement>
