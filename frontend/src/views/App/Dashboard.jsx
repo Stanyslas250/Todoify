@@ -5,7 +5,7 @@ import { useCategories } from "../../hooks/useCategory";
 import { useTaskStats } from "../../hooks/useTaskStats";
 import BentoElement from "../../components/App/UI/BentoElement";
 import Task from "../../components/App/UI/Task";
-import Project from "../../components/App/UI/Project";
+import ProjectList from "../../components/App/UI/ProjectList";
 function Dashboard() {
   const { data: categories, isLoading, isError, error } = useCategories();
   const { completedTasks, incompleteTasks } = useTaskStats();
@@ -63,7 +63,7 @@ function Dashboard() {
           className="border-2 md:w-2/5 border-primary"
           title={"My Projects"}
         >
-          <Project />
+          <ProjectList />
         </BentoElement>
       </div>
     </div>

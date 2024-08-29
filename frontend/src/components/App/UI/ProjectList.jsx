@@ -1,7 +1,8 @@
 import { LuFolderOpen } from "react-icons/lu";
 import { useCategories } from "../../../hooks/useCategory";
 import { colorUtils } from "../../../utils/colorUtils";
-export default function Project() {
+
+export default function ProjectList() {
   const { data: categories } = useCategories();
   return (
     <div>
