@@ -8,7 +8,7 @@ function BentoElement(props) {
     >
       <div className="flex flex-row items-center justify-between">
         <h2 className="sticky text-xl font-semibold">{props.title}</h2>
-        {props.filter && <FilterSetting />}
+        {props.filter && <FilterSetting otherFilters={false} />}
       </div>
       <div className="overflow-y-auto ">{props.children}</div>
     </div>
