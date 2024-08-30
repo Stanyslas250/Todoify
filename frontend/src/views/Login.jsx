@@ -4,13 +4,11 @@ import BG2 from "../assets/image.png";
 import { LuEye, LuEyeOff, LuKeyRound, LuMail } from "react-icons/lu";
 import toast from "react-hot-toast";
 import { usePasswordToggler } from "../hooks/usePasswordToggler";
-import { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const { register, handleSubmit } = useForm();
   const { type, handlePasswordVisibility } = usePasswordToggler();
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   //Login form submission handler
@@ -23,8 +21,7 @@ function Login() {
         toast.success("Logged in successfully!");
         navigate("/app");
       }, 1000);
-    } catch (err) {
-      setError(err.message);
+    } catch {
       toast.error("Invalid credentials");
     }
   };
@@ -32,16 +29,16 @@ function Login() {
   return (
     <div className="flex items-center w-full h-screen">
       {/* Image de fond */}
-      <div className="relative h-full flex w-1/2">
+      <div className="relative flex w-1/2 h-full">
         <img
           src={BG2}
-          className="w-full h-full object-cover carousel-item after"
+          className="object-cover w-full h-full carousel-item after"
         />
       </div>
       {/* Formulaire de connexion */}
-      <div className="bg-base-100 w-2/3 justify-center items-center flex flex-col gap-8">
-        <div className="flex flex-col gap-1 items-center">
-          <h1 className="font-black text-2xl">Welcome back! </h1>
+      <div className="flex flex-col items-center justify-center w-2/3 gap-8 bg-base-100">
+        <div className="flex flex-col items-center gap-1">
+          <h1 className="text-2xl font-black">Welcome back! </h1>
           <h6 className="text-sm font-semibold">
             Organise your life in a few clicks
           </h6>
@@ -52,7 +49,7 @@ function Login() {
             className="flex flex-col gap-2"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <label className="input input-bordered flex flex-row items-center justify-around gap-2">
+            <label className="flex flex-row items-center justify-around gap-2 input input-bordered">
               <LuMail />
               <input
                 type="text"
@@ -64,7 +61,7 @@ function Login() {
                 })}
               />
             </label>
-            <label className="input input-bordered flex items-center gap-2">
+            <label className="flex items-center gap-2 input input-bordered">
               <LuKeyRound />
               <input
                 type={type}
@@ -89,11 +86,11 @@ function Login() {
             </button>
           </form>
         </div>
-        <div className="flex flex-row gap-2 items-center">
-          <p>Don't you have a account?</p>
+        <div className="flex flex-row items-center gap-2">
+          <p>Don&apos;t you have a account?</p>
           <Link
             to={"/signup"}
-            className="btn btn-link text-secondary p-0 hover:text-primary"
+            className="p-0 btn btn-link text-secondary hover:text-primary"
           >
             SignUp
           </Link>

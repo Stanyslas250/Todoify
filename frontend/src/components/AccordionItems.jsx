@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 function AccordionItems(props) {
   return (
     <div className="border collapse collapse-arrow join-item border-base-300 text-start bg-secondary/20">
-      <input type="checkbox" name="my-accordion-4" />
+      <input type="radio" name="my-accordion-4" />
       <div className="text-xl font-medium collapse-title">{props.question}</div>
       <div className="collapse-content">
         <p>{props.answer}</p>

@@ -77,6 +77,7 @@ export default function Navbar({ className }) {
           >
             <LuGithub />
           </a>
+
           <ThemSwapper />
 
           <div className="divider divider-horizontal divider-primary"></div>

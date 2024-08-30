@@ -111,11 +111,9 @@ function WelcomeHome() {
 
         <div className="flex flex-col gap-5 lg:flex-col lg:w-1/2">
           {faqData.map((item, index) => (
-           <div key={index}> 
-           <AccordionItems
-              question={item.question}
-              answer={item.answer}
-            /></div>
+            <div key={index}>
+              <AccordionItems question={item.question} answer={item.answer} />
+            </div>
           ))}
         </div>
       </section>

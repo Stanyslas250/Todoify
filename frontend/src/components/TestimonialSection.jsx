@@ -13,7 +13,7 @@ function TestimonialSection() {
   return (
     <div className="flex flex-col items-center h-full gap-2 px-5 py-10 md:h-screen lg:flex-row lg:justify-around">
       <div className="flex flex-col justify-between gap-10 lg:w-2/4">
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 text-neutral-content">
           <h6 className="text-xl font-semibold text-center lg:text-start">
             Testimonial
           </h6>
