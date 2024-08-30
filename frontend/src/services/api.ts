@@ -1,30 +1,15 @@
 // src/services/api.ts
 
 import axios from "axios";
-import { Category, Task } from "../utils/types/todoify";
+import { getToken } from "../utils/jwtUtils";
 
 export const API_URL = "http://localhost:8000/api/v1";
+const token = getToken();
 
 export const api = axios.create({
   baseURL: API_URL,
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    Authorization: `Bearer ${token}`,
   },
 });
-
-export const categoryService = {
-  getCategories: async (): Promise<Category[]> => {
-    const response = await api.get<Category[]>(
-      "/categories/?skip=0&limit=1000"
-    );
-    return response.data;
-  },
-};
-
-export const taskService = {
-  getTasks: async (): Promise<Task[]> => {
-    const response = await api.get<Task[]>(`/tasks/?skip=0&limit=100`);
-    return response.data;
-  },
-};
