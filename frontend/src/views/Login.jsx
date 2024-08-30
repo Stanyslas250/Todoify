@@ -1,29 +1,31 @@
 import { useForm } from "react-hook-form";
-import { login } from "../services/userAPI";
 import BG2 from "../assets/image.png";
 import { LuEye, LuEyeOff, LuKeyRound, LuMail } from "react-icons/lu";
 import toast from "react-hot-toast";
 import { usePasswordToggler } from "../hooks/usePasswordToggler";
 import { Link, useNavigate } from "react-router-dom";
-
+import { useAuth } from "../hooks/useAuth";
 function Login() {
   const { register, handleSubmit } = useForm();
   const { type, handlePasswordVisibility } = usePasswordToggler();
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   //Login form submission handler
   const onSubmit = async (data) => {
-    try {
-      await login(data.email, data.password);
-      const toastId = toast.loading("Loading...");
-      setTimeout(() => {
-        toast.dismiss(toastId);
-        toast.success("Logged in successfully!");
-        navigate("/app");
-      }, 1000);
-    } catch {
-      toast.error("Invalid credentials");
-    }
+    await login(data.email, data.password)
+      .then(() => {
+        const toastId = toast.loading("Loading...");
+        setTimeout(() => {
+          toast.dismiss(toastId);
+          toast.success("Logged in successfully!");
+          navigate("/app");
+        }, 1000);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Invalid credentials");
+      });
   };
 
   return (

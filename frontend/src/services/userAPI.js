@@ -14,8 +14,10 @@ export const login = async (username, password) => {
   };
   const response = await axios(options);
   if (response.status === 200) {
-    localStorage.setItem("token", response.data.access_token);
-    return response.data;
+    const user = await axios.get(`${API_URL}/users/me`, {
+      headers: { Authorization: `Bearer ${response.data.access_token}` },
+    });
+    return { user: user.data, token: response.data.access_token };
   } else {
     throw new Error("Login failed");
   }
@@ -33,14 +35,8 @@ export const signup = async (username, email, password) => {
   };
   const response = await axios(options);
   if (response.status === 200) {
-    localStorage.setItem("token", response.data.access_token);
     return response.data;
   } else {
     throw new Error("Registration failed");
   }
-};
-
-
-export const lougout = async () => {
-  localStorage.removeItem("token");
 };
