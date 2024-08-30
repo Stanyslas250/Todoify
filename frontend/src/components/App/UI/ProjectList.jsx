@@ -1,9 +1,11 @@
 import { LuFolderOpen } from "react-icons/lu";
-import { useCategories } from "../../../hooks/useCategory";
 import { colorUtils } from "../../../utils/colorUtils";
 
 export default function ProjectList() {
-  const { data: categories } = useCategories();
+  const categories = [
+    { id: 1, name: "Project 1" },
+    { id: 2, name: "Project 2" },
+  ];
   return (
     <div>
       {categories.map((category) => (

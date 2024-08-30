@@ -1,8 +1,22 @@
-import { useTasks } from "../../../hooks/useTask";
 import { dateUtils } from "../../../utils/dateUtils";
 
 function Task() {
-  const { data: tasks } = useTasks();
+  const tasks = [
+    {
+      id: 1,
+      title: "Task 1",
+      description: "This is task 1",
+      completed: false,
+      due_date: "2022-01-01",
+    },
+    {
+      id: 2,
+      title: "Task 2",
+      description: "This is task 2",
+      completed: true,
+      due_date: "2023-01-01",
+    },
+  ];
   return (
     <div>
       {tasks.map((task) => (
@@ -34,6 +48,7 @@ function Task() {
             type="checkbox"
             checked={task.completed}
             className="checkbox"
+            readOnly
           />
         </div>
       ))}

@@ -6,15 +6,16 @@ import extractPathSegments from "../../utils/extractPathSegments";
 import { menuItems } from "../../utils/menuItems";
 import UserProfiles from "./UserProfiles";
 import ThemSwapper from "./UI/ThemSwapper";
-import { lougout } from "../../services/userAPI";
+import { useAuth } from "../../hooks/useAuth";
 function Drawer(props) {
   const { isOpen, toggleDrawer, changeSection } = useDrawer();
+  const { logout } = useAuth();
 
   const path = extractPathSegments(props.pageName);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    await lougout();
+    logout();
     navigate("/");
   };
   return (

@@ -24,6 +24,7 @@ function useDrawer() {
     isOpen,
     toggleDrawer,
     changeSection,
+    activeSection,
   };
 }
 

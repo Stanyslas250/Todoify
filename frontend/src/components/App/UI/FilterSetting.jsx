@@ -29,6 +29,7 @@ export default function FilterSetting(props) {
               className="toggle toggle-accent toggle-xs"
               checked={check}
               onClick={handleToggle}
+              readOnly
             />
           </MenuItems>
         </li>

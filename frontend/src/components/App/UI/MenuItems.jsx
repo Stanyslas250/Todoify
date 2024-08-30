@@ -15,7 +15,7 @@ function MenuItems(props) {
 
 MenuItems.propTypes = {
   children: PropTypes.node,
-  icon: PropTypes.elementType,
+  icon: PropTypes.node,
   label: PropTypes.string,
   onClick: PropTypes.func,
 };
