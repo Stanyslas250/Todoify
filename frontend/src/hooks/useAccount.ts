@@ -1,7 +1,7 @@
 import { useAuth } from "./useAuth";
 
 export function useAccount() {
-  const { user: account, token } = useAuth();
+  const { user: account, token, logout } = useAuth();
 
   if (!account) {
     throw new Error("User not authenticated");
@@ -9,5 +9,6 @@ export function useAccount() {
   return {
     account,
     token,
+    logout,
   };
 }

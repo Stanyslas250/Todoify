@@ -16,7 +16,7 @@ function Drawer(props) {
 
   const handleLogout = async () => {
     logout();
-    navigate("/");
+    navigate("/login", { replace: true });
   };
   return (
     <div className={`drawer ${isOpen ? "lg:drawer-open" : ""}`}>

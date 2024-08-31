@@ -19,7 +19,7 @@ function Login() {
         setTimeout(() => {
           toast.dismiss(toastId);
           toast.success("Logged in successfully!");
-          navigate("/app");
+          navigate("/app", { replace: true });
         }, 1000);
       })
       .catch((error) => {

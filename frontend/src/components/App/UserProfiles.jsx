@@ -2,7 +2,11 @@ import { LuChevronDown } from "react-icons/lu";
 import { useAccount } from "../../hooks/useAccount";
 
 export default function UserProfiles() {
-  const { account } = useAccount(); // Assuming useAuth hook is used
+  const { account, logout } = useAccount(); // Assuming useAuth hook is used
+  const handleClick = () => {
+    logout();
+    // Redirect to login page or display a logout modal if needed
+  };
   const username = account.username; // Assuming account data is stored in state or context
   return (
     <div className="w-full py-4 dropdown dropdown-start">
@@ -34,7 +38,7 @@ export default function UserProfiles() {
           <a>Settings</a>
         </li>
         <li>
-          <a>Logout</a>
+          <a onClick={handleClick}>Logout</a>
         </li>
       </ul>
     </div>
