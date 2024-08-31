@@ -5,23 +5,22 @@
  * @returns JSX element representing the Home component.
  */
 
-import { Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, useLocation, Navigate } from "react-router-dom";
 import Drawer from "../components/App/Drawer";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useEffect } from "react";
+
+import { useAuth } from "../hooks/useAuth";
 
 const queryClient = new QueryClient();
 
 function Home() {
   const location = useLocation();
-  const token = localStorage.getItem("token");
-  const navigate = useNavigate();
-  useEffect(() => {
-    token ? navigate("/app/dashboard") : navigate("/login", { replace: true });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  const { user } = useAuth();
+
+  if (!user) return <Navigate to={"/login"} replace />;
+
   return (
     <QueryClientProvider client={queryClient}>
       <Drawer pageName={location.pathname}>

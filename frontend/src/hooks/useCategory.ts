@@ -10,16 +10,21 @@ export const useCategory = () => {
 
   const [countCategories, setCountCategories] = useAtom(countCategoriesAtom);
 
+
   const fetchCategories = async (token: string) => {
     setLoading(true);
-    await categoryService
-      .getCategories(token)
-      .then((categories) => {
-        setCountCategories(categories.length);
-        setCategories(categories);
-      })
-      .catch((error) => setError(error.message));
-    setLoading(false);
+    try {
+      const data = await categoryService.getCategories(token);
+      if (data) {
+        setCountCategories(data.length);
+        setCategories(data);
+        return data;
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return {

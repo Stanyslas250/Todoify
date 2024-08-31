@@ -9,17 +9,19 @@ export const useTasks = () => {
 
   const fetchTasks = async (token: string) => {
     setLoading(true);
-    await tasksService
-      .getTasks(token)
-      .then((data) => {
+    try {
+      const data = await tasksService.getTasks(token);
+      if (data) {
         setLoading(false);
         setTasks(data);
-      })
-      .catch(() => {
-        setLoading(false);
-        setError("Fetching tasks failed");
-      });
+        return data;
+      }
+    } catch (error) {
+      setLoading(false);
+      setError("Fetching tasks failed");
+    } finally {
+      setLoading(false);
+    }
   };
-
   return { tasks, setTasks, fetchTasks, error, loading };
 };

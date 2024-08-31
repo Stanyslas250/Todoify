@@ -6,22 +6,20 @@ import { useAccount } from "../../../hooks/useAccount";
 import { useEffect } from "react";
 
 export default function ProjectList() {
-  const { categories, fetchCategories, setCategories, setCountCategories } =
-    useCategory();
+  const { categories, fetchCategories, setCategories } = useCategory();
   const { token, account } = useAccount();
   const { data, isFetching } = useQuery({
     queryKey: ["categories", account.username],
-    queryFn: () => {
-      fetchCategories(token);
+    queryFn: async () => {
+      return await fetchCategories(token);
     },
-    initialData: categories,
   });
 
   useEffect(() => {
     if (data) {
       setCategories(data);
     }
-  }, [data, setCategories, setCountCategories]);
+  }, [data, setCategories]);
 
   if (isFetching)
     return (
