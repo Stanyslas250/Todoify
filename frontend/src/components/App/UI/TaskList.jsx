@@ -1,22 +1,27 @@
+import { useEffect } from "react";
+import { useTasks } from "../../../hooks/useTask";
 import { dateUtils } from "../../../utils/dateUtils";
 
+import { useQuery } from "@tanstack/react-query";
+import { useAccount } from "../../../hooks/useAccount";
+
 function Task() {
-  const tasks = [
-    {
-      id: 1,
-      title: "Task 1",
-      description: "This is task 1",
-      completed: false,
-      due_date: "2022-01-01",
+  const { tasks, setTasks, fetchTasks } = useTasks();
+  const { account, token } = useAccount();
+
+  const { data } = useQuery({
+    queryKey: ["tasks", account.username],
+    queryFn: async () => {
+      return await fetchTasks(token);
     },
-    {
-      id: 2,
-      title: "Task 2",
-      description: "This is task 2",
-      completed: true,
-      due_date: "2023-01-01",
-    },
-  ];
+  });
+
+  useEffect(() => {
+    if (data) {
+      setTasks(data);
+    }
+  }, [data, setTasks]);
+
   return (
     <div>
       {tasks.map((task) => (

@@ -2,25 +2,12 @@ import { LuClipboardCheck, LuFolders, LuListTodo } from "react-icons/lu";
 import TopbarSearch from "../../components/App/TopbarSearch";
 import Card from "../../components/App/UI/Card";
 import BentoElement from "../../components/App/UI/BentoElement";
-import Task from "../../components/App/UI/Task";
+import Task from "../../components/App/UI/TaskList";
 import ProjectList from "../../components/App/UI/ProjectList";
 function Dashboard() {
   const completedTasks = 10;
   const incompleteTasks = 20;
   const categories = ["Personal", "Work", "Family"];
-
-  // if (isLoading)
-  //   return (
-  //     <div className="flex items-center justify-center h-full">
-  //       <span className="loading loading-ring loading-lg"></span>
-  //     </div>
-  //   );
-  // if (isError)
-  //   return (
-  //     <div className="flex items-center justify-center h-full text-center">
-  //       {error.message}
-  //     </div>
-  //   );
   return (
     <div className="flex flex-col gap-10">
       <TopbarSearch />
