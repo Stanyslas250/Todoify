@@ -20,8 +20,7 @@ export const useAuth = () => {
       setTokenAtom(data.token);
       setToken({ token: data.token, user: userDetail });
     } catch (error) {
-      console.error("Login failed:", error);
-      throw error;
+      throw new Error(error.message);
     }
   };
 

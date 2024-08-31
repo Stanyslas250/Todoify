@@ -23,8 +23,7 @@ function Login() {
         }, 1000);
       })
       .catch((error) => {
-        console.log(error);
-        toast.error("Invalid credentials");
+        toast.error(error.message);
       });
   };
 
