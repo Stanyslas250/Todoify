@@ -13,7 +13,7 @@ export default function UserProfiles() {
       >
         <div className="flex flex-row items-center gap-3">
           <button className=" btn-circle btn-sm bg-primary/20">
-            {username.toString().charAt(0)}
+            {username.toString().charAt(0).toUpperCase()}
           </button>
           <h6>{username}</h6>
         </div>
