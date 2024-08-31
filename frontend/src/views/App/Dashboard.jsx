@@ -4,17 +4,18 @@ import Card from "../../components/App/UI/Card";
 import BentoElement from "../../components/App/UI/BentoElement";
 import Task from "../../components/App/UI/TaskList";
 import ProjectList from "../../components/App/UI/ProjectList";
+import { useCategory } from "../../hooks/useCategory";
 function Dashboard() {
   const completedTasks = 10;
   const incompleteTasks = 20;
-  const categories = ["Personal", "Work", "Family"];
+  const { countCategories } = useCategory();
   return (
     <div className="flex flex-col gap-10">
       <TopbarSearch />
       <div className="grid gap-3 md:grid-flow-col justify-stretch">
         <Card
-          data={categories.length}
-          title={`Project${categories.length > 1 ? "s" : ""}`}
+          data={countCategories}
+          title={`Project${countCategories > 1 ? "s" : ""}`}
           subtitle={"Total Projects"}
           className="rounded-md"
         >

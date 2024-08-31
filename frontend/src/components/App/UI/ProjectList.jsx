@@ -1,11 +1,35 @@
 import { LuFolderOpen } from "react-icons/lu";
 import { colorUtils } from "../../../utils/colorUtils";
+import { useCategory } from "../../../hooks/useCategory";
+import { useQuery } from "@tanstack/react-query";
+import { useAccount } from "../../../hooks/useAccount";
+import { useEffect } from "react";
 
 export default function ProjectList() {
-  const categories = [
-    { id: 1, name: "Project 1" },
-    { id: 2, name: "Project 2" },
-  ];
+  const { categories, fetchCategories, setCategories, setCountCategories } =
+    useCategory();
+  const { token, account } = useAccount();
+  const { data, isFetching } = useQuery({
+    queryKey: ["categories", account.username],
+    queryFn: () => {
+      fetchCategories(token);
+    },
+    initialData: categories,
+  });
+
+  useEffect(() => {
+    if (data) {
+      setCategories(data);
+    }
+  }, [data, setCategories, setCountCategories]);
+
+  if (isFetching)
+    return (
+      <div className="flex items-center justify-center size-full">
+        <span className=" loading loading-spinner text-primary" />
+      </div>
+    );
+
   return (
     <div>
       {categories.map((category) => (

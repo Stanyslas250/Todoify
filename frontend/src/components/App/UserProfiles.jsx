@@ -3,6 +3,7 @@ import { useAccount } from "../../hooks/useAccount";
 
 export default function UserProfiles() {
   const { account } = useAccount(); // Assuming useAuth hook is used
+  const username = account.username; // Assuming account data is stored in state or context
   return (
     <div className="w-full py-4 dropdown dropdown-start">
       <div
@@ -11,8 +12,10 @@ export default function UserProfiles() {
         className="flex flex-row justify-between rounded-none btn "
       >
         <div className="flex flex-row items-center gap-3">
-          <button className=" btn-circle btn-sm bg-primary/20">S</button>
-          <h6>{account.username}</h6>
+          <button className=" btn-circle btn-sm bg-primary/20">
+            {username.toString().charAt(0)}
+          </button>
+          <h6>{username}</h6>
         </div>
 
         <LuChevronDown size={20} />
