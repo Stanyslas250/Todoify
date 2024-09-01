@@ -5,9 +5,9 @@ import BentoElement from "../../components/App/UI/BentoElement";
 import Task from "../../components/App/UI/TaskList";
 import ProjectList from "../../components/App/UI/ProjectList";
 import { useCategory } from "../../hooks/useCategory";
+import { useTasks } from "../../hooks/useTask";
 function Dashboard() {
-  const completedTasks = 10;
-  const incompleteTasks = 20;
+  const { completedTasks, incompleteTasks } = useTasks();
   const { countCategories } = useCategory();
   return (
     <div className="flex flex-col gap-10">
@@ -22,16 +22,16 @@ function Dashboard() {
           <LuFolders size={32} />
         </Card>
         <Card
-          data={incompleteTasks}
-          title={`Task${incompleteTasks > 1 ? "s" : ""}`}
+          data={incompleteTasks.length}
+          title={`Task${incompleteTasks.length > 1 ? "s" : ""}`}
           subtitle={"On Progress"}
           className="rounded-md"
         >
           <LuListTodo size={32} />
         </Card>
         <Card
-          data={completedTasks}
-          title={`Task${incompleteTasks > 1 ? "s" : ""}`}
+          data={completedTasks.length}
+          title={`Task${completedTasks.length > 1 ? "s" : ""}`}
           subtitle={"Completed Tasks"}
           className="rounded-md"
         >

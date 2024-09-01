@@ -2,12 +2,20 @@ import { atom } from "jotai";
 
 import { Task } from "../utils/types/todoify";
 
-const tasks: Array<Task> = [];
+const task: Task = {
+  id: 1,
+  title: "Task 1",
+  description: "Description 1",
+  due_date: new Date(),
+  category: { id: 1, name: "Category 1" },
+  completed: false,
+  priority: "High",
+};
 
-export const tasksAtom = atom(tasks);
-export const selectedTaskAtom = atom(null);
+export const tasksAtom = atom<Task[]>([]);
+export const selectedTaskAtom = atom(task);
 
-export const addTaskAtom = atom((state: Array<Task>, task: Task) => [
+export const addTaskAtom = atom((state: Task[], task: Task) => [
   ...state,
   task,
 ]);
@@ -27,10 +35,10 @@ export const toggleTaskCompletionAtom = atom(
     )
 );
 
-export const completedTasksAtom = atom((state: Array<Task>) =>
-  state.filter((task) => task.completed)
+export const completedTasksAtom = atom((get) =>
+  get(tasksAtom).filter((task) => task.completed)
 );
 
-export const incompleteTasksAtom = atom((state: Array<Task>) =>
-  state.filter((task) => !task.completed)
+export const incompleteTasksAtom = atom((get) =>
+  get(tasksAtom).filter((task) => !task.completed)
 );

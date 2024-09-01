@@ -1,9 +1,15 @@
 import { useAtom } from "jotai";
-import { tasksAtom } from "../store/taskAtoms";
+import {
+  tasksAtom,
+  completedTasksAtom,
+  incompleteTasksAtom,
+} from "../store/taskAtoms";
 import { tasksService } from "../services/taskServices";
 import { useState } from "react";
 export const useTasks = () => {
   const [tasks, setTasks] = useAtom(tasksAtom);
+  const [completedTasks] = useAtom(completedTasksAtom);
+  const [incompleteTasks] = useAtom(incompleteTasksAtom);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -23,5 +29,13 @@ export const useTasks = () => {
       setLoading(false);
     }
   };
-  return { tasks, setTasks, fetchTasks, error, loading };
+  return {
+    tasks,
+    setTasks,
+    fetchTasks,
+    error,
+    loading,
+    completedTasks,
+    incompleteTasks,
+  };
 };
