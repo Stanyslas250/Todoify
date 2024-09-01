@@ -1,11 +1,20 @@
+/**
+ * This component represents the dashboard page.
+ * It displays the total number of projects, tasks, and completed tasks
+ * in the dashboard.
+ */
+
 import { LuClipboardCheck, LuFolders, LuListTodo } from "react-icons/lu";
+
+import { useCategory } from "../../hooks/useCategory";
+import { useTasks } from "../../hooks/useTask";
+
 import TopbarSearch from "../../components/App/TopbarSearch";
 import Card from "../../components/App/UI/Card";
 import BentoElement from "../../components/App/UI/BentoElement";
-import Task from "../../components/App/UI/TaskList";
+import TaskList from "../../components/App/UI/TaskList";
 import ProjectList from "../../components/App/UI/ProjectList";
-import { useCategory } from "../../hooks/useCategory";
-import { useTasks } from "../../hooks/useTask";
+
 function Dashboard() {
   const { completedTasks, incompleteTasks } = useTasks();
   const { countCategories } = useCategory();
@@ -44,7 +53,7 @@ function Dashboard() {
           title={"My Tasks"}
           filter
         >
-          <Task />
+          <TaskList />
         </BentoElement>
         <BentoElement
           className="border-2 md:w-2/5 border-primary"

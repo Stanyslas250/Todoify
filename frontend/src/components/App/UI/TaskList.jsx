@@ -1,13 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTasks } from "../../../hooks/useTask";
 import { dateUtils } from "../../../utils/dateUtils";
+import { useFilters } from "../../../hooks/useFilters";
 
 import { useQuery } from "@tanstack/react-query";
 import { useAccount } from "../../../hooks/useAccount";
 
-function Task() {
-  const { tasks, setTasks, fetchTasks } = useTasks();
+function TaskList() {
+  const { tasks, setTasks, fetchTasks, incompleteTasks } = useTasks();
   const { account, token } = useAccount();
+  const { filters } = useFilters();
 
   const { data } = useQuery({
     queryKey: ["tasks", account.username],
@@ -15,16 +17,22 @@ function Task() {
       return await fetchTasks(token);
     },
   });
+  const [tasksSee, setTasksSee] = useState(tasks);
 
   useEffect(() => {
-    if (data) {
+    if (data && filters.completed) {
       setTasks(data);
+      setTasksSee(data);
+    } else {
+      setTasksSee(incompleteTasks);
     }
-  }, [data, setTasks]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, setTasks, filters.completed]);
 
   return (
     <div>
-      {tasks.map((task) => (
+      {tasksSee.map((task) => (
         <div
           key={task.id}
           className="flex flex-row items-center justify-between p-3 rounded-lg hover:bg-accent/10"
@@ -61,4 +69,4 @@ function Task() {
   );
 }
 
-export default Task;
+export default TaskList;

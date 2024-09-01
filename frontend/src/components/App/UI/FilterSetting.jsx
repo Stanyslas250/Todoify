@@ -1,6 +1,6 @@
 import { LuCheckCircle, LuFilter, LuHelpCircle } from "react-icons/lu";
 import MenuItems from "./MenuItems";
-import { useChecked } from "../../../hooks/useChecked";
+import { useFilters } from "../../../hooks/useFilters";
 import PropTypes from "prop-types";
 
 FilterSetting.propTypes = {
@@ -8,7 +8,12 @@ FilterSetting.propTypes = {
 };
 
 export default function FilterSetting(props) {
-  const { check, handleToggle } = useChecked(false);
+  const { filters, setFilters } = useFilters();
+
+  const handleCompletedTask = () => {
+    setFilters((prev) => ({ ...prev, completed: !prev.completed }));
+  };
+
   return (
     <div className="dropdown dropdown-left">
       <div tabIndex={0} role="button" className="m-1 btn">
@@ -22,13 +27,12 @@ export default function FilterSetting(props) {
           <MenuItems
             icon={<LuCheckCircle />}
             label={"Completed Task"}
-            onClick={handleToggle}
+            onClick={handleCompletedTask}
           >
             <input
               type="checkbox"
               className="toggle toggle-accent toggle-xs"
-              checked={check}
-              onClick={handleToggle}
+              checked={filters.completed}
               readOnly
             />
           </MenuItems>
