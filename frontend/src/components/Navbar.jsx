@@ -2,8 +2,10 @@
 import { LuArrowRightToLine, LuGithub } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import ThemSwapper from "./App/UI/ThemSwapper";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Navbar({ className }) {
+  const { token } = useAuth();
   return (
     <div className={className}>
       <div className="navbar-start">
@@ -37,15 +39,26 @@ export default function Navbar({ className }) {
             <li>
               <a>Item 3</a>
             </li>
-            <li className="gap-3 mt-3">
-              <Link className="btn btn-outline btn-primary" to={"/signup"}>
-                Open your account
-              </Link>
-              <Link className="flex items-center btn btn-primary" to={"/login"}>
-                Signin
-                <LuArrowRightToLine />
-              </Link>
-            </li>
+            {token ? (
+              <li className="gap-3 mt-3">
+                <Link className="btn btn-outline btn-primary" to={"/app"}>
+                  Go to Todoify
+                </Link>
+              </li>
+            ) : (
+              <li className="gap-3 mt-3">
+                <Link className="btn btn-outline btn-primary" to={"/signup"}>
+                  Open your account
+                </Link>
+                <Link
+                  className="flex items-center btn btn-primary"
+                  to={"/login"}
+                >
+                  Signin
+                  <LuArrowRightToLine />
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
         <a className="text-xl btn btn-ghost">
@@ -81,13 +94,21 @@ export default function Navbar({ className }) {
           <ThemSwapper />
 
           <div className="divider divider-horizontal divider-primary"></div>
-          <Link className="btn btn-outline btn-primary" to={"/signup"}>
-            Open your account
-          </Link>
-          <Link className="flex items-center btn btn-primary" to={"/login"}>
-            Signin
-            <LuArrowRightToLine />
-          </Link>
+          {token ? (
+            <Link className="btn btn-outline btn-primary" to={"/app"}>
+              Go to Todoify
+            </Link>
+          ) : (
+            <div className="flex flex-row gap-2">
+              <Link className="btn btn-outline btn-primary" to={"/signup"}>
+                Open your account
+              </Link>
+              <Link className="flex items-center btn btn-primary" to={"/login"}>
+                Signin
+                <LuArrowRightToLine />
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

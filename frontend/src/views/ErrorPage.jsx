@@ -3,7 +3,7 @@ import Imge404 from "../assets/404.png";
 function ErrorPage() {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(-1);
+    navigate(-1, { replace: true });
   };
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-5 place-items-center">
@@ -20,7 +20,7 @@ function ErrorPage() {
           <button onClick={handleClick} className="btn btn-neutral">
             Go back
           </button>
-          <Link to={"/"} className="btn btn-accent">
+          <Link to={"/"} replace className="btn btn-accent">
             Take me home
           </Link>
         </div>

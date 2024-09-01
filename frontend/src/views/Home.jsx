@@ -19,7 +19,11 @@ function Home() {
   const location = useLocation();
   const { user } = useAuth();
 
+  
+
   if (!user) return <Navigate to={"/login"} replace />;
+  if (location.pathname === "/app")
+    return <Navigate to={`${location.pathname}/dashboard`} replace />;
 
   return (
     <QueryClientProvider client={queryClient}>
