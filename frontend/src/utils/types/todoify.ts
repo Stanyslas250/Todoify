@@ -3,6 +3,8 @@ export interface Category {
   name: string;
 }
 
+export type CategoryWithColor = Category & { color: string };
+
 export interface Task {
   id: number;
   title: string;
