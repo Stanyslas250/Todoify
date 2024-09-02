@@ -15,10 +15,11 @@ import BentoElement from "../../components/App/UI/BentoElement";
 import TaskList from "../../components/App/UI/TaskList";
 import ProjectList from "../../components/App/UI/ProjectList";
 import TaskModal from "../../components/App/modal/TaskModal";
+import ProjectModal from "../../components/App/modal/ProjectModal";
 
 function Dashboard() {
   const { completedTasks, incompleteTasks } = useTasks();
-  const { countCategories } = useCategory();
+  const { countCategories, categoriesWithColor } = useCategory();
   return (
     <div className="flex flex-col gap-10">
       <TopbarSearch />
@@ -28,7 +29,12 @@ function Dashboard() {
           title={`Project${countCategories > 1 ? "s" : ""}`}
           subtitle={"Total Projects"}
           className="rounded-md"
+          onClick={() => document.getElementById("projectList").showModal()}
         >
+          <ProjectModal
+            projectID="projectList"
+            projectsList={categoriesWithColor}
+          />
           <LuFolders size={32} />
         </Card>
         <Card

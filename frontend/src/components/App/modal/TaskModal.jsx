@@ -3,6 +3,13 @@ import Modal from "./UI/Modal";
 import { dateUtils } from "../../../utils/dateUtils";
 
 function TaskModal(props) {
+  if (!props.tasksList.length) {
+    return (
+      <Modal idModal={props.taskID} className="prose">
+        <h3>No tasks found.</h3>
+      </Modal>
+    );
+  }
   return (
     <Modal idModal={props.taskID}>
       {props.tasksList.map((task) => (
