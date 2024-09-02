@@ -17,7 +17,11 @@ function TaskModal(props) {
           key={task.id}
           className="flex flex-row items-center  justify-between p-3 rounded-lg hover:bg-accent/10"
         >
-          <div className="text-base-content">
+          <div
+            className={`${
+              task.completed ? " line-through " : "no-underline"
+            } text-base-content`}
+          >
             <h2 className="text-lg font-bold">{task.title}</h2>
             <p>{task.description}</p>
             <div
@@ -29,7 +33,7 @@ function TaskModal(props) {
                   : dateUtils.getDaysDifference(task.due_date) > 3
                   ? "badge-info"
                   : "badge-warning"
-              }
+              } ${task.completed ? " line-through " : "no-underline"}
               `}
             >
               {task.due_date

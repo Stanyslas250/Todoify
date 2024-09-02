@@ -37,7 +37,9 @@ function TaskList() {
           key={task.id}
           className="flex flex-row items-center justify-between p-3 rounded-lg hover:bg-accent/10"
         >
-          <div>
+          <div
+            className={`${task.completed ? " line-through " : "no-underline"}`}
+          >
             <h2 className="text-lg font-bold">{task.title}</h2>
             <p>{task.description}</p>
             <div
