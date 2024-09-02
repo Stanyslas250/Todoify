@@ -15,7 +15,7 @@ function TaskModal(props) {
       {props.tasksList.map((task) => (
         <div
           key={task.id}
-          className="flex flex-row items-center  justify-between p-3 rounded-lg hover:bg-accent/10"
+          className="flex flex-row items-center gap-2 justify-between p-3 rounded-lg hover:bg-base-300"
         >
           <div
             className={`${

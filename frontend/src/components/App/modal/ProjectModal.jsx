@@ -18,7 +18,7 @@ function ProjectModal(props) {
           className="flex flex-row items-center gap-2 p-3 rounded-lg hover:bg-accent/10"
         >
           <LuFolderOpen size={24} color={project.color} />
-          <h3 className="text-xl text-base-content">{project.name}</h3>
+          <h3 className="text-xl">{project.name}</h3>
         </div>
       ))}
     </Modal>
