@@ -8,7 +8,7 @@ function Modal(props) {
         <div className={`modal-box ${props.className}`}>
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-sm btn-circle btn-neutral absolute right-2 top-2">
+            <button className="btn btn-sm btn-circle  absolute right-2 top-2">
               <LuXCircle size={24} />
             </button>
           </form>
