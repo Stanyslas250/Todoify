@@ -37,6 +37,28 @@ export const useTasks = () => {
     }
   };
 
+  const updateTask = async (
+    taskId: number,
+    updatedTask: Task,
+    token: string
+  ) => {
+    try {
+      const data = await tasksService.updateTask(taskId, updatedTask, token);
+      if (data) {
+        const updatedTasks = [...tasks];
+        updatedTasks.forEach((task, index) => {
+          if (task.id === taskId) {
+            updatedTasks[index] = data;
+          }
+        });
+        setTasks(updatedTasks);
+        return data;
+      }
+    } catch (error) {
+      setError("Updating task failed");
+    }
+  };
+
   return {
     tasks,
     setTasks,
@@ -45,5 +67,6 @@ export const useTasks = () => {
     completedTasks,
     incompleteTasks,
     addTask,
+    updateTask,
   };
 };

@@ -44,6 +44,14 @@ function CreateNewTaskModal() {
     reset();
   };
 
+  const task = {
+    title: "New Task",
+    description: "Description 1",
+    due_date: new Date(),
+    completed: false,
+    priority: "High",
+  };
+
   return (
     <Modal idModal="create_task">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 ">
@@ -55,7 +63,7 @@ function CreateNewTaskModal() {
             {...register("title", {
               required: true,
             })}
-            defaultValue={"New Task"}
+            defaultValue={task.title}
           />
 
           {errors.title && <span>This field is required</span>}
@@ -64,25 +72,32 @@ function CreateNewTaskModal() {
           className="grow textarea textarea-bordered"
           placeholder="description"
           {...register("description")}
-          defaultValue={"Add description..."}
+          defaultValue={task.description}
         />
         <label className="flex flex-row items-center justify-around gap-2 input input-bordered">
           <input
             type="datetime-local"
             className="grow"
             {...register("due_date")}
-            defaultValue={dateUtils.getToday()}
+            defaultValue={dateUtils.getToday(task.due_date)}
           />
         </label>
-        <label className="flex flex-row items-center justify-around gap-2 input input-bordered">
-          <input type="text" className="grow" {...register("priority")} />
-        </label>
+        <select
+          {...register("priority")}
+          className="select select-primary w-full"
+        >
+          <option disabled>Priority</option>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="Hight">Hight</option>
+        </select>
         <label className="label cursor-pointer">
           <span className="label-text">Completed</span>
           <input
             type="checkbox"
             className="checkbox"
             {...register("completed")}
+            checked={task.completed}
           />
         </label>
         <div className="flex flex-row gap-2">
@@ -104,5 +119,6 @@ function CreateNewTaskModal() {
     </Modal>
   );
 }
+
 
 export default CreateNewTaskModal;

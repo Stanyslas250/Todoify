@@ -35,7 +35,7 @@ export const dateUtils = {
   },
 
   // Vous pouvez ajouter d'autres méthodes utiles ici
-  getToday(): string {
-    return `${format(new Date(), "yyyy-MM-dd")}T${format(new Date(), "HH:mm")}`;
+  getToday(date: Date | string = new Date()): string {
+    return `${format(date, "yyyy-MM-dd")}T${format(date, "HH:mm")}`;
   },
 };
