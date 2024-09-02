@@ -2,23 +2,17 @@ import { atom } from "jotai";
 
 import { Task } from "../utils/types/todoify";
 
-const task: Task = {
+export const task: Task = {
   id: 1,
   title: "Task 1",
   description: "Description 1",
   due_date: new Date(),
-  category: { id: 1, name: "Category 1" },
   completed: false,
   priority: "High",
 };
 
 export const tasksAtom = atom<Task[]>([]);
 export const selectedTaskAtom = atom(task);
-
-export const addTaskAtom = atom((state: Task[], task: Task) => [
-  ...state,
-  task,
-]);
 
 export const updateTaskAtom = atom((state: Array<Task>, updatedTask: Task) => {
   return state.map((task) => (task.id === updatedTask.id ? updatedTask : task));

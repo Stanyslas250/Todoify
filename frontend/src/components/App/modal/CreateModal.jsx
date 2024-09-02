@@ -15,7 +15,6 @@ function CreateModal(props) {
 }
 
 CreateModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
   idModal: PropTypes.string.isRequired,
 };

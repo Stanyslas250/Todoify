@@ -1,6 +1,7 @@
 import { LuPlus, LuSearch } from "react-icons/lu";
 import CreateModal from "./modal/CreateModal";
 import AddCard from "../AddCard";
+import CreateNewTaskModal from "./modal/CreateNewTaskModal";
 
 function TopbarSearch() {
   return (
@@ -14,13 +15,17 @@ function TopbarSearch() {
 
       <button
         className="btn btn-primary"
-        onClick={() => document.getElementById("my_modal_3").showModal()}
+        onClick={() => document.getElementById("create_modal").showModal()}
       >
         Create <LuPlus size={16} />
       </button>
-      <CreateModal idModal="my_modal_3">
+      <CreateModal idModal="create_modal">
         <AddCard message="Add New Project" />
-        <AddCard message="Add New Tasks" />
+        <CreateNewTaskModal />
+        <AddCard
+          message="Add New Tasks"
+          onClick={() => document.getElementById("create_task").showModal()}
+        />
       </CreateModal>
     </div>
   );

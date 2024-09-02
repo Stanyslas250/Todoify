@@ -22,7 +22,6 @@ function Modal(props) {
 }
 
 Modal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   idModal: PropTypes.string.isRequired,

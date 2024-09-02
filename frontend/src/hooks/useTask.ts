@@ -6,36 +6,44 @@ import {
 } from "../store/taskAtoms";
 import { tasksService } from "../services/taskServices";
 import { useState } from "react";
+import { Task } from "../utils/types/todoify";
 export const useTasks = () => {
   const [tasks, setTasks] = useAtom(tasksAtom);
   const [completedTasks] = useAtom(completedTasksAtom);
   const [incompleteTasks] = useAtom(incompleteTasksAtom);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const fetchTasks = async (token: string) => {
-    setLoading(true);
     try {
       const data = await tasksService.getTasks(token);
       if (data) {
-        setLoading(false);
         setTasks(data);
         return data;
       }
     } catch (error) {
-      setLoading(false);
       setError("Fetching tasks failed");
-    } finally {
-      setLoading(false);
     }
   };
+
+  const addTask = async (task: Task, token: string) => {
+    try {
+      const data = await tasksService.createTask(task, token);
+      if (data) {
+        setTasks([...tasks, data]);
+        return data;
+      }
+    } catch (error) {
+      setError("Adding task failed");
+    }
+  };
+
   return {
     tasks,
     setTasks,
     fetchTasks,
     error,
-    loading,
     completedTasks,
     incompleteTasks,
+    addTask,
   };
 };

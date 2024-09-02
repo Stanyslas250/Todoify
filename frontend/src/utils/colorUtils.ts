@@ -7,8 +7,8 @@ export const colorUtils = {
 
     // Use the seed to generate a "random" color
     const hue = seed % 360;
-    const saturation = 70 + (seed % 30); // 70-100%
-    const lightness = 45 + (seed % 30); // 45-75%
+    const saturation = 80 + (seed % 30); // 80-100%
+    const lightness = 10 + (seed % 15); // 10-25%
 
     // Convert HSL to Hex
     return this.hslToHex(hue, saturation, lightness);
