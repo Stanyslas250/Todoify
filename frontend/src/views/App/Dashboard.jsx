@@ -14,6 +14,7 @@ import Card from "../../components/App/UI/Card";
 import BentoElement from "../../components/App/UI/BentoElement";
 import TaskList from "../../components/App/UI/TaskList";
 import ProjectList from "../../components/App/UI/ProjectList";
+import TaskModal from "../../components/App/modal/TaskModal";
 
 function Dashboard() {
   const { completedTasks, incompleteTasks } = useTasks();
@@ -33,9 +34,11 @@ function Dashboard() {
         <Card
           data={incompleteTasks.length}
           title={`Task${incompleteTasks.length > 1 ? "s" : ""}`}
+          onClick={() => document.getElementById("incompleteTasks").showModal()}
           subtitle={"On Progress"}
           className="rounded-md"
         >
+          <TaskModal tasksList={incompleteTasks} taskID="incompleteTasks" />
           <LuListTodo size={32} />
         </Card>
         <Card
@@ -43,7 +46,9 @@ function Dashboard() {
           title={`Task${completedTasks.length > 1 ? "s" : ""}`}
           subtitle={"Completed Tasks"}
           className="rounded-md"
+          onClick={() => document.getElementById("completedTasks").showModal()}
         >
+          <TaskModal tasksList={completedTasks} taskID="completedTasks" />
           <LuClipboardCheck size={32} />
         </Card>
       </div>
