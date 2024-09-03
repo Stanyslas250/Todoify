@@ -84,14 +84,14 @@ function CreateNewTaskModal() {
         </label>
         <select
           {...register("priority")}
-          className="select select-primary w-full"
+          className="w-full select select-primary"
         >
           <option disabled>Priority</option>
           <option value="Low">Low</option>
           <option value="Medium">Medium</option>
           <option value="Hight">Hight</option>
         </select>
-        <label className="label cursor-pointer">
+        <label className="cursor-pointer label">
           <span className="label-text">Completed</span>
           <input
             type="checkbox"

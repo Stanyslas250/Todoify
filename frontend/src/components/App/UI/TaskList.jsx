@@ -1,34 +1,50 @@
 import { useEffect, useState } from "react";
 import { useTasks } from "../../../hooks/useTask";
 import { dateUtils } from "../../../utils/dateUtils";
-import { useFilters } from "../../../hooks/useFilters";
+import PropTypes from "prop-types";
+import { useAuth } from "../../../hooks/useAuth";
+import toast from "react-hot-toast";
 
-import { useQuery } from "@tanstack/react-query";
-import { useAccount } from "../../../hooks/useAccount";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-function TaskList() {
-  const { tasks, setTasks, fetchTasks, incompleteTasks } = useTasks();
-  const { account, token } = useAccount();
-  const { filters } = useFilters();
+function TaskList({ tasksList }) {
+  const [tasksSee, setTasksSee] = useState([]);
+  const { updateTask } = useTasks();
+  const { token } = useAuth();
 
-  const { data } = useQuery({
-    queryKey: ["tasks", account.username],
-    queryFn: async () => {
-      return await fetchTasks(token);
+  // Get QueryClient from the context
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationKey: ["tasks"],
+    mutationFn: async (task) => {
+      // Update task to the server
+      const response = await updateTask(task.id, task, token);
+      queryClient.invalidateQueries();
+      return response;
+    },
+    onSuccess: () => {
+      toast.success("Task Completed");
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
-  const [tasksSee, setTasksSee] = useState(tasks);
+
+  const handleCompleted = async (task) => {
+    const updatedTask = { ...task, completed: !task.completed };
+    const updatedTasksSee = tasksSee.map((t) =>
+      t.id === task.id ? updatedTask : t
+    );
+    setTasksSee(updatedTasksSee);
+    await mutation.mutateAsync(updatedTask, token);
+  };
 
   useEffect(() => {
-    if (data && filters.completed) {
-      setTasks(data);
-      setTasksSee(data);
-    } else {
-      setTasksSee(incompleteTasks);
-    }
+    setTasksSee(tasksList);
+  }, [tasksList]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, setTasks, filters.completed]);
+  if (!tasksList.length) return <p>No tasks found.</p>;
 
   return (
     <div>
@@ -61,14 +77,29 @@ function TaskList() {
           </div>
           <input
             type="checkbox"
-            checked={task.completed}
+            checked={task.completed ? true : false}
             className="checkbox"
-            readOnly
+            onChange={() => {
+              handleCompleted(task);
+            }}
           />
         </div>
       ))}
     </div>
   );
 }
+
+TaskList.propTypes = {
+  tasksList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      completed: PropTypes.bool.isRequired,
+      due_date: PropTypes.oneOf([PropTypes.string, PropTypes.instanceOf(Date)]),
+      priority: PropTypes.oneOf(["Low", "Medium", "High"]),
+    })
+  ).isRequired,
+};
 
 export default TaskList;

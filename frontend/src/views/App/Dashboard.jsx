@@ -12,7 +12,7 @@ import { useTasks } from "../../hooks/useTask";
 import TopbarSearch from "../../components/App/TopbarSearch";
 import Card from "../../components/App/UI/Card";
 import BentoElement from "../../components/App/UI/BentoElement";
-import TaskList from "../../components/App/UI/TaskList";
+import TaskBento from "../../components/App/TaskBento";
 import ProjectList from "../../components/App/UI/ProjectList";
 import TaskModal from "../../components/App/modal/TaskModal";
 import ProjectModal from "../../components/App/modal/ProjectModal";
@@ -64,7 +64,7 @@ function Dashboard() {
           title={"My Tasks"}
           filter
         >
-          <TaskList />
+          <TaskBento />
         </BentoElement>
         <BentoElement
           className="border-2 md:w-2/5 border-primary"

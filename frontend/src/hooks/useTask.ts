@@ -45,20 +45,18 @@ export const useTasks = () => {
     try {
       const data = await tasksService.updateTask(taskId, updatedTask, token);
       if (data) {
-        const updatedTasks = [...tasks];
-        updatedTasks.forEach((task, index) => {
-          if (task.id === taskId) {
-            updatedTasks[index] = data;
-          }
-        });
-        setTasks(updatedTasks);
+        const taskIndex = tasks.findIndex((task) => task.id === taskId);
+        if (taskIndex !== -1) {
+          const updatedTasks = [...tasks];
+          updatedTasks[taskIndex] = data;
+          setTasks(updatedTasks);
+        }
         return data;
       }
     } catch (error) {
       setError("Updating task failed");
     }
   };
-
   return {
     tasks,
     setTasks,
