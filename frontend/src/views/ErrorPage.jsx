@@ -13,7 +13,7 @@ function ErrorPage() {
       <div className="flex flex-col justify-center gap-2 prose">
         <h2 className="text-center">404 Error</h2>
         <p className="max-w-lg text-center">
-          We searched high and low, but couldn&apos;t find what you&apos;re
+          We searched Hight and low, but couldn&apos;t find what you&apos;re
           looking for. Let&apos;s find a better place for you to go.
         </p>
         <div className="flex justify-center gap-2">

@@ -6,8 +6,8 @@ export const FilterContext = createContext();
 export const FilterProvider = (props) => {
   const [filters, setFilters] = useState({
     status: "all",
-    priority: "all",
-    completed: false,
+    priority: "All",
+    completed: true,
     dateFilter: "all", // Add new filter for date
   });
 

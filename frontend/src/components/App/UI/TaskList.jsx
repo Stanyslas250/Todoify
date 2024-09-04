@@ -96,8 +96,8 @@ TaskList.propTypes = {
       title: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
       completed: PropTypes.bool.isRequired,
-      due_date: PropTypes.oneOf([PropTypes.string, PropTypes.instanceOf(Date)]),
-      priority: PropTypes.oneOf(["Low", "Medium", "High"]),
+      due_date: PropTypes.string.isRequired,
+      priority: PropTypes.oneOf(["Low", "Medium", "Hight"]),
     })
   ).isRequired,
 };

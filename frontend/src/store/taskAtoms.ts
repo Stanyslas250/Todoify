@@ -8,7 +8,7 @@ export const task: Task = {
   description: "Description 1",
   due_date: new Date(),
   completed: false,
-  priority: "High",
+  priority: "Hight",
 };
 
 export const tasksAtom = atom<Task[]>([]);

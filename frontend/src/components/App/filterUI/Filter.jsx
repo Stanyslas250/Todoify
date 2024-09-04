@@ -1,21 +1,30 @@
 import PropTypes from "prop-types";
-import { LuCheckCircle } from "react-icons/lu";
+import { LuCheckCircle, LuFlag } from "react-icons/lu";
 import MenuItems from "../UI/MenuItems";
+import Dropdown from "./Dropdown";
 
 function Filter(props) {
   const dueDate = {
-    all: "All",
+    All: "All",
     thisMonth: "This Month",
     nextWeek: "Next Week",
     nextMonth: "Next Month",
     // Add more date options as needed
   };
 
+  const priorityOptions = {
+    All: "All",
+    Low: "Low",
+    Medium: "Medium",
+    Hight: "Hight",
+    // Add more priority options as needed
+  };
+
   if (props.filterType === "status") {
     return (
       <div>
         <label>Status:</label>
-        <select value={props.filter.status} onChange={props.filterFunction}>
+        <select onChange={props.filterFunction}>
           <option value="all">All</option>
           <option value="completed">Completed</option>
           <option value="incomplete">Incomplete</option>
@@ -24,33 +33,24 @@ function Filter(props) {
     );
   } else if (props.filterType === "priority") {
     return (
-      <div>
-        <select
-          className="w-full select select-ghost focus:outline-none"
-          defaultValue={props.filter.priority}
-          onChange={props.filterFunction}
-        >
-          <option value="all">All</option>
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="Hight">Hight</option>
-        </select>
-      </div>
+      <Dropdown
+        onClick={props.filterFunction}
+        options={priorityOptions}
+        value={props.filter.priority}
+        icon={<LuFlag size={16} strokeWidth={2.75} />}
+        placeholder={"Priority"}
+      />
     );
   } else if (props.filterType === "date") {
     return (
       <div>
-        <select
-          className="w-full select select-ghost focus:outline-none"
-          defaultValue={props.filter.dateFilter}
-          onChange={props.filterFunction}
-        >
-          {Object.keys(dueDate).map((date) => (
-            <option key={date} value={date}>
-              {dueDate[date]}
-            </option>
-          ))}
-        </select>
+        <Dropdown
+          onClick={props.filterFunction}
+          options={dueDate}
+          value={props.filter.dateFilter}
+          icon={<LuFlag size={16} strokeWidth={2.75} />}
+          placeholder={"Due Date"}
+        />
       </div>
     );
   } else if (props.filterType === "completed") {

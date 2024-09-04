@@ -22,15 +22,14 @@ export default function FilterSetting(props) {
   };
 
   const handleDateFilter = (filterValue) => {
-    const value = filterValue.target.value;
-    setFilters((prev) => ({ ...prev, dateFilter: dateFilterOptions[value] }));
-    console.log(dateFilterOptions[value]);
+    setFilters((prev) => ({
+      ...prev,
+      dateFilter: dateFilterOptions[filterValue],
+    }));
   };
 
   const handlePriorityFilter = (filterValue) => {
-    const value = filterValue.target.value;
-    setFilters((prev) => ({ ...prev, priority: value }));
-    console.log(value);
+    setFilters((prev) => ({ ...prev, priority: filterValue }));
   };
 
   return (
@@ -40,7 +39,7 @@ export default function FilterSetting(props) {
       </div>
       <ul
         tabIndex={0}
-        className="w-64 p-2 shadow dropdown-content menu rounded-box bg-base-300"
+        className="p-2 shadow w-72 dropdown-content menu rounded-box bg-base-300"
       >
         <Filter
           filterType={"completed"}
@@ -54,12 +53,13 @@ export default function FilterSetting(props) {
               <h5 className="text-sm font-semibold">Filter by</h5>
               <LuHelpCircle size={16} />
             </div>
-            <div>
+            <div className="w-full">
               <Filter
                 filterType={"priority"}
                 filterFunction={handlePriorityFilter}
                 filter={filters}
               />
+
               <Filter
                 filterType={"date"}
                 filterFunction={handleDateFilter}

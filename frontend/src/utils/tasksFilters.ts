@@ -21,9 +21,6 @@ export const FilterList = {
 
 export const applyFilters = (tasks: Task[], filters: Filter) => {
   let filteredTasks = tasks;
-  filteredTasks.forEach((task) => {
-    console.log(dateUtils.getDaysDifference(task.due_date));
-  });
 
   if (filters.completed !== undefined && !filters.completed) {
     filteredTasks = filteredTasks.filter(
@@ -31,7 +28,7 @@ export const applyFilters = (tasks: Task[], filters: Filter) => {
     );
   }
 
-  if (filters.priority !== "all") {
+  if (filters.priority !== "All") {
     filteredTasks = filteredTasks.filter(
       (task) => task.priority === filters.priority
     );
@@ -61,7 +58,9 @@ export const applyFilters = (tasks: Task[], filters: Filter) => {
 
       case FilterList.dueDate.nextMonth:
         filteredTasks = filteredTasks.filter(
-          (task) => dateUtils.getDaysDifference(task.due_date) >= 30
+          (task) =>
+            dateUtils.getDaysDifference(task.due_date) >= 30 &&
+            dateUtils.getDaysDifference(task.due_date) >= 0
         );
         break;
 
@@ -70,12 +69,6 @@ export const applyFilters = (tasks: Task[], filters: Filter) => {
       default:
         break;
     }
-  }
-
-  if (filters.priority !== "all") {
-    // Implement priority filter logic here
-    // For example, if the priority filter is "high", you can use the following logic:
-    // filteredTasks = filteredTasks.filter((task) => task.priority === "high");
   }
 
   return filteredTasks;

@@ -49,7 +49,7 @@ function CreateNewTaskModal() {
     description: "Description 1",
     due_date: new Date(),
     completed: false,
-    priority: "High",
+    priority: "Hight",
   };
 
   return (
@@ -97,7 +97,7 @@ function CreateNewTaskModal() {
             type="checkbox"
             className="checkbox"
             {...register("completed")}
-            checked={task.completed}
+            defaultChecked={task.completed}
           />
         </label>
         <div className="flex flex-row gap-2">

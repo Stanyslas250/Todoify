@@ -28,8 +28,8 @@ export interface Tag {
 }
 
 export enum Priority {
-  All = "all",
-  High = "High",
+  All = "All",
+  Hight = "Hight",
   Medium = "Medium",
   Low = "Low",
 }
