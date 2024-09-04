@@ -62,7 +62,8 @@ function Dashboard() {
         <BentoElement
           className="border-2 md:w-3/5 border-primary"
           title={"My Tasks"}
-          filter
+          filterComplettion
+          otherFilters={false}
         >
           <TaskBento />
         </BentoElement>

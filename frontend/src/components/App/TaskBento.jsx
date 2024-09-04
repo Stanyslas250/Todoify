@@ -5,9 +5,10 @@ import { useFilters } from "../../hooks/useFilters";
 import { useQuery } from "@tanstack/react-query";
 import { useAccount } from "../../hooks/useAccount";
 import TaskList from "./UI/TaskList";
+import { applyFilters } from "../../utils/tasksFilters";
 
 function TaskBento() {
-  const { tasks, setTasks, fetchTasks, incompleteTasks } = useTasks();
+  const { tasks, setTasks, fetchTasks } = useTasks();
   const { account, token } = useAccount();
   const { filters } = useFilters();
 
@@ -20,15 +21,14 @@ function TaskBento() {
   const [tasksSee, setTasksSee] = useState(tasks);
 
   useEffect(() => {
-    if (data && filters.completed) {
-      setTasks(data);
-      setTasksSee(data);
-    } else {
-      setTasksSee(incompleteTasks);
+    if (data) {
+      if (data) {
+        const filteredTasks = applyFilters(data, filters); // Use the applyFilters function
+        setTasks(filteredTasks);
+        setTasksSee(filteredTasks);
+      }
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, setTasks, filters.completed]);
+  }, [data, setTasks, filters]);
 
   return (
     <div>

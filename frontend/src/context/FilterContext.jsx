@@ -7,7 +7,8 @@ export const FilterProvider = (props) => {
   const [filters, setFilters] = useState({
     status: "all",
     priority: "all",
-    completed: true,
+    completed: false,
+    dateFilter: "all", // Add new filter for date
   });
 
   return (

@@ -26,3 +26,17 @@ export interface Tag {
   id: number;
   name: string;
 }
+
+export enum Priority {
+  All = "all",
+  High = "High",
+  Medium = "Medium",
+  Low = "Low",
+}
+
+export type Filter = {
+  status: "all";
+  priority: Priority;
+  completed: false;
+  dateFilter: string; // Add new filter for date
+};

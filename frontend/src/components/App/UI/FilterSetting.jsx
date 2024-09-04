@@ -1,7 +1,7 @@
-import { LuCheckCircle, LuFilter, LuHelpCircle } from "react-icons/lu";
-import MenuItems from "./MenuItems";
+import { LuFilter, LuHelpCircle } from "react-icons/lu";
 import { useFilters } from "../../../hooks/useFilters";
 import PropTypes from "prop-types";
+import Filter from "../filterUI/Filter";
 
 FilterSetting.propTypes = {
   otherFilters: PropTypes.bool,
@@ -14,6 +14,14 @@ export default function FilterSetting(props) {
     setFilters((prev) => ({ ...prev, completed: !prev.completed }));
   };
 
+  const handleDateFilter = (filter) => {
+    setFilters((prev) => ({ ...prev, dateFilter: filter }));
+  };
+
+  const handlePriorityFilter = (filter) => {
+    setFilters((prev) => ({ ...prev, priority: filter }));
+  };
+
   return (
     <div className="dropdown dropdown-left">
       <div tabIndex={0} role="button" className="m-1 btn">
@@ -24,18 +32,11 @@ export default function FilterSetting(props) {
         className="w-64 p-2 shadow dropdown-content menu rounded-box bg-base-300"
       >
         <li>
-          <MenuItems
-            icon={<LuCheckCircle />}
-            label={"Completed Task"}
-            onClick={handleCompletedTask}
-          >
-            <input
-              type="checkbox"
-              className="toggle toggle-accent toggle-xs"
-              checked={filters.completed}
-              readOnly
-            />
-          </MenuItems>
+          <Filter
+            filterType={"completed"}
+            filterFunction={handleCompletedTask}
+            filter={filters}
+          />
         </li>
         {props.otherFilters && (
           <div className="flex flex-col">
@@ -46,13 +47,85 @@ export default function FilterSetting(props) {
             </div>
             <div>
               <li>
-                <a>Item 2</a>
+                <a
+                  onClick={() => handleDateFilter("thisMonth")}
+                  className={
+                    filters.dateFilter === "thisMonth" ? "text-primary" : ""
+                  }
+                >
+                  This Month
+                </a>
               </li>
               <li>
-                <a>Item 2</a>
+                <a
+                  onClick={() => handleDateFilter("thisWeek")}
+                  className={
+                    filters.dateFilter === "thisWeek" ? "text-primary" : ""
+                  }
+                >
+                  This Week
+                </a>
               </li>
               <li>
-                <a>Item 2</a>
+                <a
+                  onClick={() => handleDateFilter("today")}
+                  className={
+                    filters.dateFilter === "today" ? "text-primary" : ""
+                  }
+                >
+                  Today
+                </a>
+              </li>
+              <li>
+                <a
+                  onClick={() => handleDateFilter("next7Days")}
+                  className={
+                    filters.dateFilter === "next7Days" ? "text-primary" : ""
+                  }
+                >
+                  Next 7 Days
+                </a>
+              </li>
+              <li>
+                <a
+                  onClick={() => handleDateFilter("next30Days")}
+                  className={
+                    filters.dateFilter === "next30Days" ? "text-primary" : ""
+                  }
+                >
+                  Next 30 Days
+                </a>
+              </li>
+              <div className="divider"></div>
+              <li>
+                <a
+                  onClick={() => handlePriorityFilter("high")}
+                  className={
+                    filters.priorityFilter === "high" ? "text-primary" : ""
+                  }
+                >
+                  High Priority
+                </a>
+              </li>
+              <li>
+                <a
+                  onClick={() => handlePriorityFilter("medium")}
+                  className={
+                    filters.priorityFilter === "medium" ? "text-primary" : ""
+                  }
+                >
+                  Medium Priority
+                </a>
+              </li>
+              <li>
+                <a
+                  onClick={() => handlePriorityFilter("low")}
+                  className={
+                    filters.priorityFilter === "low" ? "text-primary" : ""
+                  }
+                >
+                  Low Priority
+                </a>
               </li>
             </div>
           </div>

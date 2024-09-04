@@ -10,7 +10,9 @@ function BentoElement(props) {
       >
         <div className="flex flex-row items-center justify-between">
           <h2 className="sticky text-xl font-semibold">{props.title}</h2>
-          {props.filter && <FilterSetting otherFilters={false} />}
+          {props.filterComplettion && (
+            <FilterSetting otherFilters={props.otherFilters} />
+          )}
         </div>
         <div className="overflow-y-auto ">{props.children}</div>
       </div>
@@ -21,7 +23,8 @@ function BentoElement(props) {
 BentoElement.propTypes = {
   className: PropTypes.string,
   title: PropTypes.string,
-  filter: PropTypes.bool,
+  filterComplettion: PropTypes.bool,
+  otherFilters: PropTypes.bool,
   children: PropTypes.node,
 };
 

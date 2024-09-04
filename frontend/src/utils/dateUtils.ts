@@ -1,6 +1,14 @@
 // src/utils/dateUtils.ts
 
-import { parseISO, format, isValid, differenceInDays } from "date-fns";
+import {
+  parseISO,
+  format,
+  isValid,
+  differenceInDays,
+  startOfWeek,
+  endOfWeek,
+  isWithinInterval,
+} from "date-fns";
 import { enUS } from "date-fns/locale";
 
 export const dateUtils = {
@@ -34,7 +42,7 @@ export const dateUtils = {
     return parsedDate < new Date();
   },
 
-  // Vous pouvez ajouter d'autres méthodes utiles ici
+  // You can add more useful methods here
   getToday(date: Date | string = new Date()): string {
     return `${format(date, "yyyy-MM-dd")}T${format(date, "HH:mm")}`;
   },
