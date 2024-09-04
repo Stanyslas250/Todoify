@@ -3,6 +3,14 @@ import { LuCheckCircle } from "react-icons/lu";
 import MenuItems from "../UI/MenuItems";
 
 function Filter(props) {
+  const dueDate = {
+    all: "All",
+    thisMonth: "This Month",
+    nextWeek: "Next Week",
+    nextMonth: "Next Month",
+    // Add more date options as needed
+  };
+
   if (props.filterType === "status") {
     return (
       <div>
@@ -17,24 +25,32 @@ function Filter(props) {
   } else if (props.filterType === "priority") {
     return (
       <div>
-        <label>Priority:</label>
-        <select value={props.filter.priority} onChange={props.filterFunction}>
+        <select
+          className="w-full select select-ghost focus:outline-none"
+          defaultValue={props.filter.priority}
+          onChange={props.filterFunction}
+        >
           <option value="all">All</option>
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="Hight">Hight</option>
         </select>
       </div>
     );
   } else if (props.filterType === "date") {
     return (
       <div>
-        <label>Due Date:</label>
-        <input
-          type="date"
-          value={props.filter.due_date}
+        <select
+          className="w-full select select-ghost focus:outline-none"
+          defaultValue={props.filter.dateFilter}
           onChange={props.filterFunction}
-        />
+        >
+          {Object.keys(dueDate).map((date) => (
+            <option key={date} value={date}>
+              {dueDate[date]}
+            </option>
+          ))}
+        </select>
       </div>
     );
   } else if (props.filterType === "completed") {

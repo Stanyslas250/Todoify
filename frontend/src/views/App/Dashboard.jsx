@@ -63,7 +63,7 @@ function Dashboard() {
           className="border-2 md:w-3/5 border-primary"
           title={"My Tasks"}
           filterComplettion
-          otherFilters={false}
+          otherFilters
         >
           <TaskBento />
         </BentoElement>

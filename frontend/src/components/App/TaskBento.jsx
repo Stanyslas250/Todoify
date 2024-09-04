@@ -24,7 +24,6 @@ function TaskBento() {
     if (data) {
       if (data) {
         const filteredTasks = applyFilters(data, filters); // Use the applyFilters function
-        setTasks(filteredTasks);
         setTasksSee(filteredTasks);
       }
     }

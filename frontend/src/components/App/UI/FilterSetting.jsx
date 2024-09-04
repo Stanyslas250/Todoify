@@ -9,17 +9,28 @@ FilterSetting.propTypes = {
 
 export default function FilterSetting(props) {
   const { filters, setFilters } = useFilters();
+  const dateFilterOptions = {
+    all: "all",
+    thisMonth: "This Month",
+    nextWeek: "Next Week",
+    nextMonth: "Next Month",
+    // Add more date options as needed
+  };
 
   const handleCompletedTask = () => {
     setFilters((prev) => ({ ...prev, completed: !prev.completed }));
   };
 
-  const handleDateFilter = (filter) => {
-    setFilters((prev) => ({ ...prev, dateFilter: filter }));
+  const handleDateFilter = (filterValue) => {
+    const value = filterValue.target.value;
+    setFilters((prev) => ({ ...prev, dateFilter: dateFilterOptions[value] }));
+    console.log(dateFilterOptions[value]);
   };
 
-  const handlePriorityFilter = (filter) => {
-    setFilters((prev) => ({ ...prev, priority: filter }));
+  const handlePriorityFilter = (filterValue) => {
+    const value = filterValue.target.value;
+    setFilters((prev) => ({ ...prev, priority: value }));
+    console.log(value);
   };
 
   return (
@@ -31,13 +42,11 @@ export default function FilterSetting(props) {
         tabIndex={0}
         className="w-64 p-2 shadow dropdown-content menu rounded-box bg-base-300"
       >
-        <li>
-          <Filter
-            filterType={"completed"}
-            filterFunction={handleCompletedTask}
-            filter={filters}
-          />
-        </li>
+        <Filter
+          filterType={"completed"}
+          filterFunction={handleCompletedTask}
+          filter={filters}
+        />
         {props.otherFilters && (
           <div className="flex flex-col">
             <div className="divider"></div>
@@ -46,87 +55,16 @@ export default function FilterSetting(props) {
               <LuHelpCircle size={16} />
             </div>
             <div>
-              <li>
-                <a
-                  onClick={() => handleDateFilter("thisMonth")}
-                  className={
-                    filters.dateFilter === "thisMonth" ? "text-primary" : ""
-                  }
-                >
-                  This Month
-                </a>
-              </li>
-              <li>
-                <a
-                  onClick={() => handleDateFilter("thisWeek")}
-                  className={
-                    filters.dateFilter === "thisWeek" ? "text-primary" : ""
-                  }
-                >
-                  This Week
-                </a>
-              </li>
-              <li>
-                <a
-                  onClick={() => handleDateFilter("today")}
-                  className={
-                    filters.dateFilter === "today" ? "text-primary" : ""
-                  }
-                >
-                  Today
-                </a>
-              </li>
-              <li>
-                <a
-                  onClick={() => handleDateFilter("next7Days")}
-                  className={
-                    filters.dateFilter === "next7Days" ? "text-primary" : ""
-                  }
-                >
-                  Next 7 Days
-                </a>
-              </li>
-              <li>
-                <a
-                  onClick={() => handleDateFilter("next30Days")}
-                  className={
-                    filters.dateFilter === "next30Days" ? "text-primary" : ""
-                  }
-                >
-                  Next 30 Days
-                </a>
-              </li>
-              <div className="divider"></div>
-              <li>
-                <a
-                  onClick={() => handlePriorityFilter("high")}
-                  className={
-                    filters.priorityFilter === "high" ? "text-primary" : ""
-                  }
-                >
-                  High Priority
-                </a>
-              </li>
-              <li>
-                <a
-                  onClick={() => handlePriorityFilter("medium")}
-                  className={
-                    filters.priorityFilter === "medium" ? "text-primary" : ""
-                  }
-                >
-                  Medium Priority
-                </a>
-              </li>
-              <li>
-                <a
-                  onClick={() => handlePriorityFilter("low")}
-                  className={
-                    filters.priorityFilter === "low" ? "text-primary" : ""
-                  }
-                >
-                  Low Priority
-                </a>
-              </li>
+              <Filter
+                filterType={"priority"}
+                filterFunction={handlePriorityFilter}
+                filter={filters}
+              />
+              <Filter
+                filterType={"date"}
+                filterFunction={handleDateFilter}
+                filter={filters}
+              />
             </div>
           </div>
         )}

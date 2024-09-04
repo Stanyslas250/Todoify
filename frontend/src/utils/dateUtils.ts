@@ -30,9 +30,9 @@ export const dateUtils = {
     return this.format(date, formatString);
   },
 
-  getDaysDifference(dateString: string): number {
-    const parsedDate = this.parse(dateString);
-    if (!parsedDate) return 0;
+  getDaysDifference(dateString: Date | string): number {
+    const parsedDate =
+      typeof dateString === "string" ? this.parse(dateString) : dateString;
     return differenceInDays(parsedDate, new Date());
   },
 

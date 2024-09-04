@@ -5,7 +5,7 @@ export const FilterList = {
   all: "all",
   completed: "completed",
   priority: {
-    highPriority: "High",
+    highPriority: "Hight",
     lowPriority: "Low",
     mediumPriority: "Medium",
   },
@@ -21,10 +21,19 @@ export const FilterList = {
 
 export const applyFilters = (tasks: Task[], filters: Filter) => {
   let filteredTasks = tasks;
+  filteredTasks.forEach((task) => {
+    console.log(dateUtils.getDaysDifference(task.due_date));
+  });
 
-  if (filters.completed !== undefined) {
+  if (filters.completed !== undefined && !filters.completed) {
     filteredTasks = filteredTasks.filter(
       (task) => task.completed === filters.completed
+    );
+  }
+
+  if (filters.priority !== "all") {
+    filteredTasks = filteredTasks.filter(
+      (task) => task.priority === filters.priority
     );
   }
 
@@ -35,24 +44,24 @@ export const applyFilters = (tasks: Task[], filters: Filter) => {
       case FilterList.dueDate.thisMonth:
         filteredTasks = filteredTasks.filter(
           (task) =>
-            dateUtils.getDaysDifference(task.due_date.toISOString()) <= 30 &&
-            dateUtils.getDaysDifference(task.due_date.toISOString()) >= 0
+            dateUtils.getDaysDifference(task.due_date) <= 30 &&
+            dateUtils.getDaysDifference(task.due_date) >= -30
         );
+
         break;
 
       case FilterList.dueDate.nextWeek:
         filteredTasks = filteredTasks.filter(
           (task) =>
-            dateUtils.getDaysDifference(task.due_date.toISOString()) <= 7 &&
-            dateUtils.getDaysDifference(task.due_date.toISOString()) >= 0
+            dateUtils.getDaysDifference(task.due_date) <= 7 &&
+            dateUtils.getDaysDifference(task.due_date) >= 0
         );
+
         break;
 
       case FilterList.dueDate.nextMonth:
         filteredTasks = filteredTasks.filter(
-          (task) =>
-            dateUtils.getDaysDifference(task.due_date.toISOString()) <= 30 &&
-            dateUtils.getDaysDifference(task.due_date.toISOString()) >= 30
+          (task) => dateUtils.getDaysDifference(task.due_date) >= 30
         );
         break;
 
