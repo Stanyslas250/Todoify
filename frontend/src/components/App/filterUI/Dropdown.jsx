@@ -1,16 +1,20 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { LuChevronDown, LuChevronUp } from "react-icons/lu";
+import UseOutsideClick from "../../../hooks/UseOutsideClick";
 
 function Dropdown(props) {
   const [check, setCheck] = useState(false);
-  useEffect(() => {
+  const dropdownRef = useRef(null);
+
+  UseOutsideClick(dropdownRef, () => {
     setCheck(false);
-  }, []);
+  });
+
   return (
-    <div className="w-full dropdown dropdown-left">
+    <div ref={dropdownRef} className="w-full dropdown dropdown-left">
       <div
-        className={`flex flex-row items-center justify-between gap-4 p-4 rounded-md  hover:bg-base-100 ${
+        className={`cursor-pointer flex flex-row items-center justify-between gap-4 p-4 rounded-md  hover:bg-base-100 ${
           check ? "bg-base-100" : "bg-base-300"
         }`}
         onClick={() => setCheck(!check)}
