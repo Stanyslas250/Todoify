@@ -2,9 +2,11 @@ import { LuFilter, LuHelpCircle } from "react-icons/lu";
 import { useFilters } from "../../../hooks/useFilters";
 import PropTypes from "prop-types";
 import Filter from "../filterUI/Filter";
+import SortComponent from "../sortUI/SortComponent";
 
 FilterSetting.propTypes = {
   otherFilters: PropTypes.bool,
+  sortOptions: PropTypes.bool,
 };
 
 export default function FilterSetting(props) {
@@ -46,6 +48,18 @@ export default function FilterSetting(props) {
           filterFunction={handleCompletedTask}
           filter={filters}
         />
+        {props.sortOptions && (
+          <div className="flex flex-col">
+            <div className="divider"></div>
+            <div className="flex flex-row items-center justify-between pb-2">
+              <h5 className="text-sm font-semibold">Sort by</h5>
+              <LuHelpCircle size={16} />
+            </div>
+            <div className="w-full">
+              <SortComponent />
+            </div>
+          </div>
+        )}
         {props.otherFilters && (
           <div className="flex flex-col">
             <div className="divider"></div>

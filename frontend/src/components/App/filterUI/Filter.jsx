@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
-import { LuCheckCircle, LuFlag } from "react-icons/lu";
+import { LuCalendarSearch, LuCheckCircle, LuFlag } from "react-icons/lu";
 import MenuItems from "../UI/MenuItems";
 import Dropdown from "./Dropdown";
+import { useEffect, useState } from "react";
 
 function Filter(props) {
   const dueDate = {
@@ -12,6 +13,27 @@ function Filter(props) {
     // Add more date options as needed
   };
 
+  const [color, setColor] = useState("");
+
+  useEffect(() => {
+    setColor(colorPriorities(props.filter.priority));
+  }, [props.filter.priority]);
+
+  const colorPriorities = (priority) => {
+    switch (priority) {
+      case "Low":
+        return "#00a96e";
+
+      case "Medium":
+        return "#ffbe00";
+
+      case "Hight":
+        return "#ff5861";
+
+      default:
+        return "#00b5ff";
+    }
+  };
   const priorityOptions = {
     All: "All",
     Low: "Low",
@@ -37,7 +59,7 @@ function Filter(props) {
         onClick={props.filterFunction}
         options={priorityOptions}
         value={props.filter.priority}
-        icon={<LuFlag size={16} strokeWidth={2.75} />}
+        icon={<LuFlag size={16} strokeWidth={2.75} color={color} />}
         placeholder={"Priority"}
       />
     );
@@ -48,7 +70,7 @@ function Filter(props) {
           onClick={props.filterFunction}
           options={dueDate}
           value={props.filter.dateFilter}
-          icon={<LuFlag size={16} strokeWidth={2.75} />}
+          icon={<LuCalendarSearch size={16} strokeWidth={2.75} />}
           placeholder={"Due Date"}
         />
       </div>
