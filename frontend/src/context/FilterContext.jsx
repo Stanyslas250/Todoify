@@ -8,7 +8,7 @@ export const FilterProvider = (props) => {
     status: "all",
     priority: "All",
     completed: true,
-    dateFilter: "all", // Add new filter for date
+    dateFilter: "All", // Add new filter for date
   });
 
   return (

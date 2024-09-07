@@ -25,7 +25,7 @@ function Filter(props) {
       <div>
         <label>Status:</label>
         <select onChange={props.filterFunction}>
-          <option value="all">All</option>
+          <option value="All">All</option>
           <option value="completed">Completed</option>
           <option value="incomplete">Incomplete</option>
         </select>

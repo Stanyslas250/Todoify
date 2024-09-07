@@ -10,7 +10,7 @@ export const FilterList = {
     mediumPriority: "Medium",
   },
   dueDate: {
-    all: "all",
+    All: "All",
     thisMonth: "This Month",
     nextWeek: "Next Week",
     nextMonth: "Next Month",
@@ -34,7 +34,7 @@ export const applyFilters = (tasks: Task[], filters: Filter) => {
     );
   }
 
-  if (filters.dateFilter !== FilterList.dueDate.all) {
+  if (filters.dateFilter !== FilterList.dueDate.All) {
     const currentDate = new Date();
 
     switch (filters.dateFilter) {

@@ -10,7 +10,7 @@ FilterSetting.propTypes = {
 export default function FilterSetting(props) {
   const { filters, setFilters } = useFilters();
   const dateFilterOptions = {
-    all: "all",
+    All: "All",
     thisMonth: "This Month",
     nextWeek: "Next Week",
     nextMonth: "Next Month",
