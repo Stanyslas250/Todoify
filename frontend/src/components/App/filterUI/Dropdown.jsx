@@ -45,7 +45,7 @@ function Dropdown(props) {
               props.onClick(option);
             }}
           >
-            <a>{option.charAt(0).toUpperCase() + option.slice(1)}</a>
+            <a>{props.options[option]}</a>
           </li>
         ))}
       </ul>

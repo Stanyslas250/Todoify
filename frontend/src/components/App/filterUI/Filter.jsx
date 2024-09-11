@@ -3,15 +3,10 @@ import { LuCalendarSearch, LuCheckCircle, LuFlag } from "react-icons/lu";
 import MenuItems from "../UI/MenuItems";
 import Dropdown from "./Dropdown";
 import { useEffect, useState } from "react";
+import { DueDate } from "../../../utils/types/todoify";
 
 function Filter(props) {
-  const dueDate = {
-    All: "All",
-    thisMonth: "This Month",
-    nextWeek: "Next Week",
-    nextMonth: "Next Month",
-    // Add more date options as needed
-  };
+  const dueDate = DueDate;
 
   const [color, setColor] = useState("");
 

@@ -3,6 +3,7 @@ import { useFilters } from "../../../hooks/useFilters";
 import PropTypes from "prop-types";
 import Filter from "../filterUI/Filter";
 import SortComponent from "../sortUI/SortComponent";
+import { DueDate } from "../../../utils/types/todoify";
 
 FilterSetting.propTypes = {
   otherFilters: PropTypes.bool,
@@ -11,13 +12,7 @@ FilterSetting.propTypes = {
 
 export default function FilterSetting(props) {
   const { filters, setFilters } = useFilters();
-  const dateFilterOptions = {
-    All: "All",
-    thisMonth: "This Month",
-    nextWeek: "Next Week",
-    nextMonth: "Next Month",
-    // Add more date options as needed
-  };
+  const dateFilterOptions = DueDate;
 
   const handleCompletedTask = () => {
     setFilters((prev) => ({ ...prev, completed: !prev.completed }));

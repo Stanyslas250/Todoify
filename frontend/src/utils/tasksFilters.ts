@@ -1,7 +1,7 @@
 import { dateUtils } from "./dateUtils";
-import { Task, Filter } from "./types/todoify";
+import { Task, Filter, DueDate } from "./types/todoify";
 
-export const FilterList = {
+const FilterList = {
   all: "all",
   completed: "completed",
   priority: {
@@ -9,16 +9,10 @@ export const FilterList = {
     lowPriority: "Low",
     mediumPriority: "Medium",
   },
-  dueDate: {
-    All: "All",
-    thisMonth: "This Month",
-    nextWeek: "Next Week",
-    nextMonth: "Next Month",
-    // Add more date options as needed
-  },
   // Add more filter options as needed
 };
 
+const dueDate = DueDate;
 export const applyFilters = (tasks: Task[], filters: Filter) => {
   let filteredTasks = tasks;
 
@@ -34,35 +28,36 @@ export const applyFilters = (tasks: Task[], filters: Filter) => {
     );
   }
 
-  if (filters.dateFilter !== FilterList.dueDate.All) {
+  if (filters.dateFilter !== dueDate.All) {
     const currentDate = new Date();
 
     switch (filters.dateFilter) {
-      case FilterList.dueDate.thisMonth:
-        filteredTasks = filteredTasks.filter(
-          (task) =>
-            dateUtils.getDaysDifference(task.due_date) <= 30 &&
-            dateUtils.getDaysDifference(task.due_date) >= -30
+      case dueDate.thisMonth:
+        filteredTasks = filteredTasks.filter((task) =>
+          dateUtils.isInCurrentMonth(task.due_date)
         );
 
         break;
 
-      case FilterList.dueDate.nextWeek:
-        filteredTasks = filteredTasks.filter(
-          (task) =>
-            dateUtils.getDaysDifference(task.due_date) <= 7 &&
-            dateUtils.getDaysDifference(task.due_date) >= 0
+      case dueDate.nextWeek:
+        filteredTasks = filteredTasks.filter((task) =>
+          dateUtils.isInNextWeek(task.due_date)
         );
 
         break;
 
-      case FilterList.dueDate.nextMonth:
+      case dueDate.nextMonth:
         filteredTasks = filteredTasks.filter(
           (task) =>
             dateUtils.getDaysDifference(task.due_date) >= 30 &&
             dateUtils.getDaysDifference(task.due_date) >= 0
         );
         break;
+
+      case dueDate.thisWeek:
+        filteredTasks = filteredTasks.filter((task) =>
+          dateUtils.isInCurrentWeek(task.due_date)
+        );
 
       // Add more cases for other date filters as needed
 

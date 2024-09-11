@@ -8,6 +8,8 @@ import {
   startOfWeek,
   endOfWeek,
   isWithinInterval,
+  getMonth,
+  addDays,
 } from "date-fns";
 import { enUS } from "date-fns/locale";
 
@@ -45,5 +47,36 @@ export const dateUtils = {
   // You can add more useful methods here
   getToday(date: Date | string = new Date()): string {
     return `${format(date, "yyyy-MM-dd")}T${format(date, "HH:mm")}`;
+  },
+
+  isInCurrentMonth(date: Date | string): boolean {
+    const parsedDate = typeof date === "string" ? this.parse(date) : date;
+    if (!parsedDate) return false;
+    const currentDate = new Date();
+    return (
+      getMonth(parsedDate) === getMonth(currentDate) &&
+      parsedDate.getFullYear() === currentDate.getFullYear()
+    );
+  },
+
+  isInCurrentWeek(date: Date | string): boolean {
+    const parsedDate = typeof date === "string" ? this.parse(date) : date;
+    if (!parsedDate) return false;
+    const currentDate = new Date();
+    const weekStart = startOfWeek(currentDate, { weekStartsOn: 1 }); // Start week on Monday
+    const weekEnd = endOfWeek(currentDate, { weekStartsOn: 1 }); // End week on Sunday
+    return isWithinInterval(parsedDate, { start: weekStart, end: weekEnd });
+  },
+
+  isInNextWeek(date: Date | string): boolean {
+    const parsedDate = typeof date === "string" ? this.parse(date) : date;
+    if (!parsedDate) return false;
+    const currentDate = new Date();
+    const nextWeekStart = addDays(currentDate, 7);
+    const nextWeekEnd = endOfWeek(nextWeekStart);
+    return isWithinInterval(parsedDate, {
+      start: nextWeekStart,
+      end: nextWeekEnd,
+    });
   },
 };

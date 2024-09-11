@@ -40,3 +40,11 @@ export type Filter = {
   completed: false;
   dateFilter: string; // Add new filter for date
 };
+
+export const DueDate = {
+  All: "All",
+  thisMonth: "This Month",
+  thisWeek: "This Week",
+  nextWeek: "Next Week",
+  nextMonth: "Next Month",
+};
