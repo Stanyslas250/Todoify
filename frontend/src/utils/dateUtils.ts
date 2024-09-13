@@ -10,6 +10,7 @@ import {
   isWithinInterval,
   getMonth,
   addDays,
+  addMonths,
 } from "date-fns";
 import { enUS } from "date-fns/locale";
 
@@ -72,11 +73,19 @@ export const dateUtils = {
     const parsedDate = typeof date === "string" ? this.parse(date) : date;
     if (!parsedDate) return false;
     const currentDate = new Date();
-    const nextWeekStart = addDays(currentDate, 7);
-    const nextWeekEnd = endOfWeek(nextWeekStart);
+    const thisWeekEnd = endOfWeek(currentDate, { weekStartsOn: 1 });
+    const nextWeekEnd = addDays(thisWeekEnd, 7);
     return isWithinInterval(parsedDate, {
-      start: nextWeekStart,
+      start: thisWeekEnd,
       end: nextWeekEnd,
     });
+  },
+  isInNextMonth(date: Date | string): boolean {
+    const parsedDate = typeof date === "string" ? this.parse(date) : date;
+    if (!parsedDate) return false;
+    const currentDate = new Date();
+    const currentMonth = getMonth(currentDate);
+    const nextMonth = getMonth(addMonths(currentDate, 1));
+    return getMonth(parsedDate) === nextMonth;
   },
 };

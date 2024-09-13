@@ -47,10 +47,8 @@ export const applyFilters = (tasks: Task[], filters: Filter) => {
         break;
 
       case dueDate.nextMonth:
-        filteredTasks = filteredTasks.filter(
-          (task) =>
-            dateUtils.getDaysDifference(task.due_date) >= 30 &&
-            dateUtils.getDaysDifference(task.due_date) >= 0
+        filteredTasks = filteredTasks.filter((task) =>
+          dateUtils.isInNextMonth(task.due_date)
         );
         break;
 
