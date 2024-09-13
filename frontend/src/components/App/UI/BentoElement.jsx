@@ -11,7 +11,7 @@ function BentoElement(props) {
         <div className="flex flex-row items-center justify-between">
           <h2 className="sticky text-xl font-semibold">{props.title}</h2>
           {props.filterComplettion && (
-            <FilterSetting otherFilters={props.otherFilters} sortOptions />
+            <FilterSetting otherFilters={props.otherFilters} />
           )}
         </div>
         <div className="overflow-y-auto ">{props.children}</div>

@@ -45,7 +45,13 @@ function Dropdown(props) {
               props.onClick(option);
             }}
           >
-            <a>{props.options[option]}</a>
+            <label
+              className={`${
+                props.value === props.options[option] ? "active" : ""
+              }`}
+            >
+              {props.options[option]}
+            </label>
           </li>
         ))}
       </ul>
