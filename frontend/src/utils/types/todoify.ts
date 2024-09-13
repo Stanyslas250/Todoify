@@ -1,6 +1,7 @@
 export interface Category {
-  id: number;
+  id?: number;
   name: string;
+  color?: string;
 }
 
 export type CategoryWithColor = Category & { color: string };

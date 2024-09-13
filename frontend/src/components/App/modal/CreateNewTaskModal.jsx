@@ -120,5 +120,4 @@ function CreateNewTaskModal() {
   );
 }
 
-
 export default CreateNewTaskModal;

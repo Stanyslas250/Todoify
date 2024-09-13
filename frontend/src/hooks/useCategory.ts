@@ -6,12 +6,15 @@ import {
 } from "../store/categoryAtoms";
 import { categoryService } from "../services/categoryServices";
 import { useState } from "react";
+import { Category } from "../utils/types/todoify";
 
 export const useCategory = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [categoriesWithColor] = useAtom(categoriesWithColorAtom);
+  const [categoriesWithColor, setCategoriesWithColor] = useAtom(
+    categoriesWithColorAtom
+  );
   const [, setCategoriesColor] = useAtom(setCategoriesAtom);
 
   const [countCategories, setCountCategories] = useAtom(countCategoriesAtom);
@@ -31,6 +34,19 @@ export const useCategory = () => {
     }
   };
 
+  const addCategory = async (token: string, category: Category) => {
+    try {
+      const data = await categoryService.createCategory(category, token);
+      setCategoriesWithColor([
+        ...categoriesWithColor,
+        { ...data, color: "#000" },
+      ]);
+      return data;
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return {
     categoriesWithColor,
     setCategoriesColor,
@@ -39,5 +55,6 @@ export const useCategory = () => {
     loading,
     countCategories,
     setCountCategories,
+    addCategory,
   };
 };

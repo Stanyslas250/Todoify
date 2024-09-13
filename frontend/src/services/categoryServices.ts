@@ -15,10 +15,7 @@ export const categoryService = {
     return response.data;
   },
   createCategory: async (category: Category, token: string) => {
-    const response = await api(token).post<Category>(
-      "/categories",
-      category.name
-    );
+    const response = await api(token).post<Category>("/categories", category);
     return response.data;
   },
   updateCategory: async (
