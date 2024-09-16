@@ -1,26 +1,8 @@
 import { LuFolderOpen } from "react-icons/lu";
-import { useCategory } from "../../../hooks/useCategory";
-import { useQuery } from "@tanstack/react-query";
-import { useAccount } from "../../../hooks/useAccount";
-import { useEffect } from "react";
+import { useProjectCategories } from "../../../hooks/useProjectCategories";
 
 export default function ProjectList() {
-  const { fetchCategories, categoriesWithColor, setCategoriesColor } =
-    useCategory();
-  const { token, account } = useAccount();
-  const { data, isFetching } = useQuery({
-    queryKey: ["categories", account.username],
-    queryFn: async () => {
-      return await fetchCategories(token);
-    },
-    refetchOnWindowFocus: false,
-  });
-
-  useEffect(() => {
-    if (data) {
-      setCategoriesColor(data);
-    }
-  }, [data, setCategoriesColor]);
+  const { categoriesWithColor, isFetching } = useProjectCategories();
 
   if (isFetching) {
     return (

@@ -1,14 +1,12 @@
 import PropTypes from "prop-types";
+import ProjectList from "../UI/ProjectList";
+import ProjectGrid from "../UI/ProjectGrid";
 
 function ProjectViews(props) {
   return (
     <div className="p-4">
       {/* Affichage des éléments */}
-      {props.isGridView ? (
-        <div className="grid grid-cols-2 gap-4">{props.children}</div>
-      ) : (
-        <ul className="space-y-4">{props.children}</ul>
-      )}
+      {props.isGridView ? <ProjectGrid /> : <ProjectList />}
     </div>
   );
 }
