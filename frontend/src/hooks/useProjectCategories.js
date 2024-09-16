@@ -13,7 +13,7 @@ export const useProjectCategories = () => {
     queryFn: async () => await fetchCategories(token),
     refetchOnWindowFocus: false,
     refetchOnMount: false,
-    initialData: categoriesWithColor,
+    refetchOnReconnect: true,
   });
 
   useEffect(() => {
