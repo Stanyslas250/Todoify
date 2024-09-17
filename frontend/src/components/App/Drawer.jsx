@@ -99,7 +99,14 @@ function Drawer(props) {
               ))}
             </div>
             <div className="flex flex-col gap-3">
-              <div className="flex items-center justify-center h-full gap-5 py-8 prose border-2 border-dashed cursor-pointer hover:bg-secondary/10 border-primary card">
+              <div
+                onClick={() =>
+                  document
+                    .getElementById("create-new-project-modal")
+                    .showModal()
+                }
+                className="flex items-center justify-center h-full gap-5 py-8 prose border-2 border-dashed cursor-pointer hover:bg-secondary/10 border-primary card"
+              >
                 <LuPlus size={24} />
                 <h6 className="font-semibold"> Add New Project </h6>
               </div>
