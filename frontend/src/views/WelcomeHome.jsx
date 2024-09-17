@@ -5,7 +5,7 @@ import { faqData, whyChooseUsData } from "../utils/welcomePageData";
 import AccordionItems from "../components/AccordionItems";
 import Feature from "../components/Feature";
 
-import TestimonialSection from "../components/testimonialSection";
+import TestimonialSection from "../components/TestimonialSection";
 import { FaFacebookF, FaGithub } from "react-icons/fa6";
 import { RiTwitterXLine } from "react-icons/ri";
 import BentoElement from "../components/BentoElement";

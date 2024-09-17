@@ -10,7 +10,7 @@ const ProjectGrid = () => {
     );
   }
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="flex flex-col gap-4 overflow-y-scroll sm:grid sm:grid-cols-4">
       {categoriesWithColor.map((category) => (
         <div
           key={category.id}

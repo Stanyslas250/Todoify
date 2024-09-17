@@ -12,8 +12,7 @@ function ProjectViews(props) {
 }
 
 ProjectViews.propTypes = {
-  children: PropTypes.node.isRequired,
-  isGridView: PropTypes.bool,
+  isGridView: PropTypes.bool.isRequired,
 };
 
 export default ProjectViews;

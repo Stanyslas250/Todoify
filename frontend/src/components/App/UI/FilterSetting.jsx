@@ -8,6 +8,8 @@ import { DueDate } from "../../../utils/types/todoify";
 FilterSetting.propTypes = {
   otherFilters: PropTypes.bool,
   sortOptions: PropTypes.bool,
+  icon: PropTypes.element,
+  className: PropTypes.string,
 };
 
 export default function FilterSetting(props) {
@@ -30,9 +32,9 @@ export default function FilterSetting(props) {
   };
 
   return (
-    <div className="dropdown dropdown-left">
-      <div tabIndex={0} role="button" className="m-1 btn">
-        <LuFilter />
+    <div className="z-10 dropdown dropdown-left">
+      <div tabIndex={0} role="button" className={`${props.className} m-1 btn`}>
+        {props.icon ? props.icon : <LuFilter />}
       </div>
       <ul
         tabIndex={0}
