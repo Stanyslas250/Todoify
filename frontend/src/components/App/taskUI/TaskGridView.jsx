@@ -10,6 +10,7 @@ import { useFilters } from "../../../hooks/useFilters";
 import { applyFilters } from "../../../utils/tasksFilters";
 import CreateNewTaskModal from "../modal/CreateNewTaskModal";
 import { useNavigate } from "react-router-dom";
+import { priorityBadge } from "../../../utils/priorityColors";
 
 export const TaskGridView = () => {
   const { filters } = useFilters();
@@ -126,15 +127,6 @@ export const TaskGridView = () => {
     </div>
   );
 };
-function priorityBadge(task) {
-  return `badge ${
-    task.priority === "Low"
-      ? "badge-info"
-      : task.priority === "Medium"
-      ? "badge-warning"
-      : "badge-error"
-  }`;
-}
 
 function isCompleted(task) {
   return task.completed ? "line-through" : "";
