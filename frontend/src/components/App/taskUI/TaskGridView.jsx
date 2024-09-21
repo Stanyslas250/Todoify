@@ -9,9 +9,11 @@ import FilterSetting from "../UI/FilterSetting";
 import { useFilters } from "../../../hooks/useFilters";
 import { applyFilters } from "../../../utils/tasksFilters";
 import CreateNewTaskModal from "../modal/CreateNewTaskModal";
+import { useNavigate } from "react-router-dom";
 
 export const TaskGridView = () => {
   const { filters } = useFilters();
+  const navigate = useNavigate();
 
   const { fetchTasks } = useTasks();
   const [tasks, setTasks] = useState([]);
@@ -47,6 +49,10 @@ export const TaskGridView = () => {
     document.getElementById("create_task").showModal();
   };
 
+  const handleTaskClick = (id) => {
+    navigate(`/app/tasks/${id}`);
+  };
+
   useEffect(() => {
     if (data) {
       const filteredTasks = applyFilters(data, filters);
@@ -56,6 +62,7 @@ export const TaskGridView = () => {
 
   if (isLoading)
     return <span className="loading loading-spinner loading-lg"></span>;
+
   return (
     <div className="flex flex-col h-screen gap-4">
       <div className="flex flex-row items-center justify-between w-full gap-2">
@@ -84,10 +91,15 @@ export const TaskGridView = () => {
         <CreateNewTaskModal />
         <div className="mt-0 divider"></div>
       </div>
-
       <div className="flex flex-col gap-4 overflow-y-scroll md:grid md:grid-cols-2">
         {tasks.map((task) => (
-          <div key={task.id} className="cursor-pointer card bg-secondary">
+          <div
+            onClick={() => {
+              handleTaskClick(task.id);
+            }}
+            key={task.id}
+            className="cursor-pointer card bg-secondary"
+          >
             <div className="card-body">
               <div className={isCompleted(task)}>
                 <div className="flex flex-row items-center gap-2">

@@ -43,7 +43,7 @@ function Drawer(props) {
                   ) : segment === "App" ? (
                     <Link to={"../app"}>Home</Link>
                   ) : (
-                    <Link to={`../${segment.toLowerCase()}`}>{segment}</Link>
+                    <Link to={`./${segment.toLowerCase()}`}>{segment}</Link>
                   )}
                 </li>
               ))}

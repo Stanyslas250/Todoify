@@ -1,5 +1,5 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import {
   createBrowserRouter,
   Navigate,
@@ -16,6 +16,8 @@ import Dashboard from "./views/App/Dashboard.jsx";
 import Task from "./views/App/Task.jsx";
 import Schedule from "./views/App/Schedule.jsx";
 import Project from "./views/App/Project.jsx";
+import TaskDetail from "./views/App/tasks/[id]/index.jsx";
+import { taskLoader } from "./views/App/tasks/[id]/taskLoader.js";
 
 const router = createBrowserRouter([
   { path: "/", element: <WelcomeHome /> },
@@ -26,7 +28,13 @@ const router = createBrowserRouter([
     element: <Home />,
     children: [
       { path: "dashboard", element: <Dashboard /> },
-      { path: "tasks", element: <Task /> },
+      {
+        path: "tasks",
+        element: <Task />,
+        children: [
+          { path: ":id", element: <TaskDetail />, loader: taskLoader },
+        ],
+      },
       { path: "schedule", element: <Schedule /> },
       { path: "projects", element: <Project /> },
     ],
