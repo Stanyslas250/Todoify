@@ -2,6 +2,7 @@ import { useLoaderData } from "react-router-dom";
 import { priorityBadge } from "../../../../utils/priorityColors";
 import { dateUtils } from "../../../../utils/dateUtils";
 import ActionBtn from "../../../../components/App/UI/ActionBtn";
+
 export default function TaskDetail() {
   const { task } = useLoaderData();
 
