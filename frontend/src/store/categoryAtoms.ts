@@ -21,7 +21,8 @@ export const setCategoriesAtom = atom(
       return {
         ...category,
         color:
-          existingCategory?.color || colorUtils.getRandomColor(category.id),
+          existingCategory?.color ||
+          colorUtils.getRandomColor(category.id ?? 0),
       };
     });
     set(categoriesWithColorAtom, updatedCategories);
