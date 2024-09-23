@@ -11,7 +11,7 @@ export interface Task {
   title: string;
   description: string;
   due_date: Date;
-  category?: Category;
+  category_id?: number | string;
   completed: boolean;
   priority: string;
 }

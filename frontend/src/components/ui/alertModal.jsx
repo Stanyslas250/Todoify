@@ -2,7 +2,10 @@ import PropTypes from "prop-types";
 
 function AlertModal(props) {
   return (
-    <dialog id="deletedConfirmation" className={"modal"}>
+    <dialog
+      id={`${props.id} ? ${props.id} : deletedConfirmation`}
+      className={"modal"}
+    >
       <div className="prose modal-box">
         <h2>{props.title}</h2>
         <p>{props.description}</p>
@@ -30,6 +33,7 @@ AlertModal.propTypes = {
   onClickAction: PropTypes.func.isRequired,
   Action1: PropTypes.string,
   Action2: PropTypes.string,
+  id: PropTypes.string,
 };
 
 export default AlertModal;

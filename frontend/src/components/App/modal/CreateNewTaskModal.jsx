@@ -5,6 +5,10 @@ import toast from "react-hot-toast";
 import { useTasks } from "../../../hooks/useTask";
 import { useAuth } from "../../../hooks/useAuth";
 import { dateUtils } from "../../../utils/dateUtils";
+import { useState, useEffect } from "react";
+
+import ProjectForm from "../form/ProjectForm";
+import { useCategory } from "../../../hooks/useCategory";
 
 function CreateNewTaskModal() {
   const {
@@ -19,6 +23,13 @@ function CreateNewTaskModal() {
 
   const { token } = useAuth();
   const { addTask } = useTasks();
+  const { categoriesWithColor } = useCategory();
+
+  const [categories, setCategories] = useState(categoriesWithColor);
+
+  useEffect(() => {
+    setCategories(categoriesWithColor);
+  }, [categoriesWithColor, token]);
 
   const mutation = useMutation({
     mutationKey: "tasks",
@@ -37,7 +48,9 @@ function CreateNewTaskModal() {
   });
 
   const onSubmit = async (data) => {
+    data.category_id = Number(data.category_id);
     await mutation.mutateAsync(data);
+    console.log(data);
     // Reset form
     document.getElementById("create_task").close();
     document.getElementById("create_modal").close();
@@ -50,11 +63,36 @@ function CreateNewTaskModal() {
     due_date: new Date(),
     completed: false,
     priority: "Hight",
+    category_id: 0,
   };
 
+  if (categories.length === 0) {
+    return (
+      <Modal idModal="create_task">
+        <div className="flex flex-col gap-2 prose">
+          <h4 className="self-center mx-4">
+            Project missing create a project and try again
+          </h4>
+          <ProjectForm />
+        </div>
+      </Modal>
+    );
+  }
   return (
     <Modal idModal="create_task">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 ">
+        <span>Select a project</span>
+        <select
+          {...register("category_id", { required: true })}
+          className="w-full select select-primary"
+        >
+          <option disabled>Select a project</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
         <label className="flex flex-row items-center justify-around gap-2 input input-bordered">
           <input
             type="text"
