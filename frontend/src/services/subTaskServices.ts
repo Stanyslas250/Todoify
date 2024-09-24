@@ -6,16 +6,15 @@ export const subtaskService = {
     const response = await api(token).get<Subtask>(`/subtasks`);
     return response.data;
   },
-  getSubtasks: async (
-    taskId: number,
-    skip: number,
-    limit: number,
-    token: string
-  ) => {
-    const response = await api(token).get<Subtask[]>(
-      `/subtasks/?skip=${skip}&limit=${limit}`
-    );
-    return response.data;
+  getSubtasks: async (taskId: number, token: string) => {
+    try {
+      const response = await api(token).get<Subtask[]>(
+        `/subtasks/?task_id=${taskId}`
+      );
+      return response.data;
+    } catch (err) {
+      throw Error(err);
+    }
   },
   createSubtask: async (taskId: number, subtask: Subtask, token: string) => {
     const response = await api(token).post(`/subtasks`, subtask);

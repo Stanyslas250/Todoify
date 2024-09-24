@@ -20,7 +20,7 @@ export interface Subtask {
   id: number;
   title: string;
   description: string;
-  task: Task;
+  task_id?: number;
 }
 
 export interface Tag {
