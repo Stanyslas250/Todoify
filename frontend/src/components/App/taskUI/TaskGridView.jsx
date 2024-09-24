@@ -4,7 +4,6 @@ import { dateUtils } from "../../../utils/dateUtils";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../../../hooks/useAuth";
 import { LuPlus, LuSearch, LuSlidersHorizontal } from "react-icons/lu";
-import { useTaskMutation } from "../../../hooks/useTaskCompleted";
 import FilterSetting from "../UI/FilterSetting";
 import { useFilters } from "../../../hooks/useFilters";
 import { applyFilters } from "../../../utils/tasksFilters";
@@ -24,18 +23,6 @@ export const TaskGridView = () => {
     queryKey: ["tasks"],
     queryFn: () => fetchTasks(token),
   });
-
-  const [tasksSee, setTasksSee] = useState([]);
-  const mutation = useTaskMutation();
-
-  const handleCompleted = async (task) => {
-    const updatedTask = { ...task, completed: !task.completed };
-    const updatedTasksSee = tasksSee.map((t) =>
-      t.id === task.id ? updatedTask : t
-    );
-    setTasksSee(updatedTasksSee);
-    await mutation.mutateAsync(updatedTask);
-  };
 
   const handleSearch = (e) => {
     const searchTerm = e.target.value;
@@ -104,13 +91,14 @@ export const TaskGridView = () => {
             <div className="card-body">
               <div className={isCompleted(task)}>
                 <div className="flex flex-row items-center gap-2">
-                  <input
-                    type="checkbox"
-                    className="checkbox checkbox-primary"
-                    defaultChecked={task.completed}
-                    onClick={() => handleCompleted(task)}
-                  />
                   <h2 className="card-title">{task.title}</h2>
+                  <span
+                    className={`badge ${
+                      task.completed ? "badge-success" : "badge-error"
+                    }`}
+                  >
+                    {task.completed ? "Completed" : "Not Completed"}
+                  </span>
                   <span className={priorityBadge(task)}>{task.priority}</span>
                 </div>
                 <p className="text-sm">{task.description}</p>
