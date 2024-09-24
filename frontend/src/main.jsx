@@ -1,55 +1,51 @@
-import * as React from "react";
-import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import "./index.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-import WelcomePage from "./components/WelcomePage";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import PrivateRoute from "./components/PrivateRoute";
-import App from "./App";
-import { getUserName } from "./api/auth";
-import { SubCategoty } from "./pages/Sub-Category";
+import Login from "./views/Login.jsx";
+import Signup from "./views/Signup.jsx";
+import WelcomeHome from "./views/WelcomeHome.jsx";
+import Home from "./views/Home.jsx";
+import { Toaster } from "react-hot-toast";
+import ErrorPage from "./views/ErrorPage.jsx";
+import Dashboard from "./views/App/Dashboard.jsx";
+import Task from "./views/App/Task.jsx";
+import Schedule from "./views/App/Schedule.jsx";
+import Project from "./views/App/Project.jsx";
+import TaskDetail from "./views/App/tasks/[id]/index.jsx";
+import { taskLoader } from "./views/App/tasks/[id]/taskLoader.js";
 
 const router = createBrowserRouter([
+  { path: "/", element: <WelcomeHome /> },
+  { path: "/login", element: <Login /> },
+  { path: "/signup", element: <Signup /> },
   {
-    path: "/",
-    element: <WelcomePage />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/signup",
-    element: <Signup />,
-  },
-  {
-    path: "/home",
-    element: (
-      <PrivateRoute>
-        <App />
-      </PrivateRoute>
-    ),
-    loader: async () => await getUserName(),
+    path: "/app",
+    element: <Home />,
     children: [
+      { path: "dashboard", element: <Dashboard /> },
       {
-        path: "subcategory/:id",
-        element: <SubCategoty />,
+        path: "tasks",
+        element: <Task />,
+        children: [
+          { path: ":id", element: <TaskDetail />, loader: taskLoader },
+        ],
       },
+      { path: "schedule", element: <Schedule /> },
+      { path: "projects", element: <Project /> },
     ],
   },
+  { path: "/app/*", element: <ErrorPage /> },
+  { path: "*", element: <Navigate to={"/app"} replace /> },
 ]);
 
-const queryClient = new QueryClient();
-
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
-  </React.StrictMode>,
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <RouterProvider router={router} />
+    <Toaster />
+  </StrictMode>
 );

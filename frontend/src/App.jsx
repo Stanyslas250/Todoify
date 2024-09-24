@@ -1,17 +1,12 @@
-import React from "react";
-import Category from "./pages/Category";
-import Navbar from "./components/Navbar";
-import { useLoaderData } from "react-router-dom";
-
-const App = () => {
-  const data = useLoaderData();
+import { Toaster } from "react-hot-toast";
+import Login from "./views/Login";
+function App() {
   return (
-    <div className="bg-base-100 min-h-screen">
-      <Navbar username={data} />
-      <h1 className="text-3xl font-bold text-center my-6">Categories</h1>
-      <Category className="px-8" />
+    <div className="flex justify-center w-full h-full place-items-center">
+      <Login />
+      <Toaster />
     </div>
   );
-};
+}
 
 export default App;
