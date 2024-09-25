@@ -1,12 +1,13 @@
 import { useLoaderData } from "react-router-dom";
-import { priorityBadge } from "../../../../utils/priorityColors";
 import { dateUtils } from "../../../../utils/dateUtils";
+import { priorityBadge } from "../../../../utils/priorityColors";
 import ActionBtn from "../../../../components/App/UI/ActionBtn";
 import { useTaskMutation } from "../../../../hooks/useTaskCompleted";
 import { useState } from "react";
 
 export default function TaskDetail() {
   const { task } = useLoaderData();
+  const [isCompleted, setIsCompleted] = useState(task.completed);
 
   const [tasksSee, setTasksSee] = useState([]);
   const mutation = useTaskMutation();
@@ -18,7 +19,7 @@ export default function TaskDetail() {
     );
     setTasksSee(updatedTasksSee);
     await mutation.mutateAsync(updatedTask);
-    window.location.reload();
+    setIsCompleted(!task.completed);
   };
 
   return (
@@ -31,7 +32,9 @@ export default function TaskDetail() {
             defaultChecked={task.completed}
             onClick={() => handleCompleted(task)}
           />
-          <h2 className={isCompleted(task.completed)}>{task.title}</h2>
+          <h2 className={`${isCompleted ? "line-through" : ""}`}>
+            {task.title}
+          </h2>
           <span className={`badge ${priorityBadge(task)}`}>
             {task.priority}
           </span>
@@ -46,8 +49,4 @@ export default function TaskDetail() {
       <div className="divider"></div>
     </div>
   );
-}
-
-function isCompleted(completed) {
-  return completed ? "line-through" : "";
 }

@@ -3,18 +3,12 @@ import { subtaskService } from "../services/subTaskServices";
 import { useAtom } from "jotai";
 import { useState } from "react";
 
-type Params = {
-  taskId: number;
-  token: string;
-};
-
 export const useSubTask = () => {
   const [subTasks, setSubTasks] = useAtom(subTasksAtom);
   const [subTask, setSubTask] = useAtom(subTaskAtom);
   const [error, setError] = useState<string>("");
 
-  const fetchSubtasks = (param: Params) => {
-    const { taskId, token } = param;
+  const fetchSubtasks = (taskId: number, token: string) => {
     subtaskService
       .getSubtasks(taskId, token)
       .then((data) => setSubTasks(data))

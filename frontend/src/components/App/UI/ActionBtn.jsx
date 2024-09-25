@@ -5,7 +5,7 @@ import { tasksService } from "../../../services/taskServices";
 import { useAuth } from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import AlertModal from "@/components/ui/alertModal";
+import AlertModal from "../../ui/alertModal";
 
 function ActionBtn(props) {
   const { token } = useAuth();
@@ -39,6 +39,7 @@ function ActionBtn(props) {
       </button>
       <TaskEditModal task={props.task} taskId={props.taskId} />
       <AlertModal
+        id={"deletedConfirmation"}
         onClickAction={handleDelete}
         title="Task delected"
         description="Are you sure you want to delete this task?"
