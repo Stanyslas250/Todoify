@@ -3,6 +3,23 @@ import { useQuery } from "@tanstack/react-query";
 import { subtaskService } from "../../../services/subTaskServices";
 import { useEffect, useState } from "react";
 import { useAccount } from "../../../hooks/useAccount";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../ui/table";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../../ui/dropdown-menu";
+import { LucideEllipsis } from "lucide-react";
+import { LuPencil, LuTrash } from "react-icons/lu";
 
 function SubTaskTable(props) {
   const task = props.task;
@@ -24,38 +41,47 @@ function SubTaskTable(props) {
   }
   return (
     <div className="overflow-x-auto">
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Completion</th>
-            <th>Title</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {subTasks.map((subTask, i) => {
-            return (
-              <tr key={i}>
-                <th>
-                  <label>
-                    <input type="checkbox" className="checkbox" />
-                  </label>
-                </th>
-                <td>
-                  <div className="flex items-center gap-3">
-                    <div>
-                      <div className="font-bold">{subTask.title}</div>
-                    </div>
-                  </div>
-                </td>
-                <th>
-                  <button className="btn btn-ghost btn-xs">details</button>
-                </th>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <Table className="self-center">
+        <TableCaption>A list of your subtasks.</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[100px]">Completion</TableHead>
+            <TableHead>Title</TableHead>
+            <TableHead className="text-right">Action</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {subTasks.map((subtask) => (
+            <TableRow key={subtask.id} className=" hover:bg-base-100">
+              <TableCell className="font-medium">
+                <input
+                  type="checkbox"
+                  className="checkbox checkbox-ghost"
+                  defaultChecked={subtask.completed}
+                />
+              </TableCell>
+              <TableCell>{subtask.title}</TableCell>
+              <TableCell className="text-right">
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <LucideEllipsis />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-base-200">
+                    <DropdownMenuItem className="flex flex-row gap-3">
+                      <LuPencil />
+                      <p>Edit</p>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="flex flex-row gap-3 hover:bg-error">
+                      <LuTrash />
+                      <p>Delete</p>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </div>
   );
 }

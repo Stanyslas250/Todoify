@@ -41,9 +41,6 @@ export const TaskGridView = () => {
     }
   }, [data, filters]);
 
-  if (isLoading)
-    return <span className="loading loading-spinner loading-lg"></span>;
-
   return (
     <div className="flex flex-col h-screen gap-4">
       <div className="flex flex-row items-center justify-between w-full gap-2">
@@ -72,6 +69,9 @@ export const TaskGridView = () => {
         <CreateNewTaskModal />
         <div className="mt-0 divider"></div>
       </div>
+      {isLoading && (
+        <span className="self-center loading loading-dots loading-lg"></span>
+      )}
       <div className="flex flex-col gap-4 overflow-y-scroll md:grid md:grid-cols-2">
         {tasks.map((task) => (
           <Task key={task.id} task={task} />
