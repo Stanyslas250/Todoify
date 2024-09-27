@@ -4,6 +4,7 @@ import { priorityBadge } from "../../../../utils/priorityColors";
 import ActionBtn from "../../../../components/App/UI/ActionBtn";
 import { useTaskMutation } from "../../../../hooks/useTaskCompleted";
 import { useState } from "react";
+import SubTaskTable from "../../../../components/App/subtasksUI/SubTaskTable";
 
 export default function TaskDetail() {
   const { task } = useLoaderData();
@@ -47,6 +48,7 @@ export default function TaskDetail() {
       </span>
       <p className="mt-4 prose">{task.description}</p>
       <div className="divider"></div>
+      <SubTaskTable task={task} />
     </div>
   );
 }

@@ -54,8 +54,8 @@ Task.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     completed: PropTypes.bool.isRequired,
-    due_date: PropTypes.instanceOf(Date).isRequired,
-    priority: PropTypes.oneOf(["Low", "Medium", "High"]).isRequired,
+    due_date: PropTypes.string.isRequired,
+    priority: PropTypes.string.isRequired,
   }),
 };
 
