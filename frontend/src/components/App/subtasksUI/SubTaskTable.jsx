@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useQuery } from "@tanstack/react-query";
+import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { subtaskService } from "../../../services/subTaskServices";
 import { useEffect, useState } from "react";
 import { useAccount } from "../../../hooks/useAccount";
@@ -20,15 +20,37 @@ import {
 } from "../../ui/dropdown-menu";
 import { LucideEllipsis } from "lucide-react";
 import { LuPencil, LuTrash } from "react-icons/lu";
+import toast from "react-hot-toast";
 
 function SubTaskTable(props) {
   const task = props.task;
   const { token } = useAccount();
   const [subTasks, setSubTasks] = useState([]);
+  const [id, setId] = useState(0);
+  const queryClient = useQueryClient();
+
   const { data, isError, error } = useQuery({
     queryKey: ["subtasks", task.id],
     queryFn: () => subtaskService.getSubtasks(task.id, token),
   });
+
+  const mutate = useMutation({
+    mutationKey: ["deleted", id],
+    mutationFn: (subtask_id) => subtaskService.deleteSubtask(subtask_id),
+    onSuccess: () => {
+      toast.success("Subtask deleted successfully");
+      queryClient.invalidateQueries(["subtasks", task.id]);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
+  const handleDelete = async (id) => {
+    setId(id);
+    await mutate.mutateAsync(id);
+    console.log(id);
+  };
 
   useEffect(() => {
     if (data) {
@@ -67,11 +89,22 @@ function SubTaskTable(props) {
                     <LucideEllipsis />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="bg-base-200">
-                    <DropdownMenuItem className="flex flex-row gap-3">
+                    <DropdownMenuItem
+                      className="flex flex-row gap-3"
+                      onClick={() => {
+                        // Handle edit subtask
+                        console.log("Edit subtask: ", subtask);
+                      }}
+                    >
                       <LuPencil />
                       <p>Edit</p>
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="flex flex-row gap-3 hover:bg-error">
+                    <DropdownMenuItem
+                      className="flex flex-row gap-3 hover:bg-error"
+                      onClick={() => {
+                        handleDelete(subtask.id);
+                      }}
+                    >
                       <LuTrash />
                       <p>Delete</p>
                     </DropdownMenuItem>

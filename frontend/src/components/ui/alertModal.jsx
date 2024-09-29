@@ -13,7 +13,7 @@ function AlertModal(props) {
           <button
             className="btn btn-error"
             onClick={() => {
-              document.getElementById("deletedConfirmation").close();
+              document.getElementById(props.id).close();
             }}
           >
             {props.Action2}

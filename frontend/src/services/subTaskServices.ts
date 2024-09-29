@@ -2,8 +2,8 @@ import { api } from "./api";
 import { Subtask } from "../utils/types/todoify";
 
 export const subtaskService = {
-  getSubtaskByTaskId: async (taskId: number, token: string) => {
-    const response = await api(token).get<Subtask>(`/subtasks`);
+  getSubtaskByTaskId: async (subtaskId: number, token: string) => {
+    const response = await api(token).get<Subtask>(`/subtasks/${subtaskId}`);
     return response.data;
   },
   getSubtasks: async (taskId: number, token: string) => {
@@ -17,23 +17,24 @@ export const subtaskService = {
     }
   },
   createSubtask: async (taskId: number, subtask: Subtask, token: string) => {
-    const response = await api(token).post(`/subtasks`, subtask);
+    const response = await api(token).post(
+      `/subtaskss/?task_id=${taskId}`,
+      subtask
+    );
     return response.data;
   },
-  updateSubtask: async (
-    taskId: number,
-    subtaskId: number,
-    subtask: Subtask,
-    token: string
-  ) => {
+  updateSubtask: async (subtaskId: number, subtask: Subtask, token: string) => {
     const response = await api(token).put(`/subtasks/${subtaskId}`, subtask);
     return response.data;
   },
-  deleteSubtask: async (taskId: number, subtaskId: number, token: string) => {
-    await api(token)
-      .delete(`/subtasks/${subtaskId}`)
-      .catch((error) => {
-        throw Error(error);
-      });
+  deleteSubtask: async (subtaskId: number) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      await api(token)
+        .delete(`/subtasks/${subtaskId}`)
+        .catch((error) => {
+          throw Error(error);
+        });
+    }
   },
 };
