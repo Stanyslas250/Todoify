@@ -16,11 +16,12 @@ export interface Task {
   priority: string;
 }
 
-export interface Subtask {
-  id: number;
+export type Subtask = {
+  id?: number;
   title: string;
+  completed: boolean;
   task_id?: number;
-}
+};
 
 export interface Tag {
   id: number;

@@ -21,6 +21,7 @@ import {
 import { LucideEllipsis } from "lucide-react";
 import { LuPencil, LuTrash } from "react-icons/lu";
 import toast from "react-hot-toast";
+import SubTaskEditModal from "../modal/SubTaskEditModal";
 
 function SubTaskTable(props) {
   const task = props.task;
@@ -50,6 +51,10 @@ function SubTaskTable(props) {
     setId(id);
     await mutate.mutateAsync(id);
     console.log(id);
+  };
+
+  const handleEdit = () => {
+    document.getElementById("edit-subtask").showModal();
   };
 
   useEffect(() => {
@@ -91,10 +96,7 @@ function SubTaskTable(props) {
                   <DropdownMenuContent className="bg-base-200">
                     <DropdownMenuItem
                       className="flex flex-row gap-3"
-                      onClick={() => {
-                        // Handle edit subtask
-                        console.log("Edit subtask: ", subtask);
-                      }}
+                      onClick={handleEdit}
                     >
                       <LuPencil />
                       <p>Edit</p>
@@ -110,6 +112,7 @@ function SubTaskTable(props) {
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
+                <SubTaskEditModal subtaskId={subtask.id} subtask={subtask} />
               </TableCell>
             </TableRow>
           ))}

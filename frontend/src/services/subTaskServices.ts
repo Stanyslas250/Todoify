@@ -24,7 +24,11 @@ export const subtaskService = {
     return response.data;
   },
   updateSubtask: async (subtaskId: number, subtask: Subtask, token: string) => {
-    const response = await api(token).put(`/subtasks/${subtaskId}`, subtask);
+    const updatedSubtask = JSON.stringify(subtask);
+    const response = await api(token).put(
+      `/subtasks/${subtaskId}`,
+      updatedSubtask
+    );
     return response.data;
   },
   deleteSubtask: async (subtaskId: number) => {
