@@ -20,7 +20,7 @@ function SubTaskEditModal(props) {
   });
 
   const handleEdit = async () => {
-    const title = document.getElementById("title").value;
+    const title = document.getElementById("_title").value;
     const completed = isCompleted;
     const subTask = {
       title: title,
@@ -44,7 +44,7 @@ function SubTaskEditModal(props) {
       <input
         type="text"
         className="input input-secondary"
-        id="title"
+        id="_title"
         defaultValue={props.subtask.title}
         required
       />

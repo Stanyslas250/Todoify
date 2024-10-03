@@ -18,7 +18,7 @@ export const subtaskService = {
   },
   createSubtask: async (taskId: number, subtask: Subtask, token: string) => {
     const response = await api(token).post(
-      `/subtaskss/?task_id=${taskId}`,
+      `/subtasks/?task_id=${taskId}`,
       subtask
     );
     return response.data;

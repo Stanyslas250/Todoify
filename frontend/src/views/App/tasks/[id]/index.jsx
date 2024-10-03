@@ -5,10 +5,17 @@ import ActionBtn from "../../../../components/App/UI/ActionBtn";
 import { useTaskMutation } from "../../../../hooks/useTaskCompleted";
 import { useState } from "react";
 import SubTaskTable from "../../../../components/App/subtasksUI/SubTaskTable";
+import { LuPlus } from "react-icons/lu";
+import Modal from "../../../../components/App/modal/UI/Modal";
+import { subtaskService } from "../../../../services/subTaskServices";
+import { useAccount } from "../../../../hooks/useAccount";
+import toast from "react-hot-toast";
 
 export default function TaskDetail() {
   const { task } = useLoaderData();
   const [isCompleted, setIsCompleted] = useState(task.completed);
+  const [subTaskCom, setSubTaskCom] = useState(false);
+  const [isInvalide, setIsInvalide] = useState(false);
 
   const [tasksSee, setTasksSee] = useState([]);
   const mutation = useTaskMutation();
@@ -21,6 +28,26 @@ export default function TaskDetail() {
     setTasksSee(updatedTasksSee);
     await mutation.mutateAsync(updatedTask);
     setIsCompleted(!task.completed);
+  };
+
+  const handleAddSubtask = () => {
+    // Open modal to add subtask
+    document.getElementById("addSubtask").showModal();
+  };
+  const { token } = useAccount();
+  const handleSubmit = async () => {
+    const title = document.getElementById("title").value;
+    const subtask = { title: title, completed: subTaskCom };
+    console.log(subtask);
+    await subtaskService
+      .createSubtask(task.id, subtask, token)
+      .then(() => {
+        toast.success("Subtask created successfully");
+        setIsInvalide(!isInvalide);
+        setTimeout(() => setIsInvalide(false), 5);
+        document.getElementById("addSubtask").close();
+      })
+      .catch((error) => toast.error(error.message));
   };
 
   return (
@@ -48,7 +75,47 @@ export default function TaskDetail() {
       </span>
       <p className="mt-4 prose">{task.description}</p>
       <div className="divider"></div>
-      <SubTaskTable task={task} />
+      <div className="flex flex-col gap-4">
+        <div className="self-end">
+          <button className="btn btn-accent" onClick={handleAddSubtask}>
+            <LuPlus size={16} /> <span>Add a new subtask</span>
+          </button>
+          <Modal idModal="addSubtask">
+            <label className="flex items-center gap-4 my-4 cursor-pointer w-fit">
+              <span>Completed</span>
+              <input
+                id="completed"
+                type="checkbox"
+                className="checkbox checkbox-primary"
+                defaultChecked={subTaskCom}
+                onChange={() => {
+                  setSubTaskCom(!subTaskCom);
+                }}
+              />
+            </label>
+            <input
+              type="text"
+              placeholder="Title"
+              className="w-full input input-primary"
+              id="title"
+            />
+            <div className="flex flex-row gap-2 m-4">
+              <button className="btn-primary btn" onClick={handleSubmit}>
+                Add
+              </button>
+              <button
+                className="btn btn-error"
+                onClick={() => {
+                  document.getElementById("addSubtask").close();
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </Modal>
+        </div>
+        <SubTaskTable task={task} invalide={isInvalide} />
+      </div>
     </div>
   );
 }

@@ -66,6 +66,10 @@ function SubTaskTable(props) {
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
+
+  if (props.invalide) {
+    queryClient.invalidateQueries(["subtasks", task.id]);
+  }
   return (
     <div className="overflow-x-auto">
       <Table className="self-center">
@@ -126,6 +130,7 @@ SubTaskTable.propTypes = {
   task: PropTypes.shape({
     id: PropTypes.number,
   }),
+  invalide: PropTypes.bool,
 };
 
 export default SubTaskTable;
